@@ -34,4 +34,7 @@
 - name: Fix the stdin bug, step 2
   lineinfile: dest=/root/.profile line="tty -s && mesg n"
 
+- name: Get PHPUnit
+  get_url: url=https://phar.phpunit.de/phpunit.phar dest=/usr/local/bin/phpunit mode=0755 validate_certs=no
+
 - include: swap.yml
