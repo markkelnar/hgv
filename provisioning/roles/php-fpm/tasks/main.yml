@@ -10,6 +10,22 @@
       - php5-memcache
       - php5-memcached
       - php5-xdebug
+      - php5-dev
+      - libyaml-dev
+
+- name: Install PECL modules
+  command: pecl install {{ item }}
+  register: pecl_result
+  changed_when: "'already installed' not in pecl_result.stdout"
+  failed_when: "'already installed' not in pecl_result.stdout and 'completed successfully' not in pecl_result.stdout"
+  with_items:
+    - yaml
+
+- name: Register YAML module
+  lineinfile: state=present create=yes dest=/etc/php5/mods-available/yaml.ini line="extension=yaml.so"
+
+- name: Enable YAML module
+  command: php5enmod yaml
 
 # - name: Do fpm/php.ini
 #   template: src=etc/php5/fpm/php.ini dest=/etc/php5/fpm/php.ini owner=root group=root mode=0644
