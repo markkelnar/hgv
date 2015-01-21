@@ -37,6 +37,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         ]
     end
 
+    # This allows the git commands to work using host server keys
+    config.ssh.forward_agent = true
+
     config.vm.provision "shell" do |s|
         s.path = "bin/hgv-init.sh"
     end
