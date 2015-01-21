@@ -12,7 +12,8 @@
     - nginx
     - wp-cli
     - varnish
-    - { role: wordpress, enviro: php, tags: [ 'wordpress' ] }
-    - { role: wordpress, enviro: hhvm, tags: [ 'wordpress' ] }
+    - { role: wordpress, enviro: php, domain: "php.hgv.dev", tags: [ 'wordpress' ] }
+    - { role: wordpress, enviro: hhvm, domain: "hhvm.hgv.dev", tags: [ 'wordpress' ] }
     - admin
     - xhprof
+

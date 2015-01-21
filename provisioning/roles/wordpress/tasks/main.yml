@@ -46,7 +46,7 @@
   template: src=wp/object-cache.php dest={{ wp_doc_root }}/{{ enviro }}/wp-content/object-cache.php owner={{ web_user }} group={{ web_group }}
 
 - name: "Run the WP install for {{ enviro }}"
-  command: /usr/local/bin/wp core install --url={{ enviro }}.hgv.dev --title="WP Engine {{ enviro }} Site" --admin_user=wordpress --admin_password=wordpress --admin_email="admin@example.com"
+  command: /usr/local/bin/wp core install --url={{ domain }} --title="WP Engine {{ enviro }} Site" --admin_user=wordpress --admin_password=wordpress --admin_email="admin@example.com"
   sudo: yes
   sudo_user: "{{ web_user }}"
   args:
