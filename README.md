@@ -90,7 +90,7 @@ There are two default WordPress installations provided. Both have an admin user 
 
 ### hhvm.hgv.dev ###
 
-[hhvm.hgv.dev](hhvm.hgv.dev) is a basic WordPress install running the latest stable version of WordPress on top of an Nginx + HHVM + Percona DB stack.
+[hhvm.hgv.dev](http://hhvm.hgv.dev) is a basic WordPress install running the latest stable version of WordPress on top of an Nginx + HHVM + Percona DB stack.
 
 ### Varnish Testing ###
 
@@ -140,7 +140,7 @@ Sometimes, keeping tabs on a log file while hitting a site to view log messages 
 
 ### Database access ###
 
-You may easily use the phpMyAdmin installation at [admin.hgv.dev/phpmyadmin/](admin.hgv.dev/phpmyadmin/) (as listed above) in order to view and interact with the underlying database. However, if you are used to using a third-party GUI, such as [Sequel Pro](http://www.sequelpro.com/) or [MySQL Workbench](http://www.mysql.com/products/workbench/), TCP port 3306 (the MySQL/Percona port) is forwarded from the Vagrant VM to TCP port 23306 on your actual machine. You would then configure MySQL WB or Sequel Pro to connect to `localhost:23306` .
+You may easily use the phpMyAdmin installation at [admin.hgv.dev/phpmyadmin/](http://admin.hgv.dev/phpmyadmin/) (as listed above) in order to view and interact with the underlying database. However, if you are used to using a third-party GUI, such as [Sequel Pro](http://www.sequelpro.com/) or [MySQL Workbench](http://www.mysql.com/products/workbench/), TCP port 3306 (the MySQL/Percona port) is forwarded from the Vagrant VM to TCP port 23306 on your actual machine. You would then configure MySQL WB or Sequel Pro to connect to `localhost:23306` .
 
 ### Developer tools ###
 
@@ -194,11 +194,11 @@ Visiting those links should delete the cookie and disable XHProf.
 HGV contains several useful tools for gathering system state and for administering individual aspects of the system.
 
 ### Database ###
-phpMyAdmin is available at [admin.hgv.dev/phpmyadmin/](admin.hgv.dev/phpmyadmin/). The username is `root` and the password is blank.
+phpMyAdmin is available at [admin.hgv.dev/phpmyadmin/](http://admin.hgv.dev/phpmyadmin/). The username is `root` and the password is blank.
 
 ### Object Cache/Memcached ###
 
-phpMemcachedAdmin is available at [admin.hgv.dev/phpmemcachedadmin/](admin.hgv.dev/phpmemcachedadmin/). You may use this tool to check on the status of the WordPress object [cache](http://codex.wordpress.org/Class_Reference/WP_Object_Cache).
+phpMemcachedAdmin is available at [admin.hgv.dev/phpmemcachedadmin/](http://admin.hgv.dev/phpmemcachedadmin/). You may use this tool to check on the status of the WordPress object [cache](http://codex.wordpress.org/Class_Reference/WP_Object_Cache).
 
 ### Log Viewing ###
 PML is available at [admin.hgv.dev/logs](http://admin.hgv.dev/logs). You may use this tool to quickly view the most recent web server access and error logs for the various sites automatically created by HGV.
