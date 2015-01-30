@@ -12,15 +12,27 @@
     - nginx
     - wp-cli
     - varnish
-    - { 
-        role: wordpress, 
-        enviro: php, 
-        domain: "php.hgv.dev",
-        tags: [ 'wordpress' ] 
-      }
-    - { role: wordpress,
-        enviro: hhvm,
+    - {
+        role: wordpress,
+        enviro: wp,
+        # Primary domain, used to setup WP SITEURL/HOME
         domain: "hhvm.hgv.dev",
+        tags: [ 'wordpress' ]
+      }
+    - {
+        role: listener,
+        enviro: wp,
+        backend: hhvm,
+        # All the domains to listen on for this backend
+        domain: "hhvm.hgv.dev",
+        tags: [ 'wordpress' ]
+      }
+    - {
+        role: listener,
+        enviro: wp,
+        backend: php,
+        # All the domains to listen on for this backend
+        domain: "php.hgv.dev",
         tags: [ 'wordpress' ]
       }
     - admin
