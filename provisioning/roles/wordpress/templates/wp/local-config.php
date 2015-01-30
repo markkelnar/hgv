@@ -31,10 +31,12 @@ $memcached_servers = array(
     )
 );
 
-if( isset($_SERVER['HTTP_HOST']) && 'cache.' === substr( $_SERVER['HTTP_HOST'], 0, 6) ){
-    define('WP_CACHE_KEY_SALT', 'cache_wpe_{{ enviro }}_1');
+if( isset($_SERVER['HTTP_HOST']) ) {
+    define('WP_SITEURL', 'http://'.$_SERVER['HTTP_HOST']);
+    define('WP_HOME', 'http://'.$_SERVER['HTTP_HOST']);
+    if( 'cache.' === substr( $_SERVER['HTTP_HOST'], 0, 6) ){
+         define('WP_CACHE_KEY_SALT', 'cache_wpe_{{ enviro }}_1');
+    }
 }else{
     define('WP_CACHE_KEY_SALT', 'wpe_{{ enviro }}_1');
 }
-define('WP_SITEURL', 'http://'.$_SERVER['HTTP_HOST']);
-define('WP_HOME', 'http://'.$_SERVER['HTTP_HOST']);
