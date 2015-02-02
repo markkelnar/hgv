@@ -31,11 +31,7 @@
   tags: [ 'profiling', 'xhprof' ]
 
 - name: Configure Nginx xhprof.conf
-  template: src=etc/nginx/sites-available/xhprof.conf dest=/etc/nginx/sites-available/xhprof.conf owner=root group=root mode=0644
-  tags: [ 'profiling', 'xhprof' ]
-
-- name: Enable Nginx xhprof.conf
-  file: src=/etc/nginx/sites-available/xhprof.conf dest=/etc/nginx/sites-enabled/xhprof.conf state=link
+  template: src=etc/nginx/conf.d/xhprof.conf dest=/etc/nginx/conf.d/xhprof.conf owner=root group=root mode=0644
   notify: nginx reload
   tags: [ 'profiling', 'xhprof' ]
 
