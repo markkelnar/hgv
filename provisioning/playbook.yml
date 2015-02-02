@@ -14,22 +14,29 @@
     - varnish
     - {
         role: wordpress,
-        enviro: wp,
+        enviro: hhvm,
         # Primary domain, used to setup WP SITEURL/HOME
         domain: "hhvm.hgv.dev",
         tags: [ 'wordpress' ]
       }
     - {
         role: listener,
-        enviro: wp,
+        enviro: hhvm,
         backend: hhvm,
         # All the domains to listen on for this backend
         domain: "hhvm.hgv.dev",
         tags: [ 'wordpress' ]
       }
     - {
+        role: wordpress,
+        enviro: php,
+        # Primary domain, used to setup WP SITEURL/HOME
+        domain: "hhvm.hgv.dev",
+        tags: [ 'wordpress' ]
+      }
+    - {
         role: listener,
-        enviro: wp,
+        enviro: php,
         backend: php,
         # All the domains to listen on for this backend
         domain: "php.hgv.dev",
