@@ -57,5 +57,6 @@ export PYTHONUNBUFFERED=1
 
 # $ANS_BIN /vagrant/provisioning/playbook.yml -i /vagrant/provisioning/hosts
 $ANS_BIN /vagrant/provisioning/playbook.yml -i'127.0.0.1,'
+$ANS_BIN /vagrant/provisioning/wordpress.yml -i'127.0.0.1,'
 
 echo

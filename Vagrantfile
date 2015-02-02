@@ -32,6 +32,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             "php.hgv.dev",
             "cache.hhvm.hgv.dev",
             "cache.php.hgv.dev",
+            "domain.hhvm",
+            "cache.domain.hhvm",
+            "domain.php",
+            "cache.domain.php",
             "admin.hgv.dev",
             "xhprof.hgv.dev"
         ]
