@@ -16,6 +16,7 @@
   with_items:
     - /etc/nginx/sites-available
     - /etc/nginx/sites-enabled
+  notify: nginx reload
 
 - name: Configure /etc/nginx/nginx.conf
   template: src=etc/nginx/nginx.conf dest=/etc/nginx/nginx.conf owner=root group=root mode=0644
