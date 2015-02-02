@@ -1,4 +1,5 @@
-# Getting Started with Mercury Vagrant (HGV)#
+# Mercury Vagrant (HGV) #
+### Getting Started ###
 This project is intended as a tool for allowing WP Engine users to test their code prior to actual deployment on WP Engine "Mercury" infrastructure. This is not intended as an *exact* replica of WP Engine's infrastructure, but is instead a "simulator" of the conditions and software stack on WPE's Mercury platform, allowing you to develop and test your code with an end goal of stability and compatibility with Mercury.
 
 Mercury differs from standard WordPress hosting in several ways, chief among which is the use of HHVM to serve all PHP code.
