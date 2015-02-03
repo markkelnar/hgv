@@ -1,17 +1,16 @@
 ---
 - name: Create admin docroot
   file: path={{ wp_doc_root }}/admin state=directory owner={{ web_user }} group={{ web_group }}
+  tags: [ 'admin' ]
 
 - name: Stub out index
   template: src=index.php dest={{ wp_doc_root }}/admin/index.php owner={{ web_user }} group={{ web_group }}
   tags: [ 'admin' ]
 
 - name: Set up admin
-  template: src=etc/nginx/sites-available/admin dest=/etc/nginx/sites-available/admin
-
-- name: Enable admin
-  file: src=/etc/nginx/sites-available/admin dest=/etc/nginx/sites-enabled/admin state=link
+  template: src=etc/nginx/conf.d/admin.conf dest=/etc/nginx/conf.d/admin.conf owner=root group=root mode=0644
   notify: nginx reload
+  tags: [ 'admin' ]
 
 - name: Ensure phpMyAdmin directory exists
   file: path={{ wp_doc_root }}/admin/phpmyadmin state=directory owner={{ web_user }} group={{ web_group }}
