@@ -33,3 +33,9 @@ For any shell scripting that we do in Bash — see `bin/hgv-init.sh` — we try 
 ### PHP ###
 
 For any PHP, we try to follow the WordPress core [code standards](http://make.wordpress.org/core/handbook/coding-standards/).
+
+### Releases ###
+Create the change log history.  Checkout the 'master' branch and run the following command:
+    git log --no-merges --format=" * %ad %an: %s" v1.0..HEAD --date=short
+Prepend the output in the CHANGELOG.md file.
+Draft an new [release](https://github.com/wpengine/hgv/releases).
