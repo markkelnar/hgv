@@ -1,0 +1,29 @@
+---
+- hosts: all
+  connection: local
+  sudo: yes
+
+  roles:
+    # Set up a WordPress endpoint served by HHVM and PHP-FPM.
+    - {
+        role: wordpress,
+        enviro: wp,
+        # Primary domain, used to setup WP SITEURL/HOME
+        domain: "domain.hhvm",
+        tags: [ 'wordpress' ]
+      }
+    - {
+        role: listener,
+        enviro: wp,
+        backend: hhvm,
+        domain: "domain.hhvm",
+        tags: [ 'wordpress' ]
+      }
+    - {
+        role: listener,
+        enviro: wp,
+        backend: php,
+        domain: "domain.php",
+        tags: [ 'wordpress' ]
+      }
+

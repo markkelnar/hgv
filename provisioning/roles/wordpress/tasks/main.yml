@@ -10,14 +10,6 @@
 - name: "Set up {{ enviro }} docroot"
   file: path={{ wp_doc_root }}/{{ enviro }} state=directory owner={{ web_user }} group={{ web_group }}
 
-- name: "Set up {{ enviro }} virtualhost"
-  template: src=etc/nginx/wordpress.conf dest=/etc/nginx/conf.d/{{ enviro }}.conf
-  notify: nginx reload
-
-- name: "Set up cache alias for {{ enviro }}"
-  template: src=etc/nginx/wpcache.conf dest=/etc/nginx/conf.d/cache.{{ enviro }}.conf
-  notify: nginx reload
-
 - name: "Download and install WordPress for {{ enviro }}"
   command: /usr/local/bin/wp core download --path={{ wp_doc_root}}/{{ enviro }}
   sudo: yes

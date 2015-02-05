@@ -1,0 +1,7 @@
+- name: "Set up {{ enviro }} {{ backend }} virtualhost"
+  template: src=etc/nginx/wordpress.conf dest=/etc/nginx/conf.d/{{ enviro }}-{{ backend }}.conf owner=root group=root mode=0644
+  notify: nginx reload
+
+- name: "Set up cache alias for {{ enviro }} {{ backend }}"
+  template: src=etc/nginx/wpcache.conf dest=/etc/nginx/conf.d/cache.{{ enviro }}-{{ backend }}.conf owner=root group=root mode=0644
+  notify: nginx reload
