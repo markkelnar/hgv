@@ -28,6 +28,14 @@
         tags: [ 'wordpress' ]
       }
     - {
+        role: listener,
+        enviro: hhvm,
+        backend: php,
+        # All the domains to listen on for this backend
+        domain: "fpm.hgv.dev",
+        tags: [ 'wordpress' ]
+      }
+    - {
         role: wordpress,
         enviro: php,
         # Primary domain, used to setup WP SITEURL/HOME
