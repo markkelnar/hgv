@@ -26,5 +26,7 @@
 
 ## 1.0
 
+ * 2015-01-13 Mark Kelnar: Initial version
+
 ## 0.1
 * Initial version
