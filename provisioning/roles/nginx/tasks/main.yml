@@ -48,7 +48,7 @@
   tags: [ 'docs', 'dashboard' ]
 
 - name: Copy README
-  synchronize: src=/vagrant/README.md dest={{ wp_doc_root }}/dashboard/README.md
+  synchronize: src=/vagrant/README.md dest={{ wp_doc_root }}/dashboard/README.md group=no owner=no
   tags: [ 'docs', 'dashboard' ]
 
 - name: Make sure Nginx is running
