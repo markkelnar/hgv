@@ -23,20 +23,15 @@ echo "Updating APT sources."
 echo
 apt-get update > /dev/null
 echo
-echo "Checking for Ansible."
+echo "Installing for Ansible."
 echo
-ansible_version=`dpkg -s ansible 2>&1 | grep Version | cut -f2 -d:`
-if [[ -z $ansible_version ]]
-    then
-    echo "Ansible not installed. Installing."
-    apt-get -y install python-software-properties
-    add-apt-repository -y ppa:rquillo/ansible
-    apt-get -y install ansible
-    echo
-else
-    echo "Ansible installed. Proceeding."
-    echo
-fi
+apt-get -y install software-properties-common
+add-apt-repository -y ppa:ansible/ansible
+apt-get update
+apt-get -y install ansible
+ansible_version=`dpkg -s ansible 2>&1 | grep Version | cut -f2 -d' '`
+echo
+echo "Ansible installed ($ansible_version)"
 
 ANS_BIN=`which ansible-playbook`
 
