@@ -21,11 +21,11 @@
   tags: [ 'admin', 'phpmyadmin' ]
 
 - name: Extract phpMyAdmin
-  unarchive: src=/tmp/phpMyAdmin-{{ phpmyadmin_version }}.zip dest=/tmp copy=no owner={{ web_user }} group={{ web_group }}
+  unarchive: src=/tmp/phpMyAdmin-{{ phpmyadmin_version }}.zip dest=/tmp copy=no owner={{ web_user }} group={{ web_group }} creates=/tmp/phpMyAdmin-{{ phpmyadmin_version }}
   tags: [ 'admin', 'phpmyadmin' ]
 
 - name: Sync phpMyAdmin
-  synchronize: src=/tmp/phpMyAdmin-{{ phpmyadmin_version }}/ dest={{ wp_doc_root }}/admin/phpmyadmin/ group=yes owner=yes
+  synchronize: src=/tmp/phpMyAdmin-{{ phpmyadmin_version }}/ dest={{ wp_doc_root }}/admin/phpmyadmin/ group=no owner=no
   tags: [ 'admin', 'phpmyadmin' ]
 
 - name: Configure phpMyAdmin
@@ -49,7 +49,7 @@
   tags: [ 'admin', 'pimpmylog' ]
 
 - name: Download PML
-  git: repo=git://github.com/potsky/PimpMyLog.git dest={{ wp_doc_root }}/admin/logs update=no
+  git: repo=git://github.com/potsky/PimpMyLog.git dest={{ wp_doc_root }}/admin/logs update=no accept_hostkey=yes
   tags: [ 'admin', 'pimpmylog' ]
 
 - name: Configure PML
