@@ -70,7 +70,7 @@
         "files": {
             "nginx1": {
                 "display" : "PHP-FPM NGINX Access Log",
-                "path"    : "\/var\/log\/nginx\/php.hgv.dev.apachestyle.access.log",
+                "path"    : "\/var\/log\/nginx\/php-php.apachestyle.access.log",
                 "refresh" : 0,
                 "max"     : 10,
                 "notify"  : false,
@@ -106,7 +106,7 @@
             },
             "nginx2": {
                 "display" : "PHP-FPM NGINX Error Log",
-                "path"    : "\/var\/log\/nginx\/php.hgv.dev.error.log",
+                "path"    : "\/var\/log\/nginx\/php-php.error.log",
                 "refresh" : 5,
                 "max"     : 10,
                 "notify"  : true,
@@ -140,7 +140,7 @@
             },
             "nginx3": {
                 "display" : "HHVM NGINX Access Log",
-                "path"    : "\/var\/log\/nginx\/hhvm.hgv.dev.apachestyle.access.log",
+                "path"    : "\/var\/log\/nginx\/hhvm-hhvm.apachestyle.access.log",
                 "refresh" : 0,
                 "max"     : 10,
                 "notify"  : false,
@@ -176,7 +176,7 @@
             },
             "nginx4": {
                 "display" : "HHVM NGINX Error Log",
-                "path"    : "\/var\/log\/nginx\/hhvm.hgv.dev.error.log",
+                "path"    : "\/var\/log\/nginx\/hhvm-hhvm.error.log",
                 "refresh" : 5,
                 "max"     : 10,
                 "notify"  : true,
@@ -210,7 +210,7 @@
             },
             "nginx5": {
                 "display" : "Cached PHP-FPM NGINX Access Log",
-                "path"    : "\/var\/log\/nginx\/cache.php.hgv.dev.apachestyle.access.log",
+                "path"    : "\/var\/log\/nginx\/cache.php-php.apachestyle.access.log",
                 "refresh" : 0,
                 "max"     : 10,
                 "notify"  : false,
@@ -246,7 +246,7 @@
             },
             "nginx6": {
                 "display" : "Cached PHP-FPM NGINX Error Log",
-                "path"    : "\/var\/log\/nginx\/cache.php.hgv.dev.error.log",
+                "path"    : "\/var\/log\/nginx\/cache.php-php.error.log",
                 "refresh" : 5,
                 "max"     : 10,
                 "notify"  : true,
@@ -280,7 +280,7 @@
             },
             "nginx7": {
                 "display" : "Cached HHVM NGINX Access Log",
-                "path"    : "\/var\/log\/nginx\/cache.hhvm.hgv.dev.apachestyle.access.log",
+                "path"    : "\/var\/log\/nginx\/cache.hhvm-hhvm.apachestyle.access.log",
                 "refresh" : 0,
                 "max"     : 10,
                 "notify"  : false,
@@ -316,7 +316,7 @@
             },
             "nginx8": {
                 "display" : "Cached HHVM NGINX Error Log",
-                "path"    : "\/var\/log\/nginx\/cache.hhvm.hgv.dev.error.log",
+                "path"    : "\/var\/log\/nginx\/cache.hhvm-hhvm.error.log",
                 "refresh" : 5,
                 "max"     : 10,
                 "notify"  : true,
