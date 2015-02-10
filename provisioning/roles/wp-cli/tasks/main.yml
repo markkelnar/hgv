@@ -6,7 +6,7 @@
   command: curl https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -o /usr/share/wp-cli/wp
 
 - name: Set execute bits on WP-CLI
-  command: chmod 755 /usr/share/wp-cli/wp
+  file: path=/usr/share/wp-cli/wp mode=0755
 
 - name: Symlink WP-CLI
   file: dest=/usr/local/bin/wp src=/usr/share/wp-cli/wp state=link
