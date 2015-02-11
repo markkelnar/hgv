@@ -30,8 +30,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         config.hostsupdater.aliases = [
             "hhvm.hgv.dev",
             "php.hgv.dev",
+            "fpm.hgv.dev",
             "cache.hhvm.hgv.dev",
             "cache.php.hgv.dev",
+            "cache.fpm.hgv.dev",
             "admin.hgv.dev",
             "xhprof.hgv.dev"
         ]

@@ -44,11 +44,11 @@
   file: dest={{ wp_doc_root }} src={{ vagrant_doc_root }} state=link
 
 - name: Copy dashboard contents
-  synchronize: src=roles/nginx/templates{{ wp_doc_root }}/dashboard/ dest={{ wp_doc_root }}/dashboard
+  synchronize: src=roles/nginx/templates{{ wp_doc_root }}/dashboard/ dest={{ wp_doc_root }}/dashboard group=no owner=no
   tags: [ 'docs', 'dashboard' ]
 
 - name: Copy README
-  synchronize: src=/vagrant/README.md dest={{ wp_doc_root }}/dashboard/README.md
+  synchronize: src=/vagrant/README.md dest={{ wp_doc_root }}/dashboard/README.md group=no owner=no
   tags: [ 'docs', 'dashboard' ]
 
 - name: Make sure Nginx is running
