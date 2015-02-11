@@ -49,11 +49,13 @@ In order to use HGV effectively, you'll need to have a few tools installed on yo
 Two options to decide, do you delete your existing vagrant and any WP database work or b) do you run the setup scripts to update your existing vagrant environment?
 
 A) To delete your existing HGV vagrant work and re-create from scratch
+
 1. Change into the directory `hgv`.
 2. Run `vagrant destroy`.
 3. Run `vagrant up`.
 
 B) To run the script that will update your existing vagrant
+
 1. Change into the directory `hgv`.
 2. Run `vagrant reload`.
 3. Run `vagrant provision`.
