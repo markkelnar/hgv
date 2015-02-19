@@ -1,5 +1,9 @@
 # Mercury Vagrant Changelog
 
+## 1.1.1 (2015-02-19)
+
+ * 2015-02-09 Mark Kelnar: Use latest ansible installation instructions
+
 ## 1.1 (2015-02-11)
 
  * 2015-02-10 Mark Kelnar: This =404 doesnt act as I would expect
