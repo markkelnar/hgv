@@ -55,3 +55,7 @@
 - name: Configure PML
   template: src=pimpmylog.config.user.php dest={{ wp_doc_root }}/admin/logs/config.user.php group={{ web_group }} owner={{ web_user }} mode=0444
   tags: [ 'admin', 'pimpmylog' ]
+
+- name: Create custom user config dir
+  file: path={{ wp_doc_root }}/admin/logs/config.user.d state=directory owner={{ web_user }} group={{ web_group }}
+  tags: [ 'admin', 'pimpmylog' ]
