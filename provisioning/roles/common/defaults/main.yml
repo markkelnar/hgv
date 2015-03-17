@@ -1,5 +1,3 @@
 ---
-d_workspace: /root
-
 daemonize_version: 1.7.5
 daemonize_install_path: "/usr"
