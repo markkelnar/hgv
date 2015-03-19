@@ -53,7 +53,6 @@ The following WordPress tools and plugins are installed on each WP site (but are
 * [query-monitor](https://wordpress.org/plugins/query-monitor/)
 * [debug-objects](https://wordpress.org/plugins/debug-objects/)
 * [debug-bar](https://wordpress.org/plugins/debug-bar/)
-* [p3-profiler](https://wordpress.org/plugins/p3-profiler/)
 
 #### Accessing the sites on-disk ####
 When you Users can access the WP installations directly by going to `[HGV directory]/hgv_data/sites/hhvm` and `[HGV directory]/hgv_data/sites/php` in the Finder (Mac)/Explorer (Windows)/filesystem navigator of choice (Linux, Free/Open/NetBSD, etc.)
