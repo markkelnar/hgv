@@ -134,3 +134,20 @@
   with_items:
       - /etc/php5/fpm/php.ini
       - /etc/php5/cli/php.ini
+
+# Webgrind setup
+- name: Ensure Webgrind directory exists
+  file:
+    path: "{{ wp_doc_root }}/admin/webgrind"
+    state: directory
+    owner: "{{ web_user }}"
+    group: "{{ web_group }}"
+  tags: [ 'admin', 'webgrind' ]
+
+- name: Download Webgrind
+  git:
+    repo: "git://github.com/jokkedk/webgrind.git"
+    dest: "{{ wp_doc_root }}/admin/webgrind"
+    update: no
+    accept_hostkey: yes
+  tags: [ 'admin', 'webgrind' ]
