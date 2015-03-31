@@ -13,6 +13,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.hostname = "hgv.dev"
     config.vm.network "private_network", ip: "192.168.150.20"
     config.vm.network "forwarded_port", guest: 3306, host: 23306
+    config.vm.network "forwarded_port", guest: 9001, host: 29001
     # Give vm a name
     config.vm.define vagrant_name do |v|
     end
@@ -45,7 +46,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # To avoid stdin/tty issues
     config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
-    
+
     config.vm.provision "shell" do |s|
         s.path = "bin/hgv-init.sh"
     end
