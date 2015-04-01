@@ -33,13 +33,8 @@
 - name: Set up host entries
   lineinfile: dest=/etc/hosts line="127.0.0.1 hhvm.hgv.dev php.hgv.dev cache.php.hgv.dev cache.hhvm.hgv.dev admin.hgv.dev"
 
-- name: Fix the stdin bug, step 1
-  lineinfile: dest=/root/.profile line="mesg n" state=absent
-
-- name: Fix the stdin bug, step 2
-  lineinfile: dest=/root/.profile line="tty -s && mesg n"
-
 - name: Get PHPUnit
   get_url: url=https://phar.phpunit.de/phpunit.phar dest=/usr/local/bin/phpunit mode=0755 validate_certs=no
 
 - include: swap.yml
+- include: daemonize.yml

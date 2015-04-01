@@ -45,7 +45,7 @@ There are two default WordPress installations provided. Both have an admin user 
 [php.hgv.dev](http://php.hgv.dev) is a basic WordPress install running the latest stable version of WordPress on a fairly standard [LEMP stack](https://lemp.io/) consisting of Nginx, PHP-FPM, and Percona DB.
 
 #### hhvm.hgv.dev ####
-[hhvm.hgv.dev](http://hvm.hgv.dev) is a basic WordPress install running the latest stable version of WordPress on top of an Nginx + HHVM + Percona DB stack.
+[hhvm.hgv.dev](http://hhvm.hgv.dev) is a basic WordPress install running the latest stable version of WordPress on top of an Nginx + HHVM + Percona DB stack.
 
 #### WordPress developer tools ####
 The following WordPress tools and plugins are installed on each WP site (but are **not** enabled) by default:
@@ -53,7 +53,6 @@ The following WordPress tools and plugins are installed on each WP site (but are
 * [query-monitor](https://wordpress.org/plugins/query-monitor/)
 * [debug-objects](https://wordpress.org/plugins/debug-objects/)
 * [debug-bar](https://wordpress.org/plugins/debug-bar/)
-* [p3-profiler](https://wordpress.org/plugins/p3-profiler/)
 
 #### Accessing the sites on-disk ####
 When you Users can access the WP installations directly by going to `[HGV directory]/hgv_data/sites/hhvm` and `[HGV directory]/hgv_data/sites/php` in the Finder (Mac)/Explorer (Windows)/filesystem navigator of choice (Linux, Free/Open/NetBSD, etc.)

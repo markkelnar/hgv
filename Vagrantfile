@@ -35,13 +35,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             "cache.php.hgv.dev",
             "cache.fpm.hgv.dev",
             "admin.hgv.dev",
-            "xhprof.hgv.dev"
+            "xhprof.hgv.dev",
+            "mail.hgv.dev"
         ]
     end
 
     # This allows the git commands to work using host server keys
     config.ssh.forward_agent = true
 
+    # To avoid stdin/tty issues
+    config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
+    
     config.vm.provision "shell" do |s|
         s.path = "bin/hgv-init.sh"
     end
