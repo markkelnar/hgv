@@ -48,7 +48,6 @@
       - debug-objects
       - debug-queries
       - debug-bar
-      - p3-profiler
   args:
       run_once: true
       chdir: "{{ wp_doc_root }}/{{ enviro }}"
