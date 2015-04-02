@@ -27,6 +27,20 @@
 - name: Enable YAML module
   command: php5enmod yaml creates=/etc/php5/fpm/conf.d/20-yaml.ini
 
+- name: Register Xdebug module
+  copy:
+    src: etc/php5/mods-available/xdebug.ini
+    dest: /etc/php5/mods-available/xdebug.ini
+    owner: root
+    group: root
+    mode: 0644
+  notify: php5-fpm restart
+  tags: [ 'php' ]
+
+- name: Enable Xdebug module
+  command: php5enmod xdebug creates=/etc/php5/fpm/conf.d/20-xdebug.ini
+  tags: [ 'php' ]
+  
 # - name: Do fpm/php.ini
 #   template: src=etc/php5/fpm/php.ini dest=/etc/php5/fpm/php.ini owner=root group=root mode=0644
 #   notify: php5-fpm restart
