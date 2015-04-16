@@ -18,9 +18,10 @@
     creates: "{{ wp_doc_root }}/{{ enviro }}/license.txt"
 
 - name: Fetch random salts for WordPress config
-  local_action: command curl https://api.wordpress.org/secret-key/1.1/salt/
-  register: "wp_salt"
-  sudo: no
+  uri:
+    url: https://api.wordpress.org/secret-key/1.1/salt/
+    return_content: yes
+  register: wpsalts
 
 - name: "Create wp-config for {{ enviro }}"
   template: src=wp/wp-config.php dest={{ wp_doc_root }}/{{ enviro }}/wp-config.php owner={{ web_user }} group={{ web_group }}
