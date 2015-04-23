@@ -38,16 +38,31 @@
 #
 # phpMemcachedAdmin setup
 #
+- name: Check whether pMA is a Git checkout
+  stat:
+    path: "{{ wp_doc_root }}/admin/phpmemcachedadmin/.git"
+  register: pma_git_dir
+
+- name: Nuke pMA install if not a Git checkout
+  file:
+    path: "{{ wp_doc_root }}/admin/phpmemcachedadmin"
+    state: absent
+  when: pma_git_dir.stat.isdir is not defined
+  
 - name: Ensure phpMemcachedAdmin directory exists
-  file: path={{ wp_doc_root }}/admin/phpmemcachedadmin state=directory owner={{ web_user }} group={{ web_group }}
+  file:
+    path: "{{ wp_doc_root }}/admin/phpmemcachedadmin"
+    state: directory
+    owner: "{{ web_user }}"
+    group: "{{ web_group }}"
   tags: [ 'admin', 'phpmemcachedadmin' ]
 
 - name: Download phpMemcachedAdmin
-  get_url: url=http://phpmemcacheadmin.googlecode.com/files/phpMemcachedAdmin-{{ phpmemcachedadmin_version}}.zip dest=/tmp/phpMemcachedAdmin-{{ phpmemcachedadmin_version }}.zip
-  tags: [ 'admin', 'phpmemcachedadmin' ]
-
-- name: Extract phpMemcachedAdmin
-  unarchive: src=/tmp/phpMemcachedAdmin-{{ phpmemcachedadmin_version }}.zip dest={{ wp_doc_root }}/admin/phpmemcachedadmin copy=no owner={{ web_user }} group={{ web_group }}
+  git:
+    repo: https://github.com/wp-cloud/phpmemcacheadmin.git
+    dest: "{{ wp_doc_root }}/admin/phpmemcachedadmin"
+    update: no
+    accept_hostkey: yes
   tags: [ 'admin', 'phpmemcachedadmin' ]
 
 #
