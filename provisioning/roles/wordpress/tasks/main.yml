@@ -17,6 +17,11 @@
   args:
     creates: "{{ wp_doc_root }}/{{ enviro }}/license.txt"
 
+- name: Check whether {{ enviro }}/wp-config.php exists
+  stat:
+    path: "{{ wp_doc_root }}/{{ enviro }}/wp-config.php"
+  register: wpconfig
+
 - name: Fetch random salts for WordPress config
   uri:
     url: https://api.wordpress.org/secret-key/1.1/salt/
@@ -24,7 +29,12 @@
   register: wpsalts
 
 - name: "Create wp-config for {{ enviro }}"
-  template: src=wp/wp-config.php dest={{ wp_doc_root }}/{{ enviro }}/wp-config.php owner={{ web_user }} group={{ web_group }}
+  template:
+    src: wp/wp-config.php
+    dest: "{{ wp_doc_root }}/{{ enviro }}/wp-config.php"
+    owner: "{{ web_user }}"
+    group: "{{ web_group }}"
+  when: not wpconfig.stat.exists
 
 - name: "Localconfig for {{ enviro }}"
   template: src=wp/local-config.php dest={{ wp_doc_root }}/{{ enviro }}/local-config.php owner={{ web_user }} group={{ web_group }}
@@ -37,8 +47,8 @@
   sudo: yes
   sudo_user: "{{ web_user }}"
   args:
-    #   run_once: true
-      chdir: "{{ wp_doc_root }}/{{ enviro }}"
+    chdir: "{{ wp_doc_root }}/{{ enviro }}"
+    creates: "{{ wp_doc_root }}/{{ enviro }}/readme.html"
 
 - name: "Install some useful plugins for {{ enviro }}"
   command: /usr/local/bin/wp plugin install {{ item }}
@@ -49,6 +59,7 @@
       - debug-objects
       - debug-queries
       - debug-bar
+      - wordpress-importer
   args:
-      run_once: true
       chdir: "{{ wp_doc_root }}/{{ enviro }}"
+      creates: "{{ wp_doc_root }}/{{ enviro }}/wp-content/plugins/{{ item }}"
