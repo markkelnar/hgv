@@ -38,6 +38,17 @@
 #
 # phpMemcachedAdmin setup
 #
+- name: Check whether pMA is a Git checkout
+  stat:
+    path: "{{ wp_doc_root }}/admin/phpmemcachedadmin/.git"
+  register: pma_git_dir
+
+- name: Nuke pMA install if not a Git checkout
+  file:
+    path: "{{ wp_doc_root }}/admin/phpmemcachedadmin"
+    state: absent
+  when: pma_git_dir.stat.isdir is not defined
+  
 - name: Ensure phpMemcachedAdmin directory exists
   file:
     path: "{{ wp_doc_root }}/admin/phpmemcachedadmin"
