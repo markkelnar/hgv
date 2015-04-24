@@ -39,5 +39,7 @@ For any PHP, we try to follow the WordPress core [code standards](http://make.wo
 
     git log --no-merges --format=" * %ad %an: %s" v1.0..HEAD --date=short
 
-2. Prepend the output in the CHANGELOG.md file.
-3. Draft an new [release](https://github.com/wpengine/hgv/releases).
+2. Prepend the output in the CHANGELOG.md file.  
+3. Update the version number and latest stable version in README.md.
+4. Push those changes as a pull request to github. Then merge into master when ready.
+5. Draft an new [release](https://github.com/wpengine/hgv/releases).
