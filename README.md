@@ -14,13 +14,13 @@ We have some great [getting started videos and guides here](http://wpengine.com/
 
 Mercury Vagrant is a WP Engine creation in partnership with community members.
 
-**Version:** 1.1.1
+**Version:** 1.2
 
-**Latest Stable:** 1.1.1
+**Latest Stable:** 1.2
 
 **Web:** [http://wpengine.com/mercury](http://wpengine.com/mercury)
 
-**Project Lead:** Tomás Puig
+**Project Lead:** Jason Cohen
 
 **Contributors:** Mark Kelnar, Doug Stewart, Zach Brown, RC Johnson, Jason Cohen, Kailey Lampert, Cameron Benedict, Grant Landram, Ryan Oeltjenbruns, Lowell Vaughn, Rachel Baker
 
