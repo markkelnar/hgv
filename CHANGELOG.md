@@ -1,5 +1,75 @@
 # Mercury Vagrant Changelog
 
+## 1.2 (2015-04-24)
+
+ * 2015-04-24 Doug Stewart: We were checking for the wrong condition to short-circuit WP installs.
+ * 2015-04-22 Doug Stewart: Check whether a Git dir exists. Nuke if it doesn't, as we assume that means an Ansible run failure if we don't.
+ * 2015-04-16 Doug Stewart: Add back stashed wp-config.php-related changes.
+ * 2015-04-22 Doug Stewart: EOF newline.
+ * 2015-04-22 Doug Stewart: Add stashed importer & creates changes back.
+ * 2015-04-22 Doug Stewart: Stage changes from upstream master to reduce merge conflicts.
+ * 2015-04-16 Doug Stewart: Make wp-config.php a run-once affair.
+ * 2015-04-16 Doug Stewart: Make plugins run only once and add the wordpress-importer plugin for data imports.
+ * 2015-04-16 Doug Stewart: Switch to using uri module instead of subbing out for command.
+ * 2015-04-15 kevcenteno: Set nginx FastCGI response buffer size
+ * 2015-04-15 Mark Kelnar: Add php5-curl for curl.so
+ * 2015-04-15 kevcenteno: Allow for big (~400Mb) sql file imports
+ * 2015-04-15 Doug Stewart: Adding contributor
+ * 2015-04-15 Doug Stewart: Delete the actual version of pMA being grabbed, as we'll just pull the latest from Github.
+ * 2015-04-15 Doug Stewart: Piecemeal bump.
+ * 2015-04-14 Doug Stewart: Adjust pMA source.
+ * 2015-04-14 Rachel Baker: Bump WP-CLI version to 0.18.0
+ * 2015-04-13 Michael Beil: I don't think subliceasable is a word
+ * 2015-02-20 Doug Stewart: Every listener needs a corresponding PML log entry in the custom dir.
+ * 2015-02-20 Doug Stewart: Make sure the custom config directory exists.
+ * 2015-02-20 Doug Stewart: Force admin as an upstream dependency for the listener.
+ * 2015-02-20 Doug Stewart: Adding JSON template.
+ * 2015-02-17 Doug Stewart: PML: Remove all configured sites in favor of the actual provisioned sites.
+ * 2015-04-02 Doug Stewart: Remove outdated .ini.
+ * 2015-04-02 Doug Stewart: Change the method for enabling the module.
+ * 2015-04-02 Doug Stewart: Add xdebug.ini in the proper place.
+ * 2015-04-02 Morgan Estes: Adjust spacing again; removes the backtick.
+ * 2015-03-31 Morgan Estes: Re-escape the backtick in the ANSI logo.
+ * 2015-03-31 Doug Stewart: Forward the Xdebug port for remote debugging.
+ * 2015-03-31 Doug Stewart: Deploy the .ini file.
+ * 2015-03-31 Doug Stewart: Provision the Xdebug ini file specifically to enable grind files and remote debugging.
+ * 2015-03-31 Doug Stewart: Make sure Webgrind web files are present.
+ * 2015-03-31 Doug Stewart: Set the default CRLF setting.
+ * 2015-03-28 Morgan Estes: Adjust spacing on the ANSI logo.
+ * 2015-03-19 Doug Stewart: Remove P3 Profiler, as HHVM doesn't support it and it appears to be causing issues with the FPM side of things once run on HHVM.
+ * 2015-03-18 Doug Stewart: No longer necessary in order to stop the tty bug.
+ * 2015-03-18 Doug Stewart: Cherry-picking from @jwilberding's #91 to remove the "not a tty" issue.
+ * 2015-03-17 Doug Stewart: Remove spurious variable.
+ * 2015-03-17 Doug Stewart: Fix for the wonky default blockquote/code syntax that was weirding people out.
+ * 2015-03-17 Mark Kelnar: Add fix for hhvm using wrong mysql socket
+ * 2015-03-17 TobiasBerg: Fixed wrong link to local hhvm install
+ * 2015-02-25 Doug Stewart: Actually include my.cnf and bind to 0.0.0.0 instead of localhost to allow e.g. Sequel Pro to connect.
+ * 2015-02-24 Doug Stewart: Set up Mailhog.
+ * 2015-02-24 Doug Stewart: Enable mail-trapping for HHVM.
+ * 2015-02-24 Doug Stewart: Add mail domain name.
+ * 2015-02-24 Doug Stewart: Install daemonize, a neat tool to allow for daemonizing otherwise difficult processes.
+ * 2015-02-24 Doug Stewart: sSMTP config file.
+ * 2015-02-24 Doug Stewart: Virtualhost for Mailhog.
+ * 2015-02-24 Doug Stewart: Init script for Mailhog.
+ * 2015-02-24 Doug Stewart: Useful defaults for Mailhog.
+ * 2015-02-20 Doug Stewart: Every listener needs a corresponding PML log entry in the custom dir.
+ * 2015-02-20 Doug Stewart: Make sure the custom config directory exists.
+ * 2015-02-20 Doug Stewart: Force admin as an upstream dependency for the listener.
+ * 2015-02-20 Doug Stewart: Adding JSON template.
+ * 2015-02-17 Doug Stewart: PML: Remove all configured sites in favor of the actual provisioned sites.
+ * 2015-02-19 Mark Kelnar: Patch to install correct ansible
+ * 2015-02-12 Michael Beil: update readme to latest v1.1
+ * 2015-02-11 Mark Kelnar: Separate instructions into new lines
+ * 2015-02-11 Mark Kelnar: Add update steps to the README
+ * 2015-02-11 Mark Kelnar: Add update steps to the README
+ * 2015-02-11 Mark Kelnar: Update v1.1 changelog
+ * 2015-02-10 Mark Kelnar: This =404 doesnt act as I would expect
+ * 2015-02-10 Mark Kelnar: Pass more params to fastcgi when come from varnish
+ * 2015-02-10 Mark Kelnar: Fix nginx log filenames since name change
+ * 2015-02-10 Mark Kelnar: Enable php module when not enabled already
+ * 2015-02-10 Mark Kelnar: Changes in favor of idempotancy for admin tools
+ * 2015-02-09 Mark Kelnar: Idempotent wpcli execution perms
+
 ## 1.1.1 (2015-02-19)
 
  * 2015-02-09 Mark Kelnar: Use latest ansible installation instructions
