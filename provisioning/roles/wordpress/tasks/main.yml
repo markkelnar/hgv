@@ -42,13 +42,20 @@
 - name: "Object Cache for {{ enviro }}"
   template: src=wp/object-cache.php dest={{ wp_doc_root }}/{{ enviro }}/wp-content/object-cache.php owner={{ web_user }} group={{ web_group }}
 
+- name: "Check whether the WP install has been run previously"
+  command: /usr/local/bin/wp core is-installed --path={{ wp_doc_root }}/{{ enviro }}
+  sudo: yes
+  sudo_user: "{{ web_user }}"
+  ignore_errors: yes
+  register: wpnotinstalled
+
 - name: "Run the WP install for {{ enviro }}"
   command: /usr/local/bin/wp core install --url={{ domain }} --title="WP Engine {{ enviro }} Site" --admin_user=wordpress --admin_password=wordpress --admin_email="admin@example.com"
   sudo: yes
   sudo_user: "{{ web_user }}"
   args:
     chdir: "{{ wp_doc_root }}/{{ enviro }}"
-    creates: "{{ wp_doc_root }}/{{ enviro }}/readme.html"
+  when: wpnotinstalled
 
 - name: "Install some useful plugins for {{ enviro }}"
   command: /usr/local/bin/wp plugin install {{ item }}
