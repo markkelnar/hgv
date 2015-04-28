@@ -10,10 +10,10 @@ vagrant_name = File.basename(dir)
 
 require 'yaml'
 
-domains_array = []
+domains_array = ['admin.hgv.dev', 'xhprof.hgv.dev', 'mail.hgv.dev']
 
 # Load default domains 
-domains = YAML.load_file('./provisioning/default_sites.yml')
+domains = YAML.load_file('./provisioning/default-sites.yml')
 domains['default_wp']['hhvm_domains'].each do |domain|
     domains_array.push(domain)
     domains_array.push('cache.' << domain)
