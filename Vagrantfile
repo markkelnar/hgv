@@ -8,6 +8,17 @@ dir = Dir.pwd
 vagrant_dir = File.expand_path(File.dirname(__FILE__))
 vagrant_name = File.basename(dir)
 
+require 'yaml'
+
+domains_array = []
+
+# Load default domains 
+domains = YAML.load_file('./provisioning/default_sites.yml')
+domains['default_wp']['hhvm_domains'].each do |domain|
+    domains_array.push(domain)
+    domains_array.push('cache.' << domain)
+end
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.box = "ubuntu/trusty64"
     config.vm.hostname = "hgv.dev"
@@ -28,17 +39,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.synced_folder "./hgv_data", "/hgv_data", owner: "www-data", group: "www-data", create: "true"
 
     if defined? VagrantPlugins::HostsUpdater
-        config.hostsupdater.aliases = [
-            "hhvm.hgv.dev",
-            "php.hgv.dev",
-            "fpm.hgv.dev",
-            "cache.hhvm.hgv.dev",
-            "cache.php.hgv.dev",
-            "cache.fpm.hgv.dev",
-            "admin.hgv.dev",
-            "xhprof.hgv.dev",
-            "mail.hgv.dev"
-        ]
+        config.hostsupdater.aliases = domains_array
     end
 
     # This allows the git commands to work using host server keys

@@ -1,0 +1,5 @@
+---
+default_wp:
+  enviro: hhvm
+  hhvm_domains: [ 'hhvm.hgv.dev' ]
+  php_domains: [ 'fpm.hgv.dev' ]

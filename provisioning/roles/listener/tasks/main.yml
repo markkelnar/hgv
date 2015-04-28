@@ -8,3 +8,5 @@
 
 - name: "Enable PML viewing for {{ enviro }} {{ backend }}"
   template: src=pimpmylog.json dest={{ wp_doc_root }}/admin/logs/config.user.d/{{ enviro }}-{{ backend }}.json
+  with_items:
+    - "{{ domain }}"
