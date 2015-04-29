@@ -1,4 +1,4 @@
 ---
 
 - name: php5-fpm restart
-  service: name=php5-fpm state=restarted
+  command: service php5-fpm restart
