@@ -45,3 +45,7 @@
 # - name: Do fpm/php.ini
 #   template: src=etc/php5/fpm/php.ini dest=/etc/php5/fpm/php.ini owner=root group=root mode=0644
 #   notify: php5-fpm restart
+
+- name: Remove FPM init.d script
+  file: path=/etc/init.d/php5-fpm state=absent
+  notify: php5-fpm restart
