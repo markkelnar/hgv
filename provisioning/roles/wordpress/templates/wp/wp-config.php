@@ -54,7 +54,9 @@ if ( file_exists( dirname( __FILE__ ) . '/local-config.php' ) ) {
 *
 * @since 2.6.0
 */
-{{ wpsalts.content }}
+if ( file_exists( dirname( __FILE__ ) . '/wp-salts.php' ) ) {
+    include( dirname( __FILE__ ) . '/wp-salts.php' );
+}
 
 /**#@-*/
 
