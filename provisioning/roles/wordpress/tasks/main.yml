@@ -27,6 +27,12 @@
     dest: "{{ wp_doc_root }}/{{ enviro }}/wp-salts.php"
     url: https://api.wordpress.org/secret-key/1.1/salt/
 
+- name: Make salts file a PHP file
+  lineinfile:
+    dest: "{{ wp_doc_root }}/{{ enviro }}/wp-salts.php"
+    insertbefore: BOF
+    line: <?php
+
 - name: "Create wp-config for {{ enviro }}"
   template:
     src: wp/wp-config.php
