@@ -35,6 +35,7 @@
     owner: root
     group: root
     mode: 0644
+  notify: php5-fpm restart
   tags: [ 'php' ]
 
 - name: Enable Xdebug module
