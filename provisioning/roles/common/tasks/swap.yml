@@ -1,10 +1,11 @@
 ---
 - name: Create swap file
   command: dd if=/dev/zero of=/swapfile bs=1024 count=2048k creates=/swapfile
+  register: write_swapfile
 
 - name: Setup swap area
   command: mkswap /swapfile
-  when: ansible_swaptotal_mb < 1
+  when: ansible_swaptotal_mb < 1 and write_swapfile.changed
 
 - name: Change swap file permissions
   file: path=/swapfile
@@ -23,4 +24,4 @@
 
 - name: Swap on
   command: swapon /swapfile
-  when: ansible_swaptotal_mb < 1
+  when: ansible_swaptotal_mb < 1 and write_swapfile.changed
