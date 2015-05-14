@@ -23,10 +23,15 @@
   register: wpconfig
 
 - name: Fetch random salts for WordPress config
-  uri:
+  get_url:
+    dest: "{{ wp_doc_root }}/{{ enviro }}/wp-salts.php"
     url: https://api.wordpress.org/secret-key/1.1/salt/
-    return_content: yes
-  register: wpsalts
+
+- name: Make salts file a PHP file
+  lineinfile:
+    dest: "{{ wp_doc_root }}/{{ enviro }}/wp-salts.php"
+    insertbefore: BOF
+    line: <?php
 
 - name: "Create wp-config for {{ enviro }}"
   template:
