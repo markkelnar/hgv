@@ -50,8 +50,12 @@ chmod 644 /vagrant/provisioning/hosts
 # More continuous scroll of the ansible standard output buffer
 export PYTHONUNBUFFERED=1
 
-# $ANS_BIN /vagrant/provisioning/playbook.yml -i /vagrant/provisioning/hosts
 $ANS_BIN /vagrant/provisioning/playbook.yml -i'127.0.0.1,'
-$ANS_BIN /vagrant/provisioning/wordpress.yml -i'127.0.0.1,' --extra-vars="@/vagrant/conf.d/default-sites.yml"
+shopt -s nullglob
+for file in /vagrant/conf.d/default-sites.yml /vagrant/conf.d/custom-sites*.yml
+do
+    echo "### Provisioning $file ###"
+    $ANS_BIN /vagrant/provisioning/wordpress.yml -i'127.0.0.1,' --extra-vars="@$file"
+done
 
 echo
