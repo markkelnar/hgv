@@ -18,6 +18,12 @@ domains['wp']['hhvm_domains'].each do |domain|
     domains_array.push(domain)
     domains_array.push('cache.' << domain)
 end
+unless domains['default_wp']['php_domains'].nil?
+    domains['default_wp']['php_domains'].each do |domain|
+        domains_array.push(domain)
+        domains_array.push('cache.' << domain)
+    end
+end
 
 Dir.glob("./conf.d/custom-sites*.yml").each do |custom_file|
     domains = YAML.load_file(custom_file)
