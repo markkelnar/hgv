@@ -18,6 +18,12 @@ domains['default_wp']['hhvm_domains'].each do |domain|
     domains_array.push(domain)
     domains_array.push('cache.' << domain)
 end
+unless domains['default_wp']['php_domains'].nil?
+    domains['default_wp']['php_domains'].each do |domain|
+        domains_array.push(domain)
+        domains_array.push('cache.' << domain)
+    end
+end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.box = "ubuntu/trusty64"
