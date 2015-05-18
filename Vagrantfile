@@ -67,5 +67,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.vm.provision "shell" do |s|
         s.path = "bin/hgv-init.sh"
+        s.keep_color = true
     end
 end
