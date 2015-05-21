@@ -60,7 +60,7 @@
   sudo_user: "{{ web_user }}"
   args:
     chdir: "{{ wp_doc_root }}/{{ enviro }}"
-  when: wpnotinstalled
+  when: wpnotinstalled.rc
 
 - name: "Install some useful plugins for {{ enviro }}"
   command: /usr/local/bin/wp plugin install {{ item }}
