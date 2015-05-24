@@ -16,6 +16,7 @@ echo "
 
 "
 
+set -e
 LSB=`lsb_release -r | awk {'print $2'}`
 
 echo
@@ -51,7 +52,12 @@ chmod 644 /vagrant/provisioning/hosts
 export PYTHONUNBUFFERED=1
 export ANSIBLE_FORCE_COLOR=true
 
-# $ANS_BIN /vagrant/provisioning/playbook.yml -i /vagrant/provisioning/hosts
-$ANS_BIN /vagrant/provisioning/playbook.yml -i'127.0.0.1,' --extra-vars="@/vagrant/provisioning/default-sites.yml"
+$ANS_BIN /vagrant/provisioning/playbook.yml -i'127.0.0.1,'
+shopt -s nullglob
+for file in /vagrant/provisioning/default-install.yml /vagrant/hgv_data/config/*.yml
+do
+    echo "### Provisioning $file ###"
+    $ANS_BIN /vagrant/provisioning/wordpress.yml -i'127.0.0.1,' --extra-vars="@$file"
+done
 
 echo

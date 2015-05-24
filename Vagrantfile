@@ -12,17 +12,28 @@ require 'yaml'
 
 domains_array = ['admin.hgv.dev', 'xhprof.hgv.dev', 'mail.hgv.dev']
 
-# Load default domains 
-domains = YAML.load_file('./provisioning/default-sites.yml')
-domains['default_wp']['hhvm_domains'].each do |domain|
-    domains_array.push(domain)
-    domains_array.push('cache.' << domain)
-end
-unless domains['default_wp']['php_domains'].nil?
-    domains['default_wp']['php_domains'].each do |domain|
-        domains_array.push(domain)
-        domains_array.push('cache.' << domain)
+def domains_from_yml(file)
+    ret = []
+    domains = YAML.load_file(file)
+    domains['wp']['hhvm_domains'].each do |domain|
+        ret.push(domain)
+        ret.push('cache.' << domain)
     end
+    # php_domains are optional in the user specified file
+    unless domains['wp']['php_domains'].nil?
+        domains['wp']['php_domains'].each do |domain|
+            ret.push(domain)
+            ret.push('cache.' << domain)
+        end
+    end
+    return ret
+end
+
+# Load default domains 
+domains_array += domains_from_yml './provisioning/default-install.yml'
+# Load user specified domain file
+Dir.glob("./hgv_data/config/*.yml").each do |custom_file|
+    domains_array += domains_from_yml custom_file
 end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|

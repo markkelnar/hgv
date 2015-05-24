@@ -7,23 +7,22 @@
     # Set up a WordPress endpoint served by HHVM and PHP-FPM.
     - {
         role: wordpress,
-        enviro: wp,
-        # Primary domain, used to setup WP SITEURL/HOME
-        domain: "domain.hhvm",
+        enviro: "{{ wp.enviro }}",
+        domain: "{{ wp.hhvm_domains[0] }}",
         tags: [ 'wordpress' ]
       }
     - {
         role: listener,
-        enviro: wp,
+        enviro: "{{ wp.enviro }}",
         backend: hhvm,
-        domain: "domain.hhvm",
+        domain: "{{ wp.hhvm_domains }}",
         tags: [ 'wordpress' ]
       }
     - {
         role: listener,
-        enviro: wp,
+        enviro: "{{ wp.enviro }}",
         backend: php,
-        domain: "domain.php",
-        tags: [ 'wordpress' ]
+        domain: "{{ wp.php_domains }}",
+        tags: [ 'wordpress' ],
+        when: wp.php_domains is defined
       }
-
