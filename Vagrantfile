@@ -30,7 +30,7 @@ def domains_from_yml(file)
 end
 
 # Load default domains 
-domains_array += domains_from_yml './conf.d/default-sites.yml'
+domains_array += domains_from_yml './provisioning/default-install.yml'
 # Load user specified domain file
 Dir.glob("./conf.d/custom-sites*.yml").each do |custom_file|
     domains_array += domains_from_yml custom_file
