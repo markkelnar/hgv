@@ -14,32 +14,30 @@
     - varnish
     - {
         role: wordpress,
-        enviro: hhvm,
-        # Primary domain, used to setup WP SITEURL/HOME
-        domain: "hhvm.hgv.dev",
+        enviro: "{{ default_wp.enviro }}",
+        domain: "{{ default_wp.hhvm_domains[0] }}",
         tags: [ 'wordpress' ]
       }
     - {
         role: listener,
-        enviro: hhvm,
+        enviro: "{{ default_wp.enviro }}",
         backend: hhvm,
-        # All the domains to listen on for this backend
-        domain: "hhvm.hgv.dev",
-        tags: [ 'wordpress' ]
+        domain: "{{ default_wp.hhvm_domains }}",
+        tags: [ 'wordpress' ],
       }
     - {
         role: listener,
-        enviro: hhvm,
+        enviro: "{{ default_wp.enviro }}",
         backend: php,
-        # All the domains to listen on for this backend
-        domain: "fpm.hgv.dev",
-        tags: [ 'wordpress' ]
+        domain: "{{ default_wp.php_domains }}",
+        tags: [ 'wordpress' ],
+        when: default_wp.php_domains is defined
       }
     - {
         role: wordpress,
         enviro: php,
         # Primary domain, used to setup WP SITEURL/HOME
-        domain: "hhvm.hgv.dev",
+        domain: [ "php.hgv.dev" ],
         tags: [ 'wordpress' ]
       }
     - {
@@ -47,7 +45,7 @@
         enviro: php,
         backend: php,
         # All the domains to listen on for this backend
-        domain: "php.hgv.dev",
+        domain: [ "php.hgv.dev" ],
         tags: [ 'wordpress' ]
       }
     - admin

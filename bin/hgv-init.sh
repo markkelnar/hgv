@@ -52,6 +52,6 @@ export PYTHONUNBUFFERED=1
 export ANSIBLE_FORCE_COLOR=true
 
 # $ANS_BIN /vagrant/provisioning/playbook.yml -i /vagrant/provisioning/hosts
-$ANS_BIN /vagrant/provisioning/playbook.yml -i'127.0.0.1,'
+$ANS_BIN /vagrant/provisioning/playbook.yml -i'127.0.0.1,' --extra-vars="@/vagrant/provisioning/default-sites.yml"
 
 echo

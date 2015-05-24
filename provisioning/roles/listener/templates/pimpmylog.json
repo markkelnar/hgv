@@ -1,4 +1,4 @@
-{"{{ domain }}1": {
+{"{{ item }}1": {
         "display" : "{{ enviro }} {{ backend }} Access Log",
         "path"    : "\/var\/log\/nginx\/{{ enviro }}-{{ backend }}.apachestyle.access.log",
         "refresh" : 0,
@@ -34,7 +34,7 @@
             }
         }
     },
-"{{ domain }}2": {
+"{{ item }}2": {
         "display" : "{{ enviro }} {{ backend }} Error Log",
         "path"    : "\/var\/log\/nginx\/{{ enviro }}-{{ backend }}.error.log",
         "refresh" : 0,
