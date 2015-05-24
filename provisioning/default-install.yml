@@ -1,3 +1,4 @@
+# DO NOT EDIT: Default WP install and domains for HGV. Instead, copy to a new file under hgv_data/config/.
 ---
 wp:
   enviro: hhvm

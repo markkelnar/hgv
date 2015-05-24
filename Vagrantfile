@@ -32,7 +32,7 @@ end
 # Load default domains 
 domains_array += domains_from_yml './provisioning/default-install.yml'
 # Load user specified domain file
-Dir.glob("./conf.d/custom-sites*.yml").each do |custom_file|
+Dir.glob("./hgv_data/config/*.yml").each do |custom_file|
     domains_array += domains_from_yml custom_file
 end
 
