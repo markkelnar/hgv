@@ -8,6 +8,9 @@ dir = Dir.pwd
 vagrant_dir = File.expand_path(File.dirname(__FILE__))
 vagrant_name = File.basename(dir)
 
+default_installs = vagrant_dir + '/provisioning/default-install.yml'
+custom_installs_dir = vagrant_dir + '/hgv_data/config'
+
 require 'yaml'
 
 domains_array = ['admin.hgv.dev', 'xhprof.hgv.dev', 'mail.hgv.dev']
