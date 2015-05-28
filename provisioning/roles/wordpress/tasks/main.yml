@@ -22,6 +22,12 @@
     path: "{{ wp_doc_root }}/{{ enviro }}/wp-config.php"
   register: wpconfig
 
+- name: Check whether {{ enviro }}/wp-config.php is Ansible-managed
+  command: /bin/grep '^* Ansible managed' {{ wp_doc_root }}/{{ enviro }}/wp-config.php
+  register: wpansmgd
+  ignore_errors: yes
+  when: wpconfig.stat.exists
+
 - name: Fetch random salts for WordPress config
   get_url:
     dest: "{{ wp_doc_root }}/{{ enviro }}/wp-salts.php"
@@ -40,6 +46,15 @@
     owner: "{{ web_user }}"
     group: "{{ web_group }}"
   when: not wpconfig.stat.exists
+
+- name: "Create new wp-config for {{ enviro }} and save original"
+  template:
+    src: wp/wp-config.php
+    dest: "{{ wp_doc_root }}/{{ enviro }}/wp-config.php"
+    owner: "{{ web_user }}"
+    group: "{{ web_group }}"
+    backup: yes
+  when: wpconfig.stat.exists and wpansmgd|failed
 
 - name: "Localconfig for {{ enviro }}"
   template: src=wp/local-config.php dest={{ wp_doc_root }}/{{ enviro }}/local-config.php owner={{ web_user }} group={{ web_group }}
