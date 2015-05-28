@@ -68,8 +68,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         s.inline = "sudo sed -i '/tty/!s/mesg n/tty -s \\&\\& mesg n/' /root/.profile"
     end
 
+    # Default/base provisioning
     config.vm.provision "shell" do |s|
         s.path = "bin/hgv-init.sh"
         s.keep_color = true
     end
+
+    # Custom site provisioning
+    config.vm.provision "shell" do |s|
+        s.path = "bin/custom-sites.sh"
+        s.keep_color = true
+    end
+
 end
