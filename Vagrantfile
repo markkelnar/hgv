@@ -7,6 +7,7 @@ VAGRANTFILE_API_VERSION = "2"
 dir = Dir.pwd
 vagrant_dir = File.expand_path(File.dirname(__FILE__))
 vagrant_name = File.basename(dir)
+vagrant_version = Vagrant::VERSION.sub(/^v/, '')
 
 require 'yaml'
 
