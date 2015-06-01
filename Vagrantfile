@@ -53,6 +53,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.name = vagrant_name
     end
 
+    config.vm.provider "hyperv" do |hv, override|
+        # Hyper-V compatible box
+        override.vm.box = "ericmann/trusty64"
+
+        if vagrant_version >= "1.7.3"
+            hv.memory = 1024
+        end
+    end
+
     config.vm.synced_folder "./hgv_data", "/hgv_data", owner: "www-data", group: "www-data", create: "true"
 
     if defined? VagrantPlugins::HostsUpdater
