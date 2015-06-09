@@ -53,6 +53,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.name = vagrant_name
     end
 
+    config.vm.provider "parallels" do |vb, override|
+        override.vm.box = "parallels/ubuntu-14.04"
+        vb.memory = 1024
+        vb.name = vagrant_name
+    end
+
     config.vm.synced_folder "./hgv_data", "/hgv_data", owner: "www-data", group: "www-data", create: "true"
 
     if defined? VagrantPlugins::HostsUpdater
