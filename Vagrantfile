@@ -61,6 +61,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.vm.synced_folder "./hgv_data", "/hgv_data", owner: "www-data", group: "www-data", create: "true"
 
+    config.vm.synced_folders.each do |id, options|
+        # Make sure we use Samba for file mounts on Windows
+        if ! options[:type] && Vagrant::Util::Platform.windows?
+            options[:type] = "smb"
+        end
+    end
+
     if defined? VagrantPlugins::HostsUpdater
         config.hostsupdater.aliases = domains_array
     end
