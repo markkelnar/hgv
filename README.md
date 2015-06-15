@@ -232,7 +232,7 @@ README.md - This README markdown file, the technical steps of how to get up and 
 
 [updates](http://wpengine.com/mercury/updates) - Another place where the WP Engine team will go into detail about releases or updates to HGV.
 
-[dashboard](http://hgv.dev) - The local HGV dashboard which is available when your vagrant is up and running.
+[dashboard](http://hgv.dev) - The local HGV dashboard which is available when your vagrant is up and running. This contains all the technical details and configuration options specific to the HGV environment.
 
 For detailed how to install guides per OS and other debugging information please see the [wiki here on github](https://github.com/wpengine/hgv/wiki).
 
