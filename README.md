@@ -220,5 +220,19 @@ PML is available at [admin.hgv.dev/logs](http://admin.hgv.dev/logs). You may use
 
 ## More Documentation/Information ##
 
+### Documentation layout ###
+
+README.md - This README markdown file, the technical steps of how to get up and running.  But not all the technical details or configuration options specific to the HGV environment.
+
+[wiki](https://github.com/wpengine/hgv/wiki) - Frequently asked questions
+
+[website](http://wpengine.com/mercury) - General introduction for the Mercury project along with video walkthroughs about how to setup HGV for the first time.
+
+[blog](http://wpengine.com/blog) - WP Engine blogs when significant releases or updates are made to HGV.
+
+[updates](http://wpengine.com/mercury/updates) - Another place where the WP Engine team will go into detail about releases or updates to HGV.
+
+[dashboard](http://hgv.dev) - The local HGV dashboard which is available when your vagrant is up and running. This contains all the technical details and configuration options specific to the HGV environment.
+
 For detailed how to install guides per OS and other debugging information please see the [wiki here on github](https://github.com/wpengine/hgv/wiki).
 
