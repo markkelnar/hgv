@@ -226,9 +226,9 @@ README.md - This README markdown file, the technical steps of how to get up and 
 
 [wiki](https://github.com/wpengine/hgv/wiki) - Frequently asked questions
 
-[website](http://wpengine.com/mercury) - General introduction for the mercury project. along with video walkthroughs about how to setup HGV for the first time.
+[website](http://wpengine.com/mercury) - General introduction for the Mercury project along with video walkthroughs about how to setup HGV for the first time.
 
-[blog](http://wpengine.com/blog) - WP Engine likes to broadcast when significant releases or updates are made to HGV.
+[blog](http://wpengine.com/blog) - WP Engine blogs when significant releases or updates are made to HGV.
 
 [updates](http://wpengine.com/mercury/updates) - Another place where the WP Engine team will go into detail about releases or updates to HGV.
 
