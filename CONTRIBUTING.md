@@ -20,6 +20,15 @@ Submit a pull request at any time, whether an issue has been created or not. It 
 
 We do ask that the pull request be submitted against the current **master** branch. Every effort is made to make the pull request as stable as possible before merging it in, so we aren't too worried. A list of stable releases is maintained as we go and can be used by anyone concerned by ongoing development.
 
+Please add the following markdown task lists (checkboxes) to each pull request description.
+
+```
+- [ ] @markkelnar
+- [ ] @ericmann
+```
+
+After reviewing the PR, the reviewer will check their box.  When box boxes are checked, the PR is considered approved and able to be merged.
+
 ## Code Style ##
 
 ### Ansible ###
