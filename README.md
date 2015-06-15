@@ -176,37 +176,10 @@ The following useful developer tools are installed by default:
 
 ### Xdebug ###
 
-PHP's [Xdebug extension](http://xdebug.org) is enabled by default for the site based on PHP-FPM. Additionally, the WordPress installs have the following constants defined:
-
-```php
-define('WP_DEBUG', true);
-define('WP_DEBUG_DISPLAY', false);
-define('SCRIPT_DEBUG', true);
-define('SAVEQUERIES', true);
-```
-
-Enabling the Query Monitor WordPress plugin will allow logged-in users to view the useful debug information output by Xdebug, such as number of queries, number of objects, page render time, etc.
+PHP's [Xdebug extension](http://xdebug.org) is enabled by default for the site based on PHP-FPM.  See the [dashboard](http://hgv.dev/) for details about the features that are enabled by default for each WordPress.
 
 ### XHProf ###
-HGV includes an advanced PHP/HHVM profiling tool, [http://php.net/xhprof](http://php.net/xhprof) and a GUI for viewing results. You can view results for your HGV instance at [xhprof.hgv.dev](http://xhprof.hgv.dev).
-
-Initially, there will be no profiling data -- you'll need to enable profiling for the various HGV sites. You can enable profiling by passing `_profile=1` to any PHP request on the host. To get started, visit:
-
-* [http://php.hgv.dev/?_profile=1](http://php.hgv.dev/?_profile=1)
-* [http://hhvm.hgv.dev/?_profile=1](http://hhvm.hgv.dev/?_profile=1)
-
-Passing the `_profile=1` argument to the sites causes XHProf to set a cookie. While this cookie is active, XHProf will attempt to profile all of your page views. Visit a few URLs on your PHP and HHVM sites, then visit [xhprof.hgv.dev](http://xhprof.hgv.dev) again. You should see profiling results displayed for your interactions with the sites.
-
-When you want to disable profiling, simply append `_profile=0` to any request, or visit these links:
-
-* [http://php.hgv.dev/?_profile=0](http://php.hgv.dev/?_profile=0)
-* [http://hhvm.hgv.dev/?_profile=0](http://hhvm.hgv.dev/?_profile=0)
-
-Visiting those links should delete the cookie and disable XHProf.
-
-## Admin Tools ##
-
-HGV contains several useful tools for gathering system state and for administering individual aspects of the system.
+HGV includes an advanced PHP/HHVM profiling tool, [http://php.net/xhprof](http://php.net/xhprof) and a GUI for viewing results. You can view results for your HGV instance at [xhprof.hgv.dev](http://xhprof.hgv.dev).  See the [dashboard](http://hgv.dev/) for details about how easy it is to turn on profiling by adding one parameter to your page request in the browser.
 
 ### Database ###
 phpMyAdmin is available at [admin.hgv.dev/phpmyadmin/](http://admin.hgv.dev/phpmyadmin/). The username is `root` and the password is blank.
