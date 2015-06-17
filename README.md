@@ -125,11 +125,11 @@ The following WordPress tools and plugins are installed on each WP site (but are
 * [debug-bar](https://wordpress.org/plugins/debug-bar/)
 
 ### Accessing the sites on-disk ###
-HGV utilizes VirtualBox's [shared folders](https://www.virtualbox.org/manual/ch04.html#sharedfolders) to create a folder, `hgv_data`, that is accessible from both the HGV virtual machine and your operating system. This directory will be available for use after the first time the virtual machine is started using the `vagrant up` command. You can access the WP installations directly by going to `[HGV directory]/hgv_data/sites/php` and `[HGV directory]/hgv_data/sites/hhvm` in the Finder (Mac)/Explorer (Windows)/filesystem navigator of choice (Linux, Free/Open/NetBSD, etc.)
+HGV utilizes Vagrant's [synced folders](http://docs.vagrantup.com/v2/synced-folders/index.html) to create a folder, `hgv_data`, that is accessible from both the HGV virtual machine and your operating system. This directory will be available for use after the first time the virtual machine is started using the `vagrant up` command. You can access the WP installations directly by going to `[HGV directory]/hgv_data/sites` in the Finder (Mac)/Explorer (Windows)/filesystem navigator of choice (Linux, Free/Open/NetBSD, etc.)
 
 ### Installing plugins and themes ###
 
-Installing new plugins and themes is as simple as putting themes in `[HGV directory]/hgv_data/sites/[hhvm|php]/wp-content/[plugins|themes]`
+Installing new plugins and themes is as simple as putting themes in `[HGV directory]/hgv_data/sites/hhvm/wp-content/[plugins|themes]`
 
 ### Command line (CLI) access ###
 
