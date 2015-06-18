@@ -53,7 +53,20 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.name = vagrant_name
     end
 
+    config.vm.provider "parallels" do |vb, override|
+        override.vm.box = "parallels/ubuntu-14.04"
+        vb.memory = 1024
+        vb.name = vagrant_name
+    end
+
     config.vm.synced_folder "./hgv_data", "/hgv_data", owner: "www-data", group: "www-data", create: "true"
+
+    config.vm.synced_folders.each do |id, options|
+        # Make sure we use Samba for file mounts on Windows
+        if ! options[:type] && Vagrant::Util::Platform.windows?
+            options[:type] = "smb"
+        end
+    end
 
     if defined? VagrantPlugins::HostsUpdater
         config.hostsupdater.aliases = domains_array
@@ -63,7 +76,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.ssh.forward_agent = true
 
     # To avoid stdin/tty issues
-    config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
+    config.vm.provision "fix-no-tty", type: "shell" do |s|
+        s.privileged = false
+        s.inline = "sudo sed -i '/tty/!s/mesg n/tty -s \\&\\& mesg n/' /root/.profile"
+    end
 
     config.vm.provision "shell" do |s|
         s.path = "bin/hgv-init.sh"
