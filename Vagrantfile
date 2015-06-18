@@ -10,7 +10,7 @@ vagrant_name = File.basename(dir)
 
 require 'yaml'
 
-domains_array = ['admin.hgv.dev', 'xhprof.hgv.dev', 'mail.hgv.dev']
+domains_array = ['hgv.dev', 'admin.hgv.dev', 'xhprof.hgv.dev', 'mail.hgv.dev', 'admin.hgv.test', 'xhprof.hgv.test', 'mail.hgv.test']
 
 def domains_from_yml(file)
     ret = []
@@ -38,7 +38,7 @@ end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.box = "ubuntu/trusty64"
-    config.vm.hostname = "hgv.dev"
+    config.vm.hostname = "hgv.test"
     config.vm.network "private_network", ip: "192.168.150.20"
     config.vm.network "forwarded_port", guest: 3306, host: 23306
     config.vm.network "forwarded_port", guest: 9001, host: 29001
