@@ -98,10 +98,10 @@ hgv_data/config/foo.yml
 wp:
   enviro: foo
   hhvm_domains:
-    - foo.local
-    - www.foo.local
+    - foo.test
+    - www.foo.test
   php_domains:
-    - php.foo.local
+    - php.foo.test
 ```
 
 ### Provision ###

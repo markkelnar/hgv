@@ -10,7 +10,7 @@ vagrant_name = File.basename(dir)
 
 require 'yaml'
 
-domains_array = ['admin.hgv.dev', 'xhprof.hgv.dev', 'mail.hgv.dev', 'admin.hgv.test', 'xhprof.hgv.test', 'mail.hgv.test']
+domains_array = ['hgv.dev', 'admin.hgv.dev', 'xhprof.hgv.dev', 'mail.hgv.dev', 'admin.hgv.test', 'xhprof.hgv.test', 'mail.hgv.test']
 
 def domains_from_yml(file)
     ret = []
