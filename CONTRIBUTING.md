@@ -46,7 +46,7 @@ For any PHP, we try to follow the WordPress core [code standards](http://make.wo
 ### Releases ###
 1. Create the change log history.  Checkout the 'master' branch and run the following command:
 
-    git log --no-merges --format=" * %ad %an: %s" v1.0..HEAD --date=short
+    git log --no-merges --format=" * %ad %an: %s" v1.0..HEAD --date=short | sort -ur
 
 2. Prepend the output in the CHANGELOG.md file.  
 3. Update the version number and latest stable version in README.md.

@@ -1,5 +1,39 @@
 # Mercury Vagrant Changelog
 
+## 1.3 (2015-06-18)
+
+ * 2015-06-18 Mark Kelnar: Add .test domains to nginx configs for hgv tools
+ * 2015-06-18 Mark Kelnar: Add .test domains
+ * 2015-06-17 Mark Kelnar: Change shared folder reference to synced folders
+ * 2015-06-17 Mark Kelnar: Add initial details about how to setup a second WP and custom domains
+ * 2015-06-15 Stephen Lin: Update README.md
+ * 2015-06-15 Mark Kelnar: describe where we document the pieces
+ * 2015-06-15 Mark Kelnar: The dashboard contains the technical/config options
+ * 2015-06-15 Mark Kelnar: Remove documentation that is now found in the wiki page
+ * 2015-06-15 Mark Kelnar: Document xhprof
+ * 2015-06-15 Mark Kelnar: Add pull request checkbox syntax used for pull requests
+ * 2015-06-09 Eric Mann: Force Windows to use Samba for file shares
+ * 2015-05-28 Doug Stewart: Explicitly mark wp-config.php as Ansible-managed.
+ * 2015-05-23 Mark Kelnar: Rename default install file
+ * 2015-05-23 Mark Kelnar: Put custom configs under hgv_data directory
+ * 2015-05-19 Doug Stewart: * [x] @zamoose * [ ] @markkelnar
+ * 2015-05-15 Mark Kelnar: Function for processing domains from yml files
+ * 2015-05-15 Mark Kelnar: File glob over custom-sites*.yml in bin init script
+ * 2015-05-15 Mark Kelnar: Add php_domains processing if exists in the default-sites YML
+ * 2015-05-13 Mark Kelnar: Check wp-not-installed return code of the registered variable
+ * 2015-05-12 Doug Stewart: Swapfile race condition fix.
+ * 2015-05-12 Doug Stewart: Set up PHP_CodeSniffer and WordPress-specific code sniffs.
+ * 2015-05-12 Doug Stewart: Restart FPM if the core .ini file changes too.
+ * 2015-05-07 Doug Stewart: Make the file fit objective reality instead of the one that's, you know, not real.
+ * 2015-05-04 Doug Stewart: Make salts a first-class file of their own.
+ * 2015-04-30 Doug Stewart: Upstart-friendly version of this.
+ * 2015-04-30 Doug Stewart: Keep Ansible colors for host OS for easier debugging.
+ * 2015-04-29 Mark Kelnar: Use command instead of service until we find the real reason
+ * 2015-04-29 Mark Kelnar: Move wp custom domains to conf.d dir. Start to add support for that directory custom files
+ * 2015-04-28 Mark Kelnar: Extract default WP dev domains to a yml file. Vagrant and ansible use variables from the file
+ * 2015-04-28 Mark Kelnar: Add back domain names for admin tools
+ * 2015-04-17 kevcenteno: Add support for Parallels
+
 ## 1.2 (2015-04-24)
 
  * 2015-04-24 Doug Stewart: We were checking for the wrong condition to short-circuit WP installs.
