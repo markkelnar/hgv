@@ -2,5 +2,9 @@
 ---
 wp:
   enviro: hhvm
-  hhvm_domains: [ 'hhvm.hgv.dev' ]
-  php_domains: [ 'php.hgv.dev', 'fpm.hgv.dev' ]
+  hhvm_domains:
+    - hhvm.hgv.dev
+    - hhvm.hgv.test
+  php_domains:
+    - php.hgv.dev
+    - php.hgv.test

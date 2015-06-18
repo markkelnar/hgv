@@ -14,9 +14,9 @@ We have some great [getting started videos and guides here](http://wpengine.com/
 
 Mercury Vagrant is a WP Engine creation in partnership with community members.
 
-**Version:** 1.2
+**Version:** 1.3
 
-**Latest Stable:** 1.2
+**Latest Stable:** 1.3
 
 **Web:** [http://wpengine.com/mercury](http://wpengine.com/mercury)
 
@@ -125,11 +125,11 @@ The following WordPress tools and plugins are installed on each WP site (but are
 * [debug-bar](https://wordpress.org/plugins/debug-bar/)
 
 ### Accessing the sites on-disk ###
-HGV utilizes VirtualBox's [shared folders](https://www.virtualbox.org/manual/ch04.html#sharedfolders) to create a folder, `hgv_data`, that is accessible from both the HGV virtual machine and your operating system. This directory will be available for use after the first time the virtual machine is started using the `vagrant up` command. You can access the WP installations directly by going to `[HGV directory]/hgv_data/sites/php` and `[HGV directory]/hgv_data/sites/hhvm` in the Finder (Mac)/Explorer (Windows)/filesystem navigator of choice (Linux, Free/Open/NetBSD, etc.)
+HGV utilizes Vagrant's [synced folders](http://docs.vagrantup.com/v2/synced-folders/index.html) to create a folder, `hgv_data`, that is accessible from both the HGV virtual machine and your operating system. This directory will be available for use after the first time the virtual machine is started using the `vagrant up` command. You can access the WP installations directly by going to `[HGV directory]/hgv_data/sites` in the Finder (Mac)/Explorer (Windows)/filesystem navigator of choice (Linux, Free/Open/NetBSD, etc.)
 
 ### Installing plugins and themes ###
 
-Installing new plugins and themes is as simple as putting themes in `[HGV directory]/hgv_data/sites/[hhvm|php]/wp-content/[plugins|themes]`
+Installing new plugins and themes is as simple as putting themes in `[HGV directory]/hgv_data/sites/hhvm/wp-content/[plugins|themes]`
 
 ### Command line (CLI) access ###
 
@@ -176,37 +176,10 @@ The following useful developer tools are installed by default:
 
 ### Xdebug ###
 
-PHP's [Xdebug extension](http://xdebug.org) is enabled by default for the site based on PHP-FPM. Additionally, the WordPress installs have the following constants defined:
-
-```php
-define('WP_DEBUG', true);
-define('WP_DEBUG_DISPLAY', false);
-define('SCRIPT_DEBUG', true);
-define('SAVEQUERIES', true);
-```
-
-Enabling the Query Monitor WordPress plugin will allow logged-in users to view the useful debug information output by Xdebug, such as number of queries, number of objects, page render time, etc.
+PHP's [Xdebug extension](http://xdebug.org) is enabled by default for the site based on PHP-FPM.  See the [dashboard](http://hgv.dev/) for details about the features that are enabled by default for each WordPress.
 
 ### XHProf ###
-HGV includes an advanced PHP/HHVM profiling tool, [http://php.net/xhprof](http://php.net/xhprof) and a GUI for viewing results. You can view results for your HGV instance at [xhprof.hgv.dev](http://xhprof.hgv.dev).
-
-Initially, there will be no profiling data -- you'll need to enable profiling for the various HGV sites. You can enable profiling by passing `_profile=1` to any PHP request on the host. To get started, visit:
-
-* [http://php.hgv.dev/?_profile=1](http://php.hgv.dev/?_profile=1)
-* [http://hhvm.hgv.dev/?_profile=1](http://hhvm.hgv.dev/?_profile=1)
-
-Passing the `_profile=1` argument to the sites causes XHProf to set a cookie. While this cookie is active, XHProf will attempt to profile all of your page views. Visit a few URLs on your PHP and HHVM sites, then visit [xhprof.hgv.dev](http://xhprof.hgv.dev) again. You should see profiling results displayed for your interactions with the sites.
-
-When you want to disable profiling, simply append `_profile=0` to any request, or visit these links:
-
-* [http://php.hgv.dev/?_profile=0](http://php.hgv.dev/?_profile=0)
-* [http://hhvm.hgv.dev/?_profile=0](http://hhvm.hgv.dev/?_profile=0)
-
-Visiting those links should delete the cookie and disable XHProf.
-
-## Admin Tools ##
-
-HGV contains several useful tools for gathering system state and for administering individual aspects of the system.
+HGV includes an advanced PHP/HHVM profiling tool, [http://php.net/xhprof](http://php.net/xhprof) and a GUI for viewing results. You can view results for your HGV instance at [xhprof.hgv.dev](http://xhprof.hgv.dev).  See the [dashboard](http://hgv.dev/) for details about how easy it is to turn on profiling by adding one parameter to your page request in the browser.
 
 ### Database ###
 phpMyAdmin is available at [admin.hgv.dev/phpmyadmin/](http://admin.hgv.dev/phpmyadmin/). The username is `root` and the password is blank.
@@ -220,30 +193,19 @@ PML is available at [admin.hgv.dev/logs](http://admin.hgv.dev/logs). You may use
 
 ## More Documentation/Information ##
 
+### Documentation layout ###
+
+README.md - This README markdown file, the technical steps of how to get up and running.  But not all the technical details or configuration options specific to the HGV environment.
+
+[wiki](https://github.com/wpengine/hgv/wiki) - Frequently asked questions
+
+[website](http://wpengine.com/mercury) - General introduction for the Mercury project along with video walkthroughs about how to setup HGV for the first time.
+
+[blog](http://wpengine.com/blog) - WP Engine blogs when significant releases or updates are made to HGV.
+
+[updates](http://wpengine.com/mercury/updates) - Another place where the WP Engine team will go into detail about releases or updates to HGV.
+
+[dashboard](http://hgv.dev) - The local HGV dashboard which is available when your vagrant is up and running. This contains all the technical details and configuration options specific to the HGV environment.
+
 For detailed how to install guides per OS and other debugging information please see the [wiki here on github](https://github.com/wpengine/hgv/wiki).
 
-## HGV FAQ ##
-
-### I already use VVV, why do I need HGV? ###
-
-One of the great features of Vagrant is it allows developers to work locally on an environment that is as close as possible to their production environment.  While [VVV](https://github.com/varying-vagrant-vagrants/vvv) is an excellent WordPress development environment, it does not match any one hosting provider’s stack, it simply offers a common configuration.  HGV allows you to code locally on an environment that simulates the WP Engine Mercury platform, a highly tuned WordPress stack with forward looking technology not widely offered in the hosting ecosystem.  WP Engine has worked closely with Facebook to tune HHVM for the needs of WordPress, so you won’t get these constantly updating and improving configurations anywhere else.  
-
-### What is the license for HGV? ###
-
-HGV is Open Source and [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html).
-
-### How do I use my own domain? ###
-
-You can set that up manually, but currently there’s no automatic way to provision this and it is not supported in our documentation at this time.
-
-### How do I remove HGV from my system? ###
-
-From within the same directory you did “vagrant up” originally, type “vagrant destroy”.  The virtual machine will be destroyed (along with anything in it, so be sure to backup your databases!) and you can safely delete the directory if you don’t need to save any files within it.  HGV is continually improving, so feel free to reinstall and “destroy” as many times as you’d like!
-
-### Can I contribute back to HGV? ###
-
-Yes! HGV is open-sourced and hosted on GitHub. We encourage all users to submit bug reports and pull requests with features they would like to see. See the contributing file for how to start and rules.
-
-### What does “stdin: is not a tty” mean? ###
-
-Due to the way that Ubuntu configures its users, you may encounter this error the first time you run vagrant up or vagrant provision. It can safely be ignored and the provisioning process itself should remove the error on subsequent runs.
