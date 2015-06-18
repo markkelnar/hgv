@@ -64,3 +64,14 @@
 # - name: Do fpm/php.ini
 #   template: src=etc/php5/fpm/php.ini dest=/etc/php5/fpm/php.ini owner=root group=root mode=0644
 #   notify: php5-fpm restart
+
+- name: Set the max file upload size
+  ini_file:
+    dest: /etc/php5/fpm/php.ini
+    section: "PHP"
+    option: "{{ item }}"
+    value: "{{ file_upload_max_size }}M"
+  with_items:
+    - upload_max_filesize
+    - post_max_size
+

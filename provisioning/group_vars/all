@@ -13,3 +13,5 @@ web_user: www-data
 web_group: www-data
 
 xhprof_root: /opt/xhprof
+
+file_upload_max_size: 200
