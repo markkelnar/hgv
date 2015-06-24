@@ -186,10 +186,6 @@ Xdebug browser extensions to toggle Xdebug on/off without having to ssh into the
 ### XHProf ###
 HGV includes an advanced PHP/HHVM profiling tool, [http://php.net/xhprof](http://php.net/xhprof) and a GUI for viewing results. You can view results for your HGV instance at [xhprof.hgv.dev](http://xhprof.hgv.dev).  See the [dashboard](http://hgv.dev/) for details about how easy it is to turn on profiling by adding one parameter to your page request in the browser.
 
-
-### XHProf ###
-HGV includes an advanced PHP/HHVM profiling tool, [http://php.net/xhprof](http://php.net/xhprof) and a GUI for viewing results. You can view results for your HGV instance at [xhprof.hgv.dev](http://xhprof.hgv.dev).  See the [dashboard](http://hgv.dev/) for details about how easy it is to turn on profiling by adding one parameter to your page request in the browser.
-
 ### Database ###
 phpMyAdmin is available at [admin.hgv.dev/phpmyadmin/](http://admin.hgv.dev/phpmyadmin/). The username is `root` and the password is blank.
 
