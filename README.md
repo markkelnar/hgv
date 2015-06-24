@@ -178,6 +178,15 @@ The following useful developer tools are installed by default:
 
 PHP's [Xdebug extension](http://xdebug.org) is enabled by default for the site based on PHP-FPM.  See the [dashboard](http://hgv.dev/) for details about the features that are enabled by default for each WordPress.
 
+Xdebug browser extensions to toggle Xdebug on/off without having to ssh into the virtual machine:
+* [Safari - Xdebug Toggler] (https://github.com/benmatselby/xdebug-toggler)
+* [FireFox - Easiest Xdebug] (https://addons.mozilla.org/en-US/firefox/addon/the-easiest-xdebug/)
+* [Chrome - Xdebug Helper] (https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaa)
+
+### XHProf ###
+HGV includes an advanced PHP/HHVM profiling tool, [http://php.net/xhprof](http://php.net/xhprof) and a GUI for viewing results. You can view results for your HGV instance at [xhprof.hgv.dev](http://xhprof.hgv.dev).  See the [dashboard](http://hgv.dev/) for details about how easy it is to turn on profiling by adding one parameter to your page request in the browser.
+
+
 ### XHProf ###
 HGV includes an advanced PHP/HHVM profiling tool, [http://php.net/xhprof](http://php.net/xhprof) and a GUI for viewing results. You can view results for your HGV instance at [xhprof.hgv.dev](http://xhprof.hgv.dev).  See the [dashboard](http://hgv.dev/) for details about how easy it is to turn on profiling by adding one parameter to your page request in the browser.
 
