@@ -24,7 +24,9 @@ The **master** branch is the latest stable release.  The **develop** branch is w
 
 Submit a pull request at any time, whether an issue has been created or not. It may be helpful to discuss your goals in an issue first, though many things can best be shown with code.
 
-We do ask that the pull request be submitted against the **develop** branch from a feature branch in your fork of the project in GitHub. Every effort is made to make the pull request as stable as possible before merging it in, so we aren't too worried.
+We do ask that the pull request be submitted against the **develop** branch from a feature branch in your fork of the project in GitHub. We ask that you test your code as we will also do our best to code review, test and verify that the pull request is as stable as possible before merging it.
+
+We also encourage you to pull down code you see in someone else's pull request, test it and provide your findings in a comment, that's always fun and helpful to the community project.
 
 Please add the following markdown task lists (checkboxes) to each pull request description.
 
