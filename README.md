@@ -176,7 +176,7 @@ The following useful developer tools are installed by default:
 
 ### Xdebug ###
 
-PHP's [Xdebug extension](http://xdebug.org) is enabled by default for the site based on PHP-FPM.  See the [dashboard](http://hgv.dev/) for details about the features that are enabled by default for each WordPress.
+PHP's [Xdebug extension](http://xdebug.org) is installed by default for the site based on PHP-FPM.  See the [dashboard](http://hgv.dev/) for details about the features that are enabled by default for each WordPress.
 
 Xdebug browser extensions to toggle Xdebug on/off without having to ssh into the virtual machine:
 * [Safari - Xdebug Toggler] (https://github.com/benmatselby/xdebug-toggler)
