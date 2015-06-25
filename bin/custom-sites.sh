@@ -1,4 +1,12 @@
 #!/bin/bash
+#
+# This script is invoked by the vagrant provisioner and runs inside the vagrant instance.
+# It provisions the default WordPress install and those based on the YML configuration files found in hgv_data/config/.
+#
+# This script can be run at command line:
+# $ vagrant ssh
+# $ sudo /bin/bash /vagrant/bin/custom-sites.sh
+#
 ANS_BIN=`which ansible-playbook`
 
 if [[ -z $ANS_BIN ]]
