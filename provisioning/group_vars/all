@@ -13,3 +13,6 @@ web_user: www-data
 web_group: www-data
 
 xhprof_root: /opt/xhprof
+
+## Arbitrary max upload size. Fixes upload limit problems.
+file_upload_max_size: 200
