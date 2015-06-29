@@ -1,12 +1,23 @@
-- name: "Set up {{ enviro }} {{ backend }} virtualhost"
-  template: src=etc/nginx/wordpress.conf dest=/etc/nginx/conf.d/{{ enviro }}-{{ backend }}.conf owner=root group=root mode=0644
+- name: "Add domain to nginx map"
+  lineinfile:
+    dest: "/etc/nginx/conf.d/www-{{ enviro }}.conf"
+    line: "    {{ item }}    {{ backend }};"
+    state: present
+    insertafter: "## Upstream for {{ enviro }} ##"
+  with_items:
+    - "{{ domain }}"
   notify: nginx reload
 
-- name: "Set up cache alias for {{ enviro }} {{ backend }}"
-  template: src=etc/nginx/wpcache.conf dest=/etc/nginx/conf.d/cache.{{ enviro }}-{{ backend }}.conf owner=root group=root mode=0644
+- name: "Add cache domain to nginx map"
+  lineinfile:
+    dest: "/etc/nginx/conf.d/www-{{ enviro }}.conf"
+    line: "    cache.{{ item }}    {{ backend }};"
+    state: present
+    insertafter: "## Upstream for {{ enviro }} ##"
+  with_items:
+    - "{{ domain }}"
   notify: nginx reload
 
 - name: "Enable PML viewing for {{ enviro }} {{ backend }}"
   template: src=pimpmylog.json dest={{ wp_doc_root }}/admin/logs/config.user.d/{{ enviro }}-{{ backend }}.json
-  with_items:
-    - "{{ domain }}"
+

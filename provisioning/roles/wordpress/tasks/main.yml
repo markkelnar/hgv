@@ -90,3 +90,8 @@
   args:
       chdir: "{{ wp_doc_root }}/{{ enviro }}"
       creates: "{{ wp_doc_root }}/{{ enviro }}/wp-content/plugins/{{ item }}"
+
+- name: "Set up {{ enviro }} virtualhost"
+  template: src=etc/nginx/conf.d/wordpress.conf dest=/etc/nginx/conf.d/www-{{ enviro }}.conf owner=root group=root mode=0644
+  notify: nginx reload
+
