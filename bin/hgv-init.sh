@@ -1,4 +1,12 @@
 #!/bin/bash
+#
+# This script is invoked by the vagrant provisioner and runs inside the vagrant instance.
+# It provisions the initial environment, the runs the primary ansible playbook.
+#
+# This script can be run at command line:
+# $ vagrant ssh
+# $ sudo /bin/bash /vagrant/bin/hgv-init.sh
+#
 echo "
 
  -------------------------  -----------------
