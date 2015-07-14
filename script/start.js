@@ -56,7 +56,7 @@ function pre() {
  * Initialize the prompting machine.
  */
 function init() {
-	
+
 }
 
 /**
