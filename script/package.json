@@ -10,6 +10,7 @@
   "license": "MIT",
   "bundledDependencies": [
     "chalk",
-    "root-check"
+    "root-check",
+    "yamljs"
   ]
 }

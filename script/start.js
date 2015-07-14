@@ -12,8 +12,23 @@
  */
 var fs = require( 'fs' ),
 	path = require( 'path' ),
+	extend = require( 'util' )._extend,
 	chalk = require( 'chalk' ),
-	rootCheck = require( 'root-check' );
+	rootCheck = require( 'root-check' ),
+	yaml = require( 'yamljs' );
+
+/**
+ * Default values for the YAML file
+ */
+var defaults = {
+	environment: 'staging',
+	domain     : 'testing'
+};
+
+/**
+ * Object container that will be serialized to YAML.
+ */
+var settings = {};
 
 /**
  * Command line arguments
@@ -38,7 +53,16 @@ function pre() {
 
 			// The file exists! Check for the --force flag.
 			if ( argv.indexOf( '--force' ) > -1 ) {
-				init();
+				process.stdout.write( '    ' + chalk.yellow( 'This utility will update the existing file\'s settings.\n' ) );
+
+				// Parse the existing file and store it in the default array
+				yaml.load( '.mercuryrc', function( result ) {
+					// Merge our parameters
+					defaults = extend( defaults, result );
+
+					// Start things up
+					init();
+				} );
 			} else {
 				// Explain how to use the tool.
 				process.stdout.write( '\n' );
@@ -56,7 +80,26 @@ function pre() {
  * Initialize the prompting machine.
  */
 function init() {
+	
 
+	// Once we're done, finalize the YAML file
+	finalize();
+}
+
+/**
+ * Write out our generated YAML file.
+ */
+function finalize() {
+	var yaml_string = yaml.stringify( settings );
+
+	fs.writeFile( '.mercuryrc', yaml_string, function( err ) {
+		if ( err ) {
+			process.stderr.write( err.toString() );
+		} else {
+			process.stdout.write( '    ' + chalk.green( 'All settings sucessfully saved!\n' ) );
+			process.exit();
+		}
+	} );
 }
 
 /**
