@@ -1,0 +1,16 @@
+{
+  "name": "hgv-script-utilities",
+  "version": "1.0.0",
+  "description": "Script Utilities for WPEngine's Hgv",
+  "main": "start.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "WPEngine",
+  "license": "MIT",
+  "bundledDependencies": [
+    "chalk",
+    "supports-color",
+    "root-check"
+  ]
+}
