@@ -10,7 +10,6 @@
   "license": "MIT",
   "bundledDependencies": [
     "chalk",
-    "supports-color",
     "root-check"
   ]
 }

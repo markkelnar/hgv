@@ -11,8 +11,7 @@
  */
 var fs = require( 'fs' ),
 	path = require( 'path' ),
-	chalk = require( 'chalk' ),
-	supportsColor = require('supports-color');
+	chalk = require( 'chalk' );
 
 
 var fallback = [
@@ -31,5 +30,5 @@ var fallback = [
 ].join( '\n' );
 
 module.exports = fallback;
-//module.exports = supportsColor && process.platform !== 'win32' ?
+//module.exports = chalk.supportsColor && process.platform !== 'win32' ?
 //	fs.readFileSync( path.join( __dirname, 'header.txt' ), 'utf8' ) : fallback;

@@ -26,14 +26,37 @@ var argv = process.argv.slice( 2 );
 function pre() {
 	console.log( require( './lib/header' ) );
 
-	init();
+	// Check to see if our config file exists. If so, only proceed if --force is set.
+	fs.stat( '.mercuryrc', function( err, stat ) {
+		if ( err !== null ) {
+			// The file doesn't exist, so start things up.
+			init();
+		} else {
+			process.stdout.write( '\n' );
+			process.stdout.write( '    ' + chalk.red( 'WARNING!' ) + '\n' );
+			process.stdout.write( '    ' + chalk.yellow( 'Your installation already has a ' + chalk.cyan( '.mercuryrc' ) + ' file.\n' ) );
+
+			// The file exists! Check for the --force flag.
+			if ( argv.indexOf( '--force' ) > -1 ) {
+				init();
+			} else {
+				// Explain how to use the tool.
+				process.stdout.write( '\n' );
+				process.stdout.write( '    To overwrite this file, add the ' + chalk.bold( '--force' ) + ' flag to the ' + chalk.bold( '/script/start' ) + '\n' );
+				process.stdout.write( '    command to re-run the generator and update the existing values.\n' );
+
+				// Exit with an error code.
+				process.exit( 1 );
+			}
+		}
+	} );
 }
 
 /**
  * Initialize the prompting machine.
  */
 function init() {
-
+	
 }
 
 /**
