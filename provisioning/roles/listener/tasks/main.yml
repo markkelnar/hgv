@@ -1,12 +1,15 @@
 ---
 - name: "Remove legacy config and log files"
   file:
-    path: {{ item }}
+    path: "{{ item }}"
     state: absent
   with_items:
     - "/var/log/nginx/{{ enviro }}-{{ backend }}.access.log"
     - "/var/log/nginx/{{ enviro }}-{{ backend }}.apachestyle.access.log"
     - "/var/log/nginx/{{ enviro }}-{{ backend }}.error.log"
+    - "/var/log/nginx/cache.{{ enviro }}-{{ backend }}.access.log"
+    - "/var/log/nginx/cache.{{ enviro }}-{{ backend }}.apachestyle.access.log"
+    - "/var/log/nginx/cache.{{ enviro }}-{{ backend }}.error.log"
     - "/etc/nginx/conf.d/{{ enviro }}-{{ backend }}.conf"
     - "/etc/nginx/conf.d/cache.{{ enviro }}-{{ backend }}.conf"
     - "{{ wp_doc_root }}/admin/logs/config.user.d/{{ enviro }}-{{ backend }}.json"
