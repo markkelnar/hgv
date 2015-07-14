@@ -1,3 +1,4 @@
+---
 - name: "Provision {{ enviro }} WP Databases"
   mysql_db: name="wpe_{{ enviro }}" state=present
 
