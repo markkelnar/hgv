@@ -1,0 +1,33 @@
+# Within the running vagrant, install codeception, run some tests
+# TODO: Add the installation of this phar to our ansible tasks
+
+# reference http://codeception.com/quickstart
+
+# Setup codeception binary
+curl http://codeception.com/codecept.phar -o /usr/local/bin/codecept.phar
+ln -s /usr/local/bin/codecept.phar /usr/local/bin/codecept
+chmod 755 /usr/local/bin/codecept.phar
+
+# Init the project if it's your first time
+codecept bootstrap
+codecept generate:cept acceptance Welcome
+
+# Sample acceptance test
+tests/acceptance/WelcomeCept.php
+<?php
+$I = new AcceptanceTester($scenario);
+$I->wantTo('ensure that frontpage works');
+$I->amOnPage('/');
+$I->see('Home');
+
+# The acceptance suite configuration
+tests/acceptance.suite.yml
+class_name: AcceptanceGuy
+modules:
+enabled: [PhpBrowser, AcceptanceHelper]
+config:
+  PhpBrowser:
+      url: '{YOUR APP'S URL}'
+
+# Envoke the command
+codecept run
