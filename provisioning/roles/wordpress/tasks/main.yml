@@ -81,12 +81,9 @@
   command: /usr/local/bin/wp plugin install {{ item }}
   sudo: yes
   sudo_user: "{{ web_user }}"
-  with_items:
-      - query-monitor
-      - debug-objects
-      - debug-queries
-      - debug-bar
-      - wordpress-importer
+  with_flattened:
+    - "{{ wp.custom_plugins|default([]) }}"
+    - default_plugins
   args:
       chdir: "{{ wp_doc_root }}/{{ enviro }}"
       creates: "{{ wp_doc_root }}/{{ enviro }}/wp-content/plugins/{{ item }}"
