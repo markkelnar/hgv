@@ -1,9 +1,23 @@
-# Within the running vagrant, install codeception, run some tests
-# TODO: Add the installation of this phar to our ansible tasks
+#####
+# Use codecept to run a suite of tests to verify the ansible provisioned HGV environment is functioning as expected.
+# These tests are designed to run within the vagrant environment.
 
-# reference http://codeception.com/quickstart
+# Info about this set of tests in HGV.
+# Ansible will set up codecept binary at /usr/local/bin/codecept
 
-# Setup codeception binary
+# Before running these tests, set up the environment.
+vagrant ssh
+cd /vagrant/test/
+codecept build
+
+# How to run these tests.
+vagrant ssh
+cd /vagrant/test/
+codecept run
+
+#####
+# How to set up your own codeception project or set of tests. 
+# Reference http://codeception.com/quickstart
 curl http://codeception.com/codecept.phar -o /usr/local/bin/codecept.phar
 ln -s /usr/local/bin/codecept.phar /usr/local/bin/codecept
 chmod 755 /usr/local/bin/codecept.phar
