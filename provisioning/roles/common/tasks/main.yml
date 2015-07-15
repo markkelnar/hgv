@@ -37,5 +37,11 @@
 - name: Get PHPUnit
   get_url: url=https://phar.phpunit.de/phpunit.phar dest=/usr/local/bin/phpunit mode=0755 validate_certs=no
 
+- name: Install CodeCeption test suite
+  get_url:
+    url: http://codeception.com/codecept.phar
+    dest: /usr/local/bin/codecept
+    mode: 0755
+
 - include: swap.yml
 - include: daemonize.yml
