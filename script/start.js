@@ -23,7 +23,7 @@ var fs = require( 'fs' ),
  */
 var defaults = {
 	environ     : '',
-	hvvm_domains: [],
+	hhvm_domains: [],
 	php_domains : [],
 	wpe_name    : '',
 	branch      : 'develop',
@@ -62,8 +62,11 @@ function pre() {
 
 				// Parse the existing file and store it in the default array
 				yaml.load( '.mercuryrc', function( result ) {
+					console.log( result );
+
 					// Merge our parameters
-					defaults = extend( defaults, result );
+					settings = result;
+					defaults = extend( defaults, result.wp );
 
 					// Start things up
 					init();
@@ -78,6 +81,43 @@ function pre() {
 				process.exit( 1 );
 			}
 		}
+	} );
+}
+
+/**
+ * Make sure no comma-separated lists end up in an array.
+ *
+ * @param {Array} array Array to clean up.
+ *
+ * @returns {Array}
+ */
+function fix_arrays( array ) {
+	var output_array = [];
+
+	for ( var i = 0, l = array.length; i < l; i++ ) {
+		var domain = array[ i ];
+		if ( domain.indexOf( ',' ) > -1 ) {
+			var domains = domain.split( ',' );
+			output_array = output_array.concat( domains );
+		} else {
+			output_array.push( domain );
+		}
+	}
+
+	return output_array;
+}
+
+/**
+ * Return a de-duped version of an array.
+ *
+ * @param {Array} array Array to de-dupe
+ *
+ * @returns {Array}
+ */
+function uniq( array ) {
+	var seen = {};
+	return array.filter( function ( item ) {
+		return seen.hasOwnProperty( item ) ? false : (seen[item] = true);
 	} );
 }
 
@@ -130,6 +170,10 @@ function init() {
 
 	prompt.start();
 	prompt.get( schema, function( err, result ) {
+		// Split up any comma-separated lists in the arrays
+		result.hhvm_domains = uniq( fix_arrays( result.hhvm_domains ) );
+		result.php_domains = uniq( fix_arrays( result.php_domains ) );
+
 		// Set up our settings array
 		settings = { wp: result };
 
@@ -142,7 +186,7 @@ function init() {
  * Write out our generated YAML file.
  */
 function finalize() {
-	var yaml_string = yaml.stringify( settings );
+	var yaml_string = yaml.stringify( settings, 4 );
 
 	fs.writeFile( '.mercuryrc', yaml_string, function( err ) {
 		if ( err ) {
