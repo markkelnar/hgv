@@ -87,3 +87,12 @@
   args:
       chdir: "{{ wp_doc_root }}/{{ enviro }}"
       creates: "{{ wp_doc_root }}/{{ enviro }}/wp-content/plugins/{{ item }}"
+
+- name: "Install useful plugins from VCS repos for {{ enviro }}"
+  command: /usr/local/bin/wp plugin install {{ item.url }}
+  sudo: yes
+  sudo_user: "{{ web_user }}"
+  with_items: "{{ default_repo_plugins }}"
+  args:
+    chdir: "{{ wp_doc_root }}/{{ enviro }}"
+    creates: "{{ wp_doc_root }}/{{ enviro }}/wp-content/plugins/{{ item.slug }}"

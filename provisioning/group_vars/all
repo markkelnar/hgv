@@ -23,4 +23,7 @@ default_plugins:
   - debug-queries
   - debug-bar
   - wordpress-importer
-  - "https://github.com/humanmade/S3-Uploads/archive/master.zip"
+
+default_repo_plugins:
+  - slug: S3-Uploads-master
+    url: "https://github.com/humanmade/S3-Uploads/archive/master.zip"
