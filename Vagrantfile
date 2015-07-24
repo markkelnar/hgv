@@ -60,6 +60,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
         if vagrant_version >= "1.7.3"
             hv.memory = 1024
+            hv.vmname = vagrant_name
         end
 
     end
