@@ -9,6 +9,7 @@
         role: wordpress,
         enviro: "{{ wp.enviro }}",
         domain: "{{ wp.hhvm_domains[0] }}",
+        domains: "{{ wp.hhvm_domains }} + {{ wp.php_domains }}",
         tags: [ 'wordpress' ]
       }
     - {

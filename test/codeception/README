@@ -7,12 +7,12 @@
 
 # Before running these tests, set up the environment.
 vagrant ssh
-cd /vagrant/test/
+cd /vagrant/test/codeception
 codecept build
 
 # How to run these tests.
 vagrant ssh
-cd /vagrant/test/
+cd /vagrant/test/codeception
 codecept run
 
 #####
