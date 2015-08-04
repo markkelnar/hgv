@@ -8,10 +8,10 @@
   },
   "author": "WPEngine",
   "license": "MIT",
-  "bundledDependencies": [
-    "chalk",
-    "prompt",
-    "root-check",
-    "yamljs"
-  ]
+  "dependencies": {
+    "chalk": "^1.1.0",
+    "prompt": "^0.2.14",
+    "root-check": "^1.0.0",
+    "yamljs": "^0.2.3"
+  }
 }
