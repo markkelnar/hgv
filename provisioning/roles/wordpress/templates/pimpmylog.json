@@ -1,6 +1,6 @@
 {"{{ item }}1": {
-        "display" : "{{ enviro }} {{ backend }} Access Log",
-        "path"    : "\/var\/log\/nginx\/{{ enviro }}-{{ backend }}.apachestyle.access.log",
+        "display" : "{{ enviro }} Access Log",
+        "path"    : "\/var\/log\/nginx\/{{ enviro }}.apachestyle.access.log",
         "refresh" : 0,
         "max"     : 10,
         "notify"  : false,
@@ -17,7 +17,8 @@
                 "Size"    : 11,
                 "Referer" : 13,
                 "UA"      : 14,
-                "User"    : 5
+                "User"    : 5,
+                "Domain"  : 4
             },
             "types": {
                 "Date"    : "date:H:i:s",
@@ -35,8 +36,8 @@
         }
     },
 "{{ item }}2": {
-        "display" : "{{ enviro }} {{ backend }} Error Log",
-        "path"    : "\/var\/log\/nginx\/{{ enviro }}-{{ backend }}.error.log",
+        "display" : "{{ enviro }} Error Log",
+        "path"    : "\/var\/log\/nginx\/{{ enviro }}.error.log",
         "refresh" : 0,
         "max"     : 10,
         "notify"  : false,
