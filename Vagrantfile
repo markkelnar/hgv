@@ -82,6 +82,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # This allows the git commands to work using host server keys
     config.ssh.forward_agent = true
 
+    # Use a Customfile in the same directory as this Vagrantfile to evaluate (and possibly
+    # rewrite) Vagrant configuration lines. Everything in the Customfile will be avaluated
+    # as inline Ruby commands, so this is quite possible.
+    if File.exists?(File.join(vagrant_dir,'Customfile')) then
+      eval(IO.read(File.join(vagrant_dir,'Customfile')), binding)
+    end
+
     # To avoid stdin/tty issues
     config.vm.provision "fix-no-tty", type: "shell" do |s|
         s.privileged = false
