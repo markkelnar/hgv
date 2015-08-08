@@ -9,6 +9,9 @@ vagrant_dir = File.expand_path(File.dirname(__FILE__))
 vagrant_name = File.basename(dir)
 vagrant_version = Vagrant::VERSION.sub(/^v/, '')
 
+default_installs = vagrant_dir + '/provisioning/default-install.yml'
+custom_installs_dir = vagrant_dir + '/hgv_data/config'
+
 require 'yaml'
 
 domains_array = ['hgv.dev', 'admin.hgv.dev', 'xhprof.hgv.dev', 'mail.hgv.dev', 'admin.hgv.test', 'xhprof.hgv.test', 'mail.hgv.test']
@@ -16,25 +19,29 @@ domains_array = ['hgv.dev', 'admin.hgv.dev', 'xhprof.hgv.dev', 'mail.hgv.dev', '
 def domains_from_yml(file)
     ret = []
     domains = YAML.load_file(file)
-    domains['wp']['hhvm_domains'].each do |domain|
-        ret.push(domain)
-        ret.push('cache.' << domain)
-    end
-    # php_domains are optional in the user specified file
-    unless domains['wp']['php_domains'].nil?
-        domains['wp']['php_domains'].each do |domain|
+    domains.each do |key, value|
+        # hhvm_domains are mandatory in user-supplied files
+        value['hhvm_domains'].each do |domain|
             ret.push(domain)
             ret.push('cache.' << domain)
         end
+        # php_domains are optional in the user specified file
+        unless value['php_domains'].nil?
+            value['php_domains'].each do |domain|
+                ret.push(domain)
+                ret.push('cache.' << domain)
+            end
+        end
     end
+
     return ret
 end
 
-# Load default domains 
-domains_array += domains_from_yml './provisioning/default-install.yml'
+# Load default domains
+domains_array += domains_from_yml(default_installs)
 # Load user specified domain file
-Dir.glob("./hgv_data/config/*.yml").each do |custom_file|
-    domains_array += domains_from_yml custom_file
+Dir.glob( custom_installs_dir + "/*.yml").each do |custom_file|
+    domains_array += domains_from_yml(custom_file)
 end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -87,14 +94,29 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # This allows the git commands to work using host server keys
     config.ssh.forward_agent = true
 
+    # Use a Customfile in the same directory as this Vagrantfile to evaluate (and possibly
+    # rewrite) Vagrant configuration lines. Everything in the Customfile will be avaluated
+    # as inline Ruby commands, so this is quite possible.
+    if File.exists?(File.join(vagrant_dir,'Customfile')) then
+      eval(IO.read(File.join(vagrant_dir,'Customfile')), binding)
+    end
+
     # To avoid stdin/tty issues
     config.vm.provision "fix-no-tty", type: "shell" do |s|
         s.privileged = false
         s.inline = "sudo sed -i '/tty/!s/mesg n/tty -s \\&\\& mesg n/' /root/.profile"
     end
 
+    # Default/base provisioning
     config.vm.provision "shell" do |s|
         s.path = "bin/hgv-init.sh"
         s.keep_color = true
     end
+
+    # Custom site provisioning
+    config.vm.provision "shell" do |s|
+        s.path = "bin/custom-sites.sh"
+        s.keep_color = true
+    end
+
 end
