@@ -65,11 +65,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         # Hyper-V compatible box
         override.vm.box = "ericmann/trusty64"
 
+        # The following configuration options are only available post 1.7.2
         if vagrant_version >= "1.7.3"
             hv.memory = 1024
             hv.vmname = vagrant_name
         end
-
     end
 
     config.vm.provider "parallels" do |vb, override|
