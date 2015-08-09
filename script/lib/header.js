@@ -13,7 +13,6 @@ var fs = require( 'fs' ),
 	path = require( 'path' ),
 	chalk = require( 'chalk' );
 
-
 var fallback = [
 	chalk.gray( ' ------------------------- ' ) + chalk.green( ' ----------------- ' ),
 	chalk.gray( '|   _    _                |' ) + chalk.green( '|  __      __     |' ),

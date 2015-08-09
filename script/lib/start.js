@@ -40,41 +40,90 @@ var settings = {};
 var argv = process.argv.slice( 2 );
 
 /**
+ * Print out usage information and return false.
+ *
+ * @return {Boolean}
+ */
+function usage() {
+	process.stdout.write( require( './usage' ) );
+
+	return false;
+}
+
+/**
+ * Get the environment name out of the passed arguments array. If none exists, then print usage information instead.
+ *
+ * @return {String|Boolean}
+ */
+function setup() {
+	// We must have exactly one
+	if ( argv.length !== 1 && argv[1] !== '--force' ) {
+		return usage();
+	}
+
+	var enviro = argv[ 0 ].trim();
+
+	if ( '' === enviro ) {
+		return usage();
+	}
+
+	return enviro;
+}
+
+/**
  * Just some fun ASCII art for Hgv consistency
  */
 function pre() {
-	console.log( require( './header' ) );
+	process.stdout.write( require( './header' ) );
+
+	// Get the passed environment variable.
+	var enviro = setup(),
+		file_path = '';
+
+	if ( ! enviro ) {
+		process.exit( 0 );
+	}
+
+	// Make sure the config directory exists
+	var config_directory = path.join( 'hgv_data', 'config' );
+	if ( ! fs.existsSync( config_directory ) ) {
+		fs.mkdirSync( config_directory );
+	}
+
+	// If it's not a Yaml file, make it one.
+	file_path = path.extname( enviro ) === '.yml' ? enviro : enviro + '.yml';
+
+	// Make sure we're in the hgv_data/config directory
+	file_path = path.join( config_directory, file_path );
 
 	// Check to see if our config file exists. If so, only proceed if --force is set.
-	fs.stat( '.mercuryrc', function( err, stat ) {
+	fs.stat( file_path, function( err, stat ) {
 		if ( err !== null ) {
 			// The file doesn't exist, so start things up.
-			init();
+			init( enviro, file_path );
 		} else {
 			process.stdout.write( '\n' );
-			process.stdout.write( '    ' + chalk.red( 'WARNING!' ) + '\n' );
-			process.stdout.write( '    ' + chalk.yellow( 'Your installation already has a ' + chalk.cyan( '.mercuryrc' ) + ' file.\n' ) );
+			process.stdout.write( chalk.red( 'WARNING!' ) + '\n' );
+			process.stdout.write( chalk.yellow( 'Your installation already has a configuration file.\n' ) );
 
 			// The file exists! Check for the --force flag.
 			if ( argv.indexOf( '--force' ) > -1 ) {
-				process.stdout.write( '    ' + chalk.yellow( 'This utility will update the existing file\'s settings.\n' ) );
+				process.stdout.write( chalk.yellow( 'This utility will update the existing file\'s settings.\n' ) );
 
 				// Parse the existing file and store it in the default array
-				yaml.load( '.mercuryrc', function( result ) {
-					console.log( result );
-
+				yaml.load( file_path, function( result ) {
 					// Merge our parameters
 					settings = result;
 					defaults = extend( defaults, result.wp );
 
 					// Start things up
-					init();
+					init( enviro, file_path );
 				} );
 			} else {
 				// Explain how to use the tool.
 				process.stdout.write( '\n' );
-				process.stdout.write( '    To overwrite this file, add the ' + chalk.bold( '--force' ) + ' flag to the ' + chalk.bold( '/script/start' ) + '\n' );
-				process.stdout.write( '    command to re-run the generator and update the existing values.\n' );
+				process.stdout.write( 'To overwrite this file, add the ' + chalk.bold( '--force' ) + ' flag to the ' + chalk.bold( '/script/start' ) + '\n' );
+				process.stdout.write( 'command to re-run the generator and update the existing values.\n' );
 
 				// Exit with an error code.
 				process.exit( 1 );
@@ -122,18 +171,15 @@ function uniq( array ) {
 
 /**
  * Initialize the prompting machine.
+ *
+ * @param {String} enviro    Environment name
+ * @param {String} file_path Output file path
  */
-function init() {
+function init( enviro, file_path ) {
 	var skip = process.platform !== 'win32' ? ' (Ctrl + C to skip)' : ' (Cmd + C to skip)';
 
 	var schema = {
 		properties: {
-			environ     : {
-				description: 'Name of the environment',
-				default    : defaults.environ,
-				message    : 'Environment must be a string',
-				type       : 'string'
-			},
 			hhvm_domains: {
 				description: 'HHVM project domains' + skip,
 				default    : defaults.hhvm_domains,
@@ -169,6 +215,9 @@ function init() {
 
 	prompt.start();
 	prompt.get( schema, function( err, result ) {
+		// Set the environment
+		result.enviro = enviro;
+
 		// Split up any comma-separated lists in the arrays
 		result.hhvm_domains = uniq( fix_arrays( result.hhvm_domains ) );
 		result.php_domains = uniq( fix_arrays( result.php_domains ) );
@@ -177,17 +226,19 @@ function init() {
 		settings = { wp: result };
 
 		// Once we're done, finalize the YAML file
-		finalize();
+		finalize( file_path );
 	} );
 }
 
 /**
  * Write out our generated YAML file.
+ *
+ * @param {String} file_path Output filepath
  */
-function finalize() {
+function finalize( file_path ) {
 	var yaml_string = yaml.stringify( settings, 4 );
 
-	fs.writeFile( '.mercuryrc', yaml_string, function( err ) {
+	fs.writeFile( file_path, yaml_string, function( err ) {
 		if ( err ) {
 			process.stderr.write( err.toString() );
 		} else {
