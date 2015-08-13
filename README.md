@@ -33,16 +33,18 @@ In order to use HGV effectively, you'll need to have a few tools installed on yo
  * Windows users: Be sure to add the Git executables to your path (See, e.g. [this guide](https://eamann.com/tech/vagrant-windows/), under "Prerequisites")
 2. Install virtual machine software ([VMware](http://vmware.com) or [VirtualBox](http://virtualbox.org) are recommended).
 3. Install [Vagrant](http://vagrantup.com)
-4. **Optional, but highly recommended:** Install the [Vagrant Hostsupdater plugin](https://github.com/cogitatio/vagrant-hostsupdater)
+4. Install [Node](https://nodejs.org/)
+5. **Optional, but highly recommended:** Install the [Vagrant Hostsupdater plugin](https://github.com/cogitatio/vagrant-hostsupdater)
  * Short version: `vagrant plugin install vagrant-hostsupdater`
-5. **Suggestion:** Development workstation/laptop should have at least 8GB of RAM. hgv needs to allocate 1GB of RAM in order to run. (Users with <=4GB of RAM [e.g. base-model MacBook Airs] have seen overall system slowness while running this Vagrant box and much of anything else.)
-6. Windows users should be certain that their BIOS' virtualization settings are enabled. (Intel owners should enable VT-x while AMD owners should enable AMD-v. See [here](http://www.sysprobs.com/disable-enable-virtualization-technology-bios) for a better explanation.)
-7. **Recommendation:** This Vagrant box uses a 64 bit operating system (because HHVM requires a 64 bit OS), so we highly recommend that it only be run on 64 bit machines running 64 bit operating systems. (Most, if not all desktops and laptops sold in the last few years are running on 64 bit processors. Some may not be running 64 bit operating systems, however. Please check your system's documentation.)
+6. **Suggestion:** Development workstation/laptop should have at least 8GB of RAM. hgv needs to allocate 1GB of RAM in order to run. (Users with <=4GB of RAM [e.g. base-model MacBook Airs] have seen overall system slowness while running this Vagrant box and much of anything else.)
+7. Windows users should be certain that their BIOS' virtualization settings are enabled. (Intel owners should enable VT-x while AMD owners should enable AMD-v. See [here](http://www.sysprobs.com/disable-enable-virtualization-technology-bios) for a better explanation.)
+8. **Recommendation:** This Vagrant box uses a 64 bit operating system (because HHVM requires a 64 bit OS), so we highly recommend that it only be run on 64 bit machines running 64 bit operating systems. (Most, if not all desktops and laptops sold in the last few years are running on 64 bit processors. Some may not be running 64 bit operating systems, however. Please check your system's documentation.) 
 
 ## Installation ##
 1. `git clone --recursive https://github.com/wpengine/hgv.git` to clone the latest version of the tool.
 2. Change into the directory `hgv`.
-3. Run `vagrant up`.
+3. Run `npm install` to install build and deploy script dependencies.
+4. Run `vagrant up`.
 
 ## How to update when a new version is released ##
 
