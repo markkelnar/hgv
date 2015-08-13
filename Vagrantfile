@@ -7,6 +7,7 @@ VAGRANTFILE_API_VERSION = "2"
 dir = Dir.pwd
 vagrant_dir = File.expand_path(File.dirname(__FILE__))
 vagrant_name = File.basename(dir)
+vagrant_version = Vagrant::VERSION.sub(/^v/, '')
 
 default_installs = vagrant_dir + '/provisioning/default-install.yml'
 custom_installs_dir = vagrant_dir + '/hgv_data/config'
@@ -58,6 +59,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
         vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
         vb.name = vagrant_name
+    end
+
+    config.vm.provider "hyperv" do |hv, override|
+        # Hyper-V compatible box
+        override.vm.box = "ericmann/trusty64"
+
+        # The following configuration options are only available post 1.7.2
+        if vagrant_version >= "1.7.3"
+            hv.memory = 1024
+            hv.vmname = vagrant_name
+        end
     end
 
     config.vm.provider "parallels" do |vb, override|
