@@ -119,4 +119,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         s.keep_color = true
     end
 
+    # Vagrant push definition
+    config.push.define "local-exec" do |push|
+        push.script = "script/push"
+    end
 end
