@@ -31,32 +31,32 @@ function chooser() {
 	// Try to get a list of known environments
 	var configs = [];
 
-	try {
-		configs = fs.readdirSync( config_directory );
-	} catch ( e ) {
-		error.no_config();
-	}
-
-	// Get the environment names from the file names
-	var environs = configs.map( function( item ) {
-		return path.basename( item, '.yml' );
-	} );
-
-	return new Promise( function( fulfill, reject ) {
-		// Prompt the user to select an environment
-		inquirer.prompt( [
-			{
-				type: 'list',
-				name: 'environment',
-				message: 'Deploy to which environment?',
-				choices: environs
+	return new Promise( function ( fulfill, reject ) {
+		fs.readdir( config_directory, function ( err, configs ) {
+			if ( err ) {
+				error.no_config();
 			}
-		], function( result ) {
-			try {
-				load_config( result.environment ).then( fulfill );
-			} catch ( e ) {
-				error.broken_config( result.environment );
-			}
+
+			// Get the environment names from the file names
+			var environs = configs.map( function ( item ) {
+				return path.basename( item, '.yml' );
+			} );
+
+			// Prompt the user to select an environment
+			inquirer.prompt( [
+				{
+					type   : 'list',
+					name   : 'environment',
+					message: 'Deploy to which environment?',
+					choices: environs
+				}
+			], function ( result ) {
+				try {
+					load_config( result.environment ).then( fulfill );
+				} catch ( e ) {
+					error.broken_config( result.environment );
+				}
+			} );
 		} );
 	} );
 }
