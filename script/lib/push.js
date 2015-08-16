@@ -12,19 +12,24 @@ var fs = require( 'fs' ),
 	path = require( 'path' ),
 	inquirer = require( 'inquirer' ),
 	yaml = require( 'yamljs' ),
+	Promise = require( 'promise' ),
 	error = require( './error' );
+
+/**
+ * Module variables
+ */
+var config_directory = path.join( 'hgv_data', 'config' );
 
 /**
  * Prompt the end user to specify their environment
  *
- * @return {String}
+ * @return {Promise}
  */
 function chooser() {
 	process.stdout.write( require( './header' ) );
 
 	// Try to get a list of known environments
-	var config_directory = path.join( 'hgv_data', 'config' ),
-		configs = [];
+	var configs = [];
 
 	try {
 		configs = fs.readdirSync( config_directory );
@@ -37,20 +42,22 @@ function chooser() {
 		return path.basename( item, '.yml' );
 	} );
 
-	// Prompt the user to select an environment
-	inquirer.prompt( [
-		{
-			type: 'list',
-			name: 'environment',
-			message: 'Deploy to which environment?',
-			choices: environs
-		}
-	], function( result ) {
-		try {
-			return load_config( result.environment );
-		} catch ( e ) {
-			error.broken_config( result.environment );
-		}
+	return new Promise( function( fulfill, reject ) {
+		// Prompt the user to select an environment
+		inquirer.prompt( [
+			{
+				type: 'list',
+				name: 'environment',
+				message: 'Deploy to which environment?',
+				choices: environs
+			}
+		], function( result ) {
+			try {
+				load_config( result.environment ).then( fulfill );
+			} catch ( e ) {
+				error.broken_config( result.environment );
+			}
+		} );
 	} );
 }
 
@@ -60,11 +67,16 @@ function chooser() {
  * @throws Will throw an error if the file is invalid or missing.
  *
  * @param {String} environment
+ *
+ * @return {Promise}
  */
 function load_config( environment ) {
-	console.log( environment );
-	return {};
+	return new Promise( function( fulfill, reject ) {
+		var file_path = path.join( config_directory, environment ) + '.yml';
+
+		yaml.load( file_path, fulfill, reject );
+	} );
 }
 
 // Load the configuration file
-var config = chooser();
+chooser().then( function( data ) { console.log( data ) } );
