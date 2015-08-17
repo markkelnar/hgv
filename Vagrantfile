@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
-VAGRANTFILE_API_VERSION = "2"
+VAGRANTFILE_API_VERSION = "2" unless defined? VAGRANTFILE_API_VERSION
 
 dir = Dir.pwd
 vagrant_dir = File.expand_path(File.dirname(__FILE__))
