@@ -1,0 +1,3 @@
+---
+
+varnish_default_vcl_template: etc/varnish/default.vcl
