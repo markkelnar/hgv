@@ -64,4 +64,4 @@ export ANSIBLE_FORCE_COLOR=true
 if [ -e "/vagrant/hgv_data/config/provisioning/ansible.yml" ] ; then
     EXTRA="@/vagrant/hgv_data/config/provisioning/ansible.yml"
 fi
-$ANS_BIN /vagrant/provisioning/playbook.yml -i'127.0.0.1,' --extra-vars="$EXTRA" -vvvv
+$ANS_BIN /vagrant/provisioning/playbook.yml -i'127.0.0.1,' --extra-vars="$EXTRA"
