@@ -17,7 +17,9 @@ The top level of the directory would contain files and directories like so:
 * bin/ - A place for extra scripts used during provisioning of the Vagrant and WordPress'.
 * hgv_data/ -- User owned data. Gets shared/mounted with the Vagrant.
  * sites/ -- Directory containing each WordPress.
- * config/ -- User owned configuration files, example, custom-sites.yml files used for provisioning sites and domains.
+ * config/ -- User owned configuration files
+ *   sites/ -- User owned WordPress configurations, foo.yml, used for provisioning sites and domains.
+ *   provisioning/ansible.yml -- User owned extra variables imported during vagrant up to the ansible provisioning playbook.
 * provisioning/ -- The ansible provisioning code. Do not edit.
  * default-install.yml -- The configuration for the default installed sites and domains. Do not edit.
 
@@ -83,7 +85,7 @@ Installing new plugins and themes is as simple as putting themes in `[HGV direct
 ### The Provision File ###
 Let HGV provision your WordPress for you.
 
-1. Copy provisioning/default-install.yml to hgv_data/config/foo.yml.
+1. Copy provisioning/default-install.yml to hgv_data/config/sites/foo.yml.
 2. Change the `enviro` variable to the docroot of where your WordPress lives under `[HGV directory]/hgv_data/sites/`, ie 'foo'. If the directory does not exist when provisioning is executed, it will be created and the latest stable version or WordPress installed.
 3. Edit the domain lists to be the domain(s) you want setup for the WordPress residing in the Vagrant. Domains listed under `hhvm_domains` will be served by HHVM.  Those listed under `php_domains` will be served by the PHP-FPM service.
 
@@ -91,7 +93,7 @@ If you did not install the vagrant-hostsupdater plugin, you will need to manuall
 
 ### Example ###
 
-hgv_data/config/foo.yml
+hgv_data/config/sites/foo.yml
 
 ```
 ---

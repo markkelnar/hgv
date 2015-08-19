@@ -10,7 +10,7 @@ vagrant_name = File.basename(dir)
 vagrant_version = Vagrant::VERSION.sub(/^v/, '')
 
 default_installs = vagrant_dir + '/provisioning/default-install.yml'
-custom_installs_dir = vagrant_dir + '/hgv_data/config'
+custom_installs_dir = vagrant_dir + '/hgv_data/config/sites'
 
 require 'yaml'
 
