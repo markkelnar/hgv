@@ -107,6 +107,15 @@ wp:
 ### Provision ###
 After editing or adding a new configuration, for the changes to take effect, you must run `vagrant provision` on an already provisioned environment.
 
+### Multisite ###
+
+If your WordPress is a multisite, it requires certain configurations in the environment to know this is what you want.  So, in your YAML config file, add the *multisite* option and re-provision the vagrant.
+
+```
+wp:
+  ...
+  multisite: yes
+```
 
 ## Admin Tools ##
 HGV contains several useful tools for gathering system state and for administering individual aspects of the system.
