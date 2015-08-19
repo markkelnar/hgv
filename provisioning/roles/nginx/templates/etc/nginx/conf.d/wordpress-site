@@ -1,0 +1,8 @@
+# WordPress single blog rules.
+# Designed to be included in any server {} block.
+# Use when in fast-cgi mode and not using .htaccess file.
+
+# http://wiki.nginx.org/HttpCoreModule
+location / {
+        try_files $uri $uri/ /index.php?$args;
+}
