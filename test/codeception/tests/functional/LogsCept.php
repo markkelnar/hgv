@@ -1,5 +1,5 @@
 <?php 
-$I = new AcceptanceTester($scenario);
+$I = new FunctionalTester($scenario);
 $I->wantTo('Check for existance of log files');
 $I->seeFileFound('hhvm.access.log', '/var/log/nginx/');
 $I->seeFileFound('hhvm.apachestyle.access.log', '/var/log/nginx/');
