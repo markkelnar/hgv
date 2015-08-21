@@ -55,7 +55,30 @@ function broken_config( config ) {
 	process.exit( 1 );
 }
 
+/**
+ * There was an error reading the site directory (i.e. it might not be imported yet).
+ *
+ * @param {String} site Site with the directory we tried to read
+ */
+function broken_site( site ) {
+	var message = [
+		'',
+		'',
+		'HGV can\'t find the directory for the `' + chalk.green( site ) + '` environment.',
+		'Please ensure the directory exists in `' + chalk.yellow( '/hgv_data/sites' ) + '` and try again.',
+		'',
+		'For help on environment configuration, please view the HGV wiki',
+		'on GitHub: ' + chalk.green( '<https://github.com/wpengine/hgv/wiki>' ),
+		''
+	].join( '\n' );
+
+	process.stderr.write( message );
+
+	process.exit( 1 );
+}
+
 module.exports = {
 	no_config    : no_config,
-	broken_config: broken_config
+	broken_config: broken_config,
+	broken_site  : broken_site
 };
