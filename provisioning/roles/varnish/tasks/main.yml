@@ -15,7 +15,7 @@
   notify: varnish reload
 
 - name: Ensure varnish default.vcl
-  template: src=etc/varnish/default.vcl dest=/etc/varnish/default.vcl owner=root group=root mode=0644
+  template: src={{ varnish_default_vcl_template }} dest=/etc/varnish/default.vcl owner=root group=root mode=0644
   notify: varnish reload
 
 - name: Enable NCSA-style logging

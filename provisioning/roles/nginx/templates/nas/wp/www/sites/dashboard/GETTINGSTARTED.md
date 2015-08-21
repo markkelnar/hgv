@@ -234,6 +234,23 @@ When you want to disable profiling, simply append `_profile=0` to any request, o
 Visiting those links should delete the cookie and disable XHProf.
 
 
+## Overriding environment defaults ##
+
+### Maintain your own overrides file ###
+
+1) Add YAML formatted file in hgv_data/config/provisioning/ansible.yml containing the ansible variable(s) you wish to override.
+
+2) After editing or adding a new configuration, for the changes to take effect, you must run `vagrant provision`.
+
+### Example ###
+
+This is an example of changing the max file upload size allowed by Nginx, HHVM, PHP-FPM and the WordPress.
+
+```
+---
+file_upload_max_size: 50
+```
+
 ## FAQs ##
 
 ### General FAQs ###

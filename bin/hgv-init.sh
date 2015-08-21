@@ -60,4 +60,8 @@ chmod 644 /vagrant/provisioning/hosts
 export PYTHONUNBUFFERED=1
 export ANSIBLE_FORCE_COLOR=true
 
-$ANS_BIN /vagrant/provisioning/playbook.yml -i'127.0.0.1,'
+# If user specified ansible extra variables file is provided, pass that in to the provisioning
+if [ -e "/vagrant/hgv_data/config/provisioning/ansible.yml" ] ; then
+    EXTRA="@/vagrant/hgv_data/config/provisioning/ansible.yml"
+fi
+$ANS_BIN /vagrant/provisioning/playbook.yml -i'127.0.0.1,' --extra-vars="$EXTRA"

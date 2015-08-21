@@ -43,5 +43,14 @@
     dest: /usr/local/bin/codecept
     mode: 0755
 
+- name: Create custom config directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ usr_config }}"
+    - "{{ usr_config_sites }}"
+    - "{{ usr_config_provision }}"
+
 - include: swap.yml
 - include: daemonize.yml
