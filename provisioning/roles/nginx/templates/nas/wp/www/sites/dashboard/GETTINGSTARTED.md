@@ -117,6 +117,18 @@ wp:
   multisite: yes
 ```
 
+### Extra Plugins Installed ###
+
+Have plugins that you want installed on disk with your WordPress?  Want that install done automatically when HGV is provisioned? If so, add the *custom_plugins* option to your custom YAML file along with the name of the plugin as it exists in the WordPress repository.  It's that simple.
+
+```
+wp:
+  ...
+  custom_plugins:
+    - akismet
+    - wordpress-seo
+```
+
 ## Admin Tools ##
 HGV contains several useful tools for gathering system state and for administering individual aspects of the system.
 
