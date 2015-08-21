@@ -9,6 +9,8 @@
  * Module dependencies
  */
 var fs = require( 'fs' ),
+	Git = require( 'git-wrapper2' ),
+	chalk = require( 'chalk' ),
 	path = require( 'path' ),
 	inquirer = require( 'inquirer' ),
 	yaml = require( 'yamljs' ),
@@ -78,5 +80,68 @@ function load_config( environment ) {
 	} );
 }
 
+/**
+ * Actually trigger the Git push internally.
+ *
+ *
+ *
+ * @param {Object} config
+ */
+function push( config ) {
+	return new Promise( function( fulfill, reject ) {
+		var git = new Git();
+
+		try {
+			// Parse out the branch and remote information from the config
+			var branch = config.wp.branch,
+				remote = config.wp.remote;
+
+			// Make sure we're in the project directory
+			var cwd = process.cwd();
+
+			process.chdir( path.join( cwd, 'hgv_data', 'sites', config.wp.enviro ) );
+
+			// Push the changes up
+			var pusher = git.push( remote, branch );
+			pusher.stdout.on( 'data', function( data ) {
+				process.stdout.write( chalk.gray( '[git] ' ) + data );
+			} );
+			pusher.stderr.on( 'data', function( data ) {
+				process.stderr.write( chalk.gray( '[git] ' ) + chalk.yellow( data ) );
+			} );
+			pusher.on( 'close', function() {
+				process.chdir( cwd ); // Reset the current directory
+
+				fulfill( config.wp.enviro ); // Done
+			} );
+		} catch ( e ) {
+			error.broken_site( config.wp.enviro );
+		}
+	} );
+}
+
+/**
+ * Let the user know that `vagrant push` is complete.
+ *
+ * @param {String} environment
+ */
+function complete( environment ) {
+	var message = [
+		'',
+		'HGV is finished pushing everything to the ' + chalk.green( environment ) + ' environment!',
+		'',
+		'For any further help with your environment, please view the HGV wiki',
+		'on GitHub: ' + chalk.green( '<https://github.com/wpengine/hgv/wiki>' ),
+		'',
+		''
+	].join( '\n' );
+
+	process.stderr.write( message );
+
+	process.exit( 0 );
+}
+
 // Load the configuration file
-chooser().then( function( data ) { console.log( data ) } );
+chooser()
+	.then( push )
+	.then( complete );
