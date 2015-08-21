@@ -43,6 +43,13 @@ domains_array += domains_from_yml(default_installs)
 Dir.glob( custom_installs_dir + "/*.yml").each do |custom_file|
     domains_array += domains_from_yml(custom_file)
 end
+# Legacy/deprecated file support.  Remove this check in the future.
+Dir.glob( vagrant_dir + '/hgv_data/config/*.yml').each do |custom_file|
+    print "\n*** Custom YML file [ " + custom_file +" ] has been detected ***\n"
+    print "*** DEPRECATED: Please move it to " + custom_installs_dir +"/ ***\n\n"
+    sleep 2
+    domains_array += domains_from_yml(custom_file)
+end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.box = "ubuntu/trusty64"
