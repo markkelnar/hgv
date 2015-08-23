@@ -45,7 +45,7 @@ var argv = process.argv.slice( 2 );
  * @return {Boolean}
  */
 function usage() {
-	process.stdout.write( require( './usage' ) );
+	process.stdout.write( require( './usage' ).start );
 
 	return false;
 }
