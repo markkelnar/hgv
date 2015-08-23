@@ -15,7 +15,8 @@ var fs = require( 'fs' ),
 	chalk = require( 'chalk' ),
 	prompt = require( 'prompt' ),
 	rootCheck = require( 'root-check' ),
-	yaml = require( 'yamljs' );
+	yaml = require( 'yamljs' ),
+	mkdirp = require( 'mkdirp' );
 
 /**
  * Default values for the YAML file
@@ -85,15 +86,15 @@ function pre() {
 	}
 
 	// Make sure the config directory exists
-	var config_directory = path.join( 'hgv_data', 'config' );
+	var config_directory = path.join( 'hgv_data', 'config', 'sites' );
 	if ( ! fs.existsSync( config_directory ) ) {
-		fs.mkdirSync( config_directory );
+		mkdirp.sync( config_directory );
 	}
 
 	// If it's not a Yaml file, make it one.
 	file_path = path.extname( enviro ) === '.yml' ? enviro : enviro + '.yml';
 
-	// Make sure we're in the hgv_data/config directory
+	// Make sure we're in the hgv_data/config/sites directory
 	file_path = path.join( config_directory, file_path );
 
 	// Check to see if our config file exists. If so, only proceed if --force is set.
