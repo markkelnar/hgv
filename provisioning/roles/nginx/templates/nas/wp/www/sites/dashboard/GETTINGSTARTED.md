@@ -17,7 +17,9 @@ The top level of the directory would contain files and directories like so:
 * bin/ - A place for extra scripts used during provisioning of the Vagrant and WordPress'.
 * hgv_data/ -- User owned data. Gets shared/mounted with the Vagrant.
  * sites/ -- Directory containing each WordPress.
- * config/ -- User owned configuration files, example, custom-sites.yml files used for provisioning sites and domains.
+ * config/ -- User owned configuration files
+ *   sites/ -- User owned WordPress configurations, foo.yml, used for provisioning sites and domains.
+ *   provisioning/ansible.yml -- User owned extra variables imported during vagrant up to the ansible provisioning playbook.
 * provisioning/ -- The ansible provisioning code. Do not edit.
  * default-install.yml -- The configuration for the default installed sites and domains. Do not edit.
 
@@ -83,7 +85,7 @@ Installing new plugins and themes is as simple as putting themes in `[HGV direct
 ### The Provision File ###
 Let HGV provision your WordPress for you.
 
-1. Copy provisioning/default-install.yml to hgv_data/config/foo.yml.
+1. Copy provisioning/default-install.yml to hgv_data/config/sites/foo.yml.
 2. Change the `enviro` variable to the docroot of where your WordPress lives under `[HGV directory]/hgv_data/sites/`, ie 'foo'. If the directory does not exist when provisioning is executed, it will be created and the latest stable version or WordPress installed.
 3. Edit the domain lists to be the domain(s) you want setup for the WordPress residing in the Vagrant. Domains listed under `hhvm_domains` will be served by HHVM.  Those listed under `php_domains` will be served by the PHP-FPM service.
 
@@ -91,7 +93,7 @@ If you did not install the vagrant-hostsupdater plugin, you will need to manuall
 
 ### Example ###
 
-hgv_data/config/foo.yml
+hgv_data/config/sites/foo.yml
 
 ```
 ---
@@ -107,6 +109,29 @@ wp:
 ### Provision ###
 After editing or adding a new configuration, for the changes to take effect, you must run `vagrant provision` on an already provisioned environment.
 
+### Multisite ###
+
+If your WordPress is a multisite, it requires certain configurations in the environment to know this is what you want.  So, in your YAML config file, add the *multisite* option with value 'domain' for subdomain or 'directory' for subdirectory.  Then re-provision the vagrant.
+
+Adding, removing or changing this option does not convert an existing WordPress to or from being a multisite.
+
+```
+wp:
+  ...
+  multisite: domain
+```
+
+### Extra Plugins Installed ###
+
+Have plugins that you want installed on disk with your WordPress?  Want that install done automatically when HGV is provisioned? If so, add the *custom_plugins* option to your custom YAML file along with the name of the plugin as it exists in the WordPress repository.  It's that simple.
+
+```
+wp:
+  ...
+  custom_plugins:
+    - akismet
+    - wordpress-seo
+```
 
 ## Admin Tools ##
 HGV contains several useful tools for gathering system state and for administering individual aspects of the system.
@@ -212,6 +237,23 @@ When you want to disable profiling, simply append `_profile=0` to any request, o
 
 Visiting those links should delete the cookie and disable XHProf.
 
+
+## Overriding environment defaults ##
+
+### Maintain your own overrides file ###
+
+1) Add YAML formatted file in hgv_data/config/provisioning/ansible.yml containing the ansible variable(s) you wish to override.
+
+2) After editing or adding a new configuration, for the changes to take effect, you must run `vagrant provision`.
+
+### Example ###
+
+This is an example of changing the max file upload size allowed by Nginx, HHVM, PHP-FPM and the WordPress.
+
+```
+---
+file_upload_max_size: 50
+```
 
 ## FAQs ##
 
