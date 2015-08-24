@@ -34,14 +34,14 @@ Once Vagrant is done provisioning the VM, you will have a box running [Ubuntu 14
 * [Memcached](http://memcached.org/)
 
 ### Sites ###
-HGV automatically creates four sites and adds host file entries for them (*if you installed the `vagrant-hostsupdater` plugin, that is*):
+HGV automatically creates four sites and adds host file entries for them (*if you installed the `vagrant-ghost` plugin, that is*):
 
 * [hgv.dev](http://hgv.dev) -- General documentation and links for all of the tools
 * [hhvm.hgv.dev](http://hhvm.hgv.dev) -- A new WordPress installation running on HHVM
 * [php.hgv.dev](http://php.hgv.dev) -- A new WordPress installation running on PHP-FPM (PHP 5.5)
 * [admin.hgv.dev](http://admin.hgv.dev) -- Useful administrative tools (phpMyAdmin, etc.)
 
-If you did *not* install the `vagrant-hostsupdater` plugin, you will need to manually [add](http://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/) the following host entries to your host operating system's host files:
+If you did *not* install the `vagrant-ghost` plugin, you will need to manually [add](http://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/) the following host entries to your host operating system's host files:
 
 ```
 192.168.150.20 hgv.dev
@@ -89,7 +89,7 @@ Let HGV provision your WordPress for you.
 2. Change the `enviro` variable to the docroot of where your WordPress lives under `[HGV directory]/hgv_data/sites/`, ie 'foo'. If the directory does not exist when provisioning is executed, it will be created and the latest stable version or WordPress installed.
 3. Edit the domain lists to be the domain(s) you want setup for the WordPress residing in the Vagrant. Domains listed under `hhvm_domains` will be served by HHVM.  Those listed under `php_domains` will be served by the PHP-FPM service.
 
-If you did not install the vagrant-hostsupdater plugin, you will need to manually add the domains to your host operating system’s host files. See the example [above](/#mercury-vagrant-hgv-what-you-get-sites).
+If you did not install the vagrant-ghost plugin, you will need to manually add the domains to your host operating system’s host files. See the example [above](/#mercury-vagrant-hgv-what-you-get-sites).
 
 ### Example ###
 
