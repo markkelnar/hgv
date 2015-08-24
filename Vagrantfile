@@ -85,6 +85,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.name = vagrant_name
     end
 
+    config.vm.provider "vmware_fusion" do |vm, override|
+        override.vm.box = "netsensia/ubuntu-trusty64"
+        vm.vmx["memsize"] = "1024"
+        vm.vmx["displayname"] = vagrant_name
+    end
+
+    config.vm.provider "vmware_workstation" do |vm, override|
+        override.vm.box = "netsensia/ubuntu-trusty64"
+        vm.vmx["memsize"] = "1024"
+        vm.vmx["displayname"] = vagrant_name
+    end
+
     config.vm.synced_folder "./hgv_data", "/hgv_data", owner: "www-data", group: "www-data", create: "true"
 
     config.vm.synced_folders.each do |id, options|
