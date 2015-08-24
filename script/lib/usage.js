@@ -13,7 +13,7 @@ var fs = require( 'fs' ),
 	path = require( 'path' ),
 	chalk = require( 'chalk' );
 
-var usage = [
+var start_usage = [
 	'',
 	'',
 	'Usage: script/start ' + chalk.green( '<environment>' ) + ' ' + chalk.gray( '[<args>]' ),
@@ -24,4 +24,6 @@ var usage = [
 	'on GitHub: ' + chalk.green( '<https://github.com/wpengine/hgv/wiki>' )
 ].join( '\n' ) + '\n';
 
-module.exports = usage;
+module.exports = {
+	start: start_usage
+};

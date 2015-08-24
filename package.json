@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "chalk": "^1.1.0",
+    "mkdirp": "^0.5.1",
     "prompt": "^0.2.14",
     "root-check": "^1.0.0",
     "yamljs": "^0.2.3"
