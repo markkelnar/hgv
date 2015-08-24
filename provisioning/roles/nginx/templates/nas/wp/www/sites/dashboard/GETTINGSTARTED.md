@@ -111,12 +111,14 @@ After editing or adding a new configuration, for the changes to take effect, you
 
 ### Multisite ###
 
-If your WordPress is a multisite, it requires certain configurations in the environment to know this is what you want.  So, in your YAML config file, add the *multisite* option and re-provision the vagrant.
+If your WordPress is a multisite, it requires certain configurations in the environment to know this is what you want.  So, in your YAML config file, add the *multisite* option with value 'domain' for subdomain or 'directory' for subdirectory.  Then re-provision the vagrant.
+
+Adding, removing or changing this option does not convert an existing WordPress to or from being a multisite.
 
 ```
 wp:
   ...
-  multisite: yes
+  multisite: domain
 ```
 
 ### Extra Plugins Installed ###
