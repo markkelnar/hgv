@@ -76,7 +76,23 @@
   sudo_user: "{{ web_user }}"
   args:
     chdir: "{{ wp_doc_root }}/{{ enviro }}"
-  when: wpnotinstalled.rc
+  when: wpnotinstalled.rc and ( wp.multisite|default(False) == False )
+
+- name: "Run the multisite WP subdomain install for {{ enviro }}"
+  command: /usr/local/bin/wp core multisite-install --url={{ domain }} --title="WP Engine {{ enviro }} Site" --admin_user=wordpress --admin_password=wordpress --admin_email="admin@example.com" --subdomains
+  sudo: yes
+  sudo_user: "{{ web_user }}"
+  args:
+    chdir: "{{ wp_doc_root }}/{{ enviro }}"
+  when: wpnotinstalled.rc and ( wp.multisite|default(False) == "domain" )
+
+- name: "Run the multisite WP subdirectory install for {{ enviro }}"
+  command: /usr/local/bin/wp core multisite-install --url={{ domain }} --title="WP Engine {{ enviro }} Site" --admin_user=wordpress --admin_password=wordpress --admin_email="admin@example.com"
+  sudo: yes
+  sudo_user: "{{ web_user }}"
+  args:
+    chdir: "{{ wp_doc_root }}/{{ enviro }}"
+  when: wpnotinstalled.rc and ( wp.multisite|default(False) == "directory" )
 
 - name: "Install some useful plugins for {{ enviro }}"
   command: /usr/local/bin/wp plugin install {{ item }}
