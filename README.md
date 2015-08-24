@@ -22,7 +22,7 @@ Mercury Vagrant is a WP Engine creation in partnership with community members.
 
 **Project Lead:** Jason Cohen
 
-**Contributors:** Mark Kelnar, Doug Stewart, Zach Brown, RC Johnson, Jason Cohen, Kailey Lampert, Cameron Benedict, Grant Landram, Ryan Oeltjenbruns, Lowell Vaughn, Rachel Baker
+**Contributors:** Mark Kelnar, Doug Stewart, Zach Brown, RC Johnson, Jason Cohen, Kailey Lampert, Cameron Benedict, Grant Landram, Ryan Oeltjenbruns, Lowell Vaughn, Rachel Baker, Eric Mann
 
 **Thanks:** To the [VVV](http://varyingvagrantvagrants.org/) team and others who have worked on the open source we've included.
 
@@ -34,8 +34,8 @@ In order to use HGV effectively, you'll need to have a few tools installed on yo
 2. Install virtual machine software ([VMware](http://vmware.com) or [VirtualBox](http://virtualbox.org) are recommended).
 3. Install [Vagrant](http://vagrantup.com)
 4. Install [Node](https://nodejs.org/)
-5. **Optional, but highly recommended:** Install the [Vagrant Hostsupdater plugin](https://github.com/cogitatio/vagrant-hostsupdater)
- * Short version: `vagrant plugin install vagrant-hostsupdater`
+5. **Optional, but highly recommended:** Install the [Vagrant Ghost plugin](https://github.com/10up/vagrant-ghost)
+ * Short version: `vagrant plugin install vagrant-ghost`
 6. **Suggestion:** Development workstation/laptop should have at least 8GB of RAM. hgv needs to allocate 1GB of RAM in order to run. (Users with <=4GB of RAM [e.g. base-model MacBook Airs] have seen overall system slowness while running this Vagrant box and much of anything else.)
 7. Windows users should be certain that their BIOS' virtualization settings are enabled. (Intel owners should enable VT-x while AMD owners should enable AMD-v. See [here](http://www.sysprobs.com/disable-enable-virtualization-technology-bios) for a better explanation.)
 8. **Recommendation:** This Vagrant box uses a 64 bit operating system (because HHVM requires a 64 bit OS), so we highly recommend that it only be run on 64 bit machines running 64 bit operating systems. (Most, if not all desktops and laptops sold in the last few years are running on 64 bit processors. Some may not be running 64 bit operating systems, however. Please check your system's documentation.) 
@@ -79,14 +79,14 @@ Once Vagrant is done provisioning the VM, you will have a box running Ubuntu 14.
 Once the VM is done provisioning, direct your browser to [http://hgv.dev](http://hgv.dev) You will receive fuller instructions on the use of this Vagrant environment there.
 
 ### Once Installed These Local URLs / SITES Contain Great Documentation ###
-No really, make sure you go to these to check them out as you work with HGV. HGV automatically creates four sites and adds host file entries for them (if you installed the `vagrant-hostsupdater` plugin, that is):
+No really, make sure you go to these to check them out as you work with HGV. HGV automatically creates four sites and adds host file entries for them (if you installed the `vagrant-ghost` plugin, that is):
 
 * [hgv.dev](http://hgv.dev) -- General documentation and links for all of the tools
 * [hhvm.hgv.dev](http://hhvm.hgv.dev) -- A new WordPress installation running on HHVM
 * [php.hgv.dev](http://php.hgv.dev) -- A new WordPress installation running on PHP-FPM (PHP 5.5)
 * [admin.hgv.dev](http://admin.hgv.dev) -- Useful administrative tools (phpMyAdmin, etc.)
 
-If you did not install the `vagrant-hostsupdater` plugin, you will need to manually [add](http://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/) the following host entries to your host operating system's host files:
+If you did not install the `vagrant-ghost` plugin, you will need to manually [add](http://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/) the following host entries to your host operating system's host files:
 
 ```conf
 192.168.150.20 hgv.dev
