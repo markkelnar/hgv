@@ -20,7 +20,7 @@ var fs = require( 'fs' ),
 /**
  * Module variables
  */
-var config_directory = path.join( 'hgv_data', 'config' );
+var config_directory = path.join( 'hgv_data', 'config', 'sites' );
 
 /**
  * Prompt the end user to specify their environment
