@@ -10,7 +10,7 @@ vagrant_name = File.basename(dir)
 vagrant_version = Vagrant::VERSION.sub(/^v/, '')
 
 default_installs = vagrant_dir + '/provisioning/default-install.yml'
-custom_installs_dir = vagrant_dir + '/hgv_data/config'
+custom_installs_dir = vagrant_dir + '/hgv_data/config/sites'
 
 require 'yaml'
 
@@ -41,6 +41,13 @@ end
 domains_array += domains_from_yml(default_installs)
 # Load user specified domain file
 Dir.glob( custom_installs_dir + "/*.yml").each do |custom_file|
+    domains_array += domains_from_yml(custom_file)
+end
+# Legacy/deprecated file support.  Remove this check in the future.
+Dir.glob( vagrant_dir + '/hgv_data/config/*.yml').each do |custom_file|
+    print "\n*** Custom YML file [ " + custom_file +" ] has been detected ***\n"
+    print "*** DEPRECATED: Please move it to " + custom_installs_dir +"/ ***\n\n"
+    sleep 2
     domains_array += domains_from_yml(custom_file)
 end
 
