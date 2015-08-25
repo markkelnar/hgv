@@ -106,8 +106,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         end
     end
 
-    if defined? VagrantPlugins::HostsUpdater
-        config.hostsupdater.aliases = domains_array
+    if defined? VagrantPlugins::Ghost
+        config.ghost.hosts = domains_array
     end
 
     # This allows the git commands to work using host server keys
