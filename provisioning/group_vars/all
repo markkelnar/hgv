@@ -27,3 +27,7 @@ default_plugins:
   - debug-queries
   - debug-bar
   - wordpress-importer
+
+default_repo_plugins:
+  - slug: S3-Uploads-0.9.0
+    url: "https://github.com/humanmade/S3-Uploads/archive/v0.9.0.zip"
