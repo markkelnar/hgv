@@ -120,9 +120,12 @@ The following URLs will let you view a specific page with caching turned on to t
 
 The following WordPress tools and plugins are installed on each WP site (but are not enabled) by default. We highly recommend you try them out if you have not before:
 
-* [query-monitor](https://wordpress.org/plugins/query-monitor/)
-* [debug-objects](https://wordpress.org/plugins/debug-objects/)
-* [debug-bar](https://wordpress.org/plugins/debug-bar/)
+* [Query Monitor](https://wordpress.org/plugins/query-monitor/)
+* [Debug Objects](https://wordpress.org/plugins/debug-objects/)
+* [Debug Bar](https://wordpress.org/plugins/debug-bar/)
+* [User Switching](https://wordpress.org/plugins/user-switching/)
+* [Rewrite Rules Inspector](https://wordpress.org/plugins/rewrite-rules-inspector/)
+* [Log Deprecated Notices](https://wordpress.org/plugins/log-deprecated-notices/)
 
 ### Accessing the sites on-disk ###
 HGV utilizes Vagrant's [synced folders](http://docs.vagrantup.com/v2/synced-folders/index.html) to create a folder, `hgv_data`, that is accessible from both the HGV virtual machine and your operating system. This directory will be available for use after the first time the virtual machine is started using the `vagrant up` command. You can access the WP installations directly by going to `[HGV directory]/hgv_data/sites` in the Finder (Mac)/Explorer (Windows)/filesystem navigator of choice (Linux, Free/Open/NetBSD, etc.)
