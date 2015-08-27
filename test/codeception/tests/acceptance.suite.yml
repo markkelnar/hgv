@@ -9,6 +9,10 @@ modules:
     enabled:
         - PhpBrowser
         - \Helper\Acceptance
+        - Filesystem
+        - Asserts
+        - REST:
+            depends: PhpBrowser
     config:
         PhpBrowser:
             url: 'http://hgv.dev/'
