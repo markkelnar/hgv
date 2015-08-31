@@ -1,2 +1,2 @@
 <?php
-header('Location: http://admin.hgv.dev/phpmyadmin');
+header('Location: http://admin.hgv.test/phpmyadmin');

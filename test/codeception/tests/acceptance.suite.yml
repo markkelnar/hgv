@@ -15,4 +15,4 @@ modules:
             depends: PhpBrowser
     config:
         PhpBrowser:
-            url: 'http://hgv.dev/'
+            url: 'http://hgv.test/'

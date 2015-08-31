@@ -21,9 +21,25 @@ class DefaultWPCest
         $I->seeResponseCodeIs(200);
     }
 
+    public function viewPageHHVMcache(AcceptanceTester $I)
+    {
+        $I->amOnUrl('http://cache.hhvm.hgv.test');
+        $I->amOnPage('/');
+        $I->seeCurrentUrlEquals('/');
+        $I->seeResponseCodeIs(200);
+    }
+
     public function viewPagePHP(AcceptanceTester $I)
     {
         $I->amOnUrl('http://php.hgv.test');
+        $I->amOnPage('/');
+        $I->seeCurrentUrlEquals('/');
+        $I->seeResponseCodeIs(200);
+    }
+
+    public function viewPagePHPcache(AcceptanceTester $I)
+    {
+        $I->amOnUrl('http://cache.php.hgv.test');
         $I->amOnPage('/');
         $I->seeCurrentUrlEquals('/');
         $I->seeResponseCodeIs(200);
