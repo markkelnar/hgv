@@ -255,6 +255,18 @@ This is an example of changing the max file upload size allowed by Nginx, HHVM, 
 file_upload_max_size: 50
 ```
 
+### Cookie to toggle the backend ###
+
+Don't want to configure both domains for each WordPress' backend processor?  But still want to be able to flip between HHVM and PHP? Have a multisite WordPress which makes it difficult to add domains for each backend processor?
+
+Use a browser cookie to specify the backend. 
+
+The name of the cookie is 'backend'. It accepts values `hhvm` or `php`. If the cookie does not exist or contains something other than the accepted values, it will be ignored and the mapped domain from the [provision file](/#mercury-vagrant-hgv-add-my-own-wordpress-the-provision-file) will be used.
+
+This is specific to the HGV development environment.  This cookie feature is not available for Mercury production.
+
+**TODO:** Add a drop in plugin that allows the user to toggle the cookie via the HGV dashbaord or in WP Admin for a site.
+
 ## FAQs ##
 
 ### General FAQs ###

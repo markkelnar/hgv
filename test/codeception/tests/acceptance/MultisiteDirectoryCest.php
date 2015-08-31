@@ -15,6 +15,15 @@ class MultisiteDirectoryCest
     public function viewPageHHVM(AcceptanceTester $I)
     {
         $I->amOnUrl('http://multidirectory.test');
+        // Check the backend processor is what we expected
+        $I->assertRegExp('#HHVM/(.*)#', $I->grabHttpHeader('X-Powered-By'));
+        $I->seeResponseCodeIs(200);
+    }
+
+    public function viewSubpageHHVM(AcceptanceTester $I)
+    {
+        $I->amOnUrl('http://multidirectory.test');
+        $I->assertRegExp('#HHVM/(.*)#', $I->grabHttpHeader('X-Powered-By'));
         $I->amOnPage('/foo/');
         $I->seeCurrentUrlEquals('/foo/');
         $I->seeResponseCodeIs(200);
@@ -22,7 +31,19 @@ class MultisiteDirectoryCest
 
     public function viewPagePHP(AcceptanceTester $I)
     {
-        $I->amOnUrl('http://phpmultidirectory.test');
+        // Pass header/cookie to specify the backend
+        $I->setCookie('backend', 'php');
+        $I->amOnUrl('http://multidirectory.test');
+        $I->assertRegExp('#PHP/(.*)#', $I->grabHttpHeader('X-Powered-By'));
+        $I->seeResponseCodeIs(200);
+    }
+
+    public function viewSubpagePHP(AcceptanceTester $I)
+    {
+        // Pass header/cookie to specify the backend
+        $I->setCookie('backend', 'php');
+        $I->amOnUrl('http://multidirectory.test');
+        $I->assertRegExp('#PHP/(.*)#', $I->grabHttpHeader('X-Powered-By'));
         $I->amOnPage('/foo/');
         $I->seeCurrentUrlEquals('/foo/');
         $I->seeResponseCodeIs(200);
@@ -37,7 +58,10 @@ class MultisiteDirectoryCest
 
     public function viewPagePHP404(AcceptanceTester $I)
     {
-        $I->amOnUrl('http://phpmultidirectory.test');
+        // Pass header/cookie to specify the backend
+        $I->setCookie('backend', 'php');
+        $I->amOnUrl('http://multidirectory.test');
+        $I->assertRegExp('#PHP/(.*)#', $I->grabHttpHeader('X-Powered-By'));
         $I->amOnPage('/bar');
         $I->seeResponseCodeIs(404);
     }
