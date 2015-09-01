@@ -14,7 +14,7 @@ custom_installs_dir = vagrant_dir + '/hgv_data/config/sites'
 
 require 'yaml'
 
-domains_array = ['hgv.dev', 'admin.hgv.dev', 'xhprof.hgv.dev', 'mail.hgv.dev', 'admin.hgv.test', 'xhprof.hgv.test', 'mail.hgv.test']
+domains_array = ['admin.hgv.test', 'xhprof.hgv.test', 'mail.hgv.test']
 
 def domains_from_yml(file)
     ret = []

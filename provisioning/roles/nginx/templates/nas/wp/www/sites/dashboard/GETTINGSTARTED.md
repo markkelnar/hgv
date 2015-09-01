@@ -36,20 +36,20 @@ Once Vagrant is done provisioning the VM, you will have a box running [Ubuntu 14
 ### Sites ###
 HGV automatically creates four sites and adds host file entries for them (*if you installed the `vagrant-ghost` plugin, that is*):
 
-* [hgv.dev](http://hgv.dev) -- General documentation and links for all of the tools
-* [hhvm.hgv.dev](http://hhvm.hgv.dev) -- A new WordPress installation running on HHVM
-* [php.hgv.dev](http://php.hgv.dev) -- A new WordPress installation running on PHP-FPM (PHP 5.5)
-* [admin.hgv.dev](http://admin.hgv.dev) -- Useful administrative tools (phpMyAdmin, etc.)
+* [hgv.test](http://hgv.test) -- General documentation and links for all of the tools
+* [hhvm.hgv.test](http://hhvm.hgv.test) -- A new WordPress installation running on HHVM
+* [php.hgv.test](http://php.hgv.test) -- A new WordPress installation running on PHP-FPM (PHP 5.5)
+* [admin.hgv.test](http://admin.hgv.test) -- Useful administrative tools (phpMyAdmin, etc.)
 
 If you did *not* install the `vagrant-ghost` plugin, you will need to manually [add](http://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/) the following host entries to your host operating system's host files:
 
 ```
-192.168.150.20 hgv.dev
-192.168.150.20 admin.hgv.dev
-192.168.150.20 hhvm.hgv.dev
-192.168.150.20 php.hgv.dev
-192.168.150.20 cache.hhvm.hgv.dev
-192.168.150.20 cache.php.hgv.dev
+192.168.150.20 hgv.test
+192.168.150.20 admin.hgv.test
+192.168.150.20 hhvm.hgv.test
+192.168.150.20 php.hgv.test
+192.168.150.20 cache.hhvm.hgv.test
+192.168.150.20 cache.php.hgv.test
 ```
 
 ## WordPress Installations ##
@@ -57,11 +57,11 @@ If you did *not* install the `vagrant-ghost` plugin, you will need to manually [
 ### Default Installs ###
 There is one default WordPress installation provided and accessible at two domains. The provisioning details for this WordPress can be found in the file `provisioning/default-install.yml`.
 
-#### hhvm.hgv.dev ####
-[hhvm.hgv.dev](http://hhvm.hgv.dev) is a basic WordPress install running the latest stable version of WordPress on top of an Nginx + HHVM + Percona DB stack.
+#### hhvm.hgv.test ####
+[hhvm.hgv.test](http://hhvm.hgv.test) is a basic WordPress install running the latest stable version of WordPress on top of an Nginx + HHVM + Percona DB stack.
 
-#### php.hgv.dev ####
-[php.hgv.dev](http://php.hgv.dev) is a basic WordPress install running the latest stable version of WordPress on a fairly standard [LEMP stack](https://lemp.io/) consisting of Nginx, PHP-FPM and Percona DB.
+#### php.hgv.test ####
+[php.hgv.test](http://php.hgv.test) is a basic WordPress install running the latest stable version of WordPress on a fairly standard [LEMP stack](https://lemp.io/) consisting of Nginx, PHP-FPM and Percona DB.
 
 ### Database Access ###
 Both have an admin user `wordpress` with a password `wordpress` (so secure!) already created.
@@ -137,10 +137,10 @@ wp:
 HGV contains several useful tools for gathering system state and for administering individual aspects of the system.
 
 ### Database ###
-phpMyAdmin is available at [admin.hgv.dev/phpmyadmin/](http://admin.hgv.dev/phpmyadmin/). The username is `root` and the  password is blank.
+phpMyAdmin is available at [admin.hgv.test/phpmyadmin/](http://admin.hgv.test/phpmyadmin/). The username is `root` and the  password is blank.
 
 ### Object Cache/Memcached ###
-phpMemcachedAdmin is available at [admin.hgv.dev/phpmemcachedadmin/](http://admin.hgv.dev/phpmemcachedadmin/). You may use this tool to check on the status of the WordPress [object cache](http://codex.wordpress.org/Class_Reference/WP_Object_Cache).
+phpMemcachedAdmin is available at [admin.hgv.test/phpmemcachedadmin/](http://admin.hgv.test/phpmemcachedadmin/). You may use this tool to check on the status of the WordPress [object cache](http://codex.wordpress.org/Class_Reference/WP_Object_Cache).
 
 ## Development and debugging ##
 ### Command line (CLI) access ###
@@ -178,18 +178,18 @@ Once you are connected to the HGV virtual machine, system and web server logs ca
 
 Web server logs are stored in `/var/log/nginx`, with separate log files for every site. Each site has several log files associated with it:
 
-* `[site].hgv.dev.access.log`
-* `[site].hgv.dev.apachestyle.access.log`
-* `[site].hgv.dev.error.log`
+* `[enviro].access.log`
+* `[enviro].apachestyle.access.log`
+* `[enviro].error.log`
 
 The first two logs track web requests to the sites, while the third log tracks errors reported, both by Nginx and by "upstream" PHP and HHVM processes.
 
 HHVM logs are in `/var/log/hhvm`. PHP-FPM writes all of its logging information into `/var/log/php5-fpm.log`.
 
-Sometimes, keeping tabs on a log file while hitting a site to view log messages in real-time can be helpful. To do so, run `sudo tail -f [log file]` from your SSH session. For example, `sudo tail -f /var/log/nginx/php.hgv.dev.error.log` would give you an always-updating view of the error log file for the PHP-FPM-based site.
+Sometimes, keeping tabs on a log file while hitting a site to view log messages in real-time can be helpful. To do so, run `sudo tail -f [log file]` from your SSH session. For example, `sudo tail -f /var/log/nginx/[enviro].error.log` would give you an always-updating view of the error log file for the site.
 
 ### Database access ###
-You may easily use the phpMyAdmin installation at [admin.hgv.dev/phpmyadmin/](http://admin.hgv.dev/phpmyadmin/) (as listed above) in order to view and interact with the underlying database. However, if you are used to using a third-party GUI, such as
+You may easily use the phpMyAdmin installation at [admin.hgv.test/phpmyadmin/](http://admin.hgv.test/phpmyadmin/) (as listed above) in order to view and interact with the underlying database. However, if you are used to using a third-party GUI, such as
 [Sequel Pro](http://www.sequelpro.com/) or [MySQL Workbench](http://www.mysql.com/products/workbench/), TCP port 3306 (the MySQL/Percona port) is forwarded from the Vagrant VM to TCP port 23306 on your actual machine. You would then configure MySQL WB or Sequel Pro to connect to `localhost:23306`.
 
 ### Developer tools ###
@@ -221,19 +221,19 @@ define('SAVEQUERIES', true);
 Enabling the Query Monitor WordPress plugin will allow logged-in users to view the useful debug information output by Xdebug, such as number of queries, number of objects, page render time, etc.
 
 ### XHProf ###
-HGV includes an advanced PHP/HHVM profiling tool, [http://php.net/xhprof](http://php.net/xhprof) and a GUI for viewing results. You can view results for your HGV instance at [xhprof.hgv.dev](http://xhprof.hgv.dev).  
+HGV includes an advanced PHP/HHVM profiling tool, [http://php.net/xhprof](http://php.net/xhprof) and a GUI for viewing results. You can view results for your HGV instance at [xhprof.hgv.test](http://xhprof.hgv.test).  
 
 Initially, there will be no profiling data -- you'll need to enable profiling for the various HGV sites. You can enable profiling by passing `_profile=1` to any PHP request on the host. To get started, visit:
 
-* [http://php.hgv.dev/?_profile=1](http://php.hgv.dev/?_profile=1)
-* [http://hhvm.hgv.dev/?_profile=1](http://hhvm.hgv.dev/?_profile=1)
+* [http://php.hgv.test/?_profile=1](http://php.hgv.test/?_profile=1)
+* [http://hhvm.hgv.test/?_profile=1](http://hhvm.hgv.test/?_profile=1)
 
-Passing the `_profile=1` argument to the sites causes XHProf to set a cookie. While this cookie is active, XHProf will attempt to profile all of your page views. Visit a few URLs on your PHP and HHVM sites, then visit [xhprof.hgv.dev](http://xhprof.hgv.dev) again. You should see profiling results displayed for your interactions with the sites.
+Passing the `_profile=1` argument to the sites causes XHProf to set a cookie. While this cookie is active, XHProf will attempt to profile all of your page views. Visit a few URLs on your PHP and HHVM sites, then visit [xhprof.hgv.test](http://xhprof.hgv.test) again. You should see profiling results displayed for your interactions with the sites.
 
 When you want to disable profiling, simply append `_profile=0` to any request, or visit these links:
 
-* [http://php.hgv.dev/?_profile=0](http://php.hgv.dev/?_profile=0)
-* [http://hhvm.hgv.dev/?_profile=0](http://hhvm.hgv.dev/?_profile=0)
+* [http://php.hgv.test/?_profile=0](http://php.hgv.test/?_profile=0)
+* [http://hhvm.hgv.test/?_profile=0](http://hhvm.hgv.test/?_profile=0)
 
 Visiting those links should delete the cookie and disable XHProf.
 
