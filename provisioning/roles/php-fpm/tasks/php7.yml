@@ -31,13 +31,13 @@
   apt: name=php7-nightly state=present
 
 - name: Set PHP 7 bin as default
-  alternatives: name=php path=/usr/bin/php path=/usr/local/php7/bin/php
+  alternatives: name=php link=/usr/bin/php path=/usr/local/php7/bin/php
   when: default_php|default(False) == "php7"
 
 - name: Set PHP 7 config as default
-  alternatives: name=php-config path=/usr/bin/php-config path=/usr/local/php7/bin/php-config
+  alternatives: name=php-config link=/usr/bin/php-config path=/usr/local/php7/bin/php-config
   when: default_php|default(False) == "php7"
 
 - name: Set PHP 7 ize as default
-  alternatives: name=phpize path=/usr/bin/phpize path=/usr/local/php7/bin/phpize
+  alternatives: name=phpize link=/usr/bin/phpize path=/usr/local/php7/bin/phpize
   when: default_php|default(False) == "php7"
