@@ -1,39 +1,37 @@
 ---
 - name: Enable PHP 7 Zend nightly repo
-  apt_repository: repo="deb http://repos.zend.com/zend-server/early-access/php7/repos {{ ansible_lsb.codename }} main" state=present
+  apt_repository: repo="deb http://repos.zend.com/zend-server/early-access/php7/repos ubuntu/" state=present
 
 - name: Install PHP 7 Nightly
-  apt: name=php7-nightly state=present
+  apt: name=php7-nightly state=present force=yes
 
 - name: Copy php init script
   template:
     src: etc/init/php7-fpm.conf
-    dest: /usr/local/php7/etc/php-fpm.conf
-    owner: "{{ web_user }}"
-    group: "{{ web_group }}"
+    dest: /etc/init/php7-fpm.conf
 
 - name: Copy php conf script
   template:
     src: etc/php7/fpm/php-fpm.conf
-    dest: /usr/local/php7/etc/fpm/php-fpm.conf
+    dest: /usr/local/php7/etc/php-fpm.conf
     owner: "{{ web_user }}"
     group: "{{ web_group }}"
 
 - name: Copy php pool.d script
-  template:
-    src: etc/php7/fpm/pool.d/www.conf
-    dest: /usr/local/php7/etc/php7/fpm/pool.d/www.conf
+  copy:
+    src: ../templates/etc/php7/fpm/pool.d/www.conf
+    dest: /usr/local/php7/etc/php-fpm.d/www.conf
     owner: "{{ web_user }}"
     group: "{{ web_group }}"
 
 - name: Set PHP 7 bin as default
   alternatives: name=php path=/usr/bin/php path=/usr/local/php7/bin/php
-  when: default_php == php7
+  when: default_php|default(False) == "php7"
 
 - name: Set PHP 7 config as default
   alternatives: name=php-config path=/usr/bin/php-config path=/usr/local/php7/bin/php-config
-  when: default_php == php7
+  when: default_php|default(False) == "php7"
 
 - name: Set PHP 7 ize as default
   alternatives: name=phpize path=/usr/bin/phpize path=/usr/local/php7/bin/phpize
-  when: default_php == php7
+  when: default_php|default(False) == "php7"
