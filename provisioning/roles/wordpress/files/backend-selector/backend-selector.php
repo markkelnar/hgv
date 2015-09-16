@@ -73,7 +73,7 @@ class BackendPHP
                 'parent' => 'backend_php_link',
                 'id'     => 'backend-php-hhvm',
                 'title'  => 'HHVM',
-                'href'   => $this->poweredByHhvm() ? '' : 'php7.mark.local/#hhvm',
+                'href'   => $this->poweredByHhvm() ? '' : '#hhvm',
         ));
         $wp_admin_bar->add_node( array(
                 'parent' => 'backend_php_link',
