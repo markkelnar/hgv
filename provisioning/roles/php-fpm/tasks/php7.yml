@@ -2,10 +2,14 @@
 - name: Enable PHP 7 Zend nightly repo
   apt_repository: repo="deb http://repos.zend.com/zend-server/early-access/php7/repos ubuntu/" state=present
 
+- name: Install PHP 7 Nightly
+  apt: name=php7-nightly state=present force=yes
+
 - name: Copy php init script
   template:
     src: etc/init/php7-fpm.conf
     dest: /etc/init/php7-fpm.conf
+  notify: php7-fpm restart
 
 - name: Copy php conf script
   template:
@@ -13,6 +17,7 @@
     dest: /usr/local/php7/etc/php-fpm.conf
     owner: "{{ web_user }}"
     group: "{{ web_group }}"
+  notify: php7-fpm restart
 
 - name: Copy php pool.d script
   copy:
@@ -20,15 +25,14 @@
     dest: /usr/local/php7/etc/php-fpm.d/www.conf
     owner: "{{ web_user }}"
     group: "{{ web_group }}"
+  notify: php7-fpm restart
 
 - name: Copy php checkconf script
   template:
     src: etc/php7/checkconf
     dest: /usr/local/lib/php7-fpm-checkconf
-    mode: 0644
-
-- name: Install PHP 7 Nightly
-  apt: name=php7-nightly state=present
+    mode: 0755
+  notify: php7-fpm restart
 
 - name: Set PHP 7 bin as default
   alternatives: name=php link=/usr/bin/php path=/usr/local/php7/bin/php
