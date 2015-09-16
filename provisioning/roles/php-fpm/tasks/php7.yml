@@ -25,6 +25,7 @@
   template:
     src: etc/php7/checkconf
     dest: /usr/local/lib/php7-fpm-checkconf
+    mode: 0644
 
 - name: Install PHP 7 Nightly
   apt: name=php7-nightly state=present
