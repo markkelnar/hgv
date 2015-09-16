@@ -45,6 +45,17 @@ class DefaultWPCest
         $I->seeResponseCodeIs(200);
     }
 
+    // Test that can load the default WP with PHP 7
+    public function viewPagePHP7(AcceptanceTester $I)
+    {
+        $I->setCookie('backend', 'php7');
+        $I->amOnUrl('http://hhvm.hgv.test');
+        $I->amOnPage('/');
+        $I->seeCurrentUrlEquals('/');
+        $I->seeResponseCodeIs(200);
+        $I->assertRegExp('#PHP/7\.(.*)#', $I->grabHttpHeader('X-Powered-By'));
+    }
+
     /**
      * This test will check the file upload size limit in wp-admin media uploader
      */
