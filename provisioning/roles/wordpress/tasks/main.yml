@@ -1,3 +1,4 @@
+---
 - name: "Provision {{ enviro }} WP Databases"
   mysql_db: name="wpe_{{ enviro }}" state=present
 
@@ -75,18 +76,49 @@
   sudo_user: "{{ web_user }}"
   args:
     chdir: "{{ wp_doc_root }}/{{ enviro }}"
-  when: wpnotinstalled.rc
+  when: wpnotinstalled.rc and ( wp.multisite|default(False) == False )
+
+- name: "Run the multisite WP subdomain install for {{ enviro }}"
+  command: /usr/local/bin/wp core multisite-install --url={{ domain }} --title="WP Engine {{ enviro }} Site" --admin_user=wordpress --admin_password=wordpress --admin_email="admin@example.com" --subdomains
+  sudo: yes
+  sudo_user: "{{ web_user }}"
+  args:
+    chdir: "{{ wp_doc_root }}/{{ enviro }}"
+  when: wpnotinstalled.rc and ( wp.multisite|default(False) == "domain" )
+
+- name: "Run the multisite WP subdirectory install for {{ enviro }}"
+  command: /usr/local/bin/wp core multisite-install --url={{ domain }} --title="WP Engine {{ enviro }} Site" --admin_user=wordpress --admin_password=wordpress --admin_email="admin@example.com"
+  sudo: yes
+  sudo_user: "{{ web_user }}"
+  args:
+    chdir: "{{ wp_doc_root }}/{{ enviro }}"
+  when: wpnotinstalled.rc and ( wp.multisite|default(False) == "directory" )
 
 - name: "Install some useful plugins for {{ enviro }}"
   command: /usr/local/bin/wp plugin install {{ item }}
   sudo: yes
   sudo_user: "{{ web_user }}"
-  with_items:
-      - query-monitor
-      - debug-objects
-      - debug-queries
-      - debug-bar
-      - wordpress-importer
+  with_flattened:
+    - "{{ wp.custom_plugins|default([]) }}"
+    - default_plugins
   args:
       chdir: "{{ wp_doc_root }}/{{ enviro }}"
       creates: "{{ wp_doc_root }}/{{ enviro }}/wp-content/plugins/{{ item }}"
+
+- name: "Install useful plugins from VCS repos for {{ enviro }}"
+  command: /usr/local/bin/wp plugin install {{ item.url }}
+  sudo: yes
+  sudo_user: "{{ web_user }}"
+  with_items: "{{ default_repo_plugins }}"
+  args:
+    chdir: "{{ wp_doc_root }}/{{ enviro }}"
+    creates: "{{ wp_doc_root }}/{{ enviro }}/wp-content/plugins/{{ item.slug }}"
+
+- name: "Set up {{ enviro }} virtualhost"
+  template: src=etc/nginx/conf.d/wordpress.conf dest=/etc/nginx/conf.d/www-{{ enviro }}.conf owner=root group=root mode=0644
+  notify: nginx reload
+
+- name: "Enable PML viewing for {{ enviro }} {{ backend }}"
+  template: src=pimpmylog.json dest={{ wp_doc_root }}/admin/logs/config.user.d/{{ enviro }}.json
+  with_items:
+    - "{{ domain }}"

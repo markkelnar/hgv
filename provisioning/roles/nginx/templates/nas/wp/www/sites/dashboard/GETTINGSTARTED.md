@@ -17,7 +17,9 @@ The top level of the directory would contain files and directories like so:
 * bin/ - A place for extra scripts used during provisioning of the Vagrant and WordPress'.
 * hgv_data/ -- User owned data. Gets shared/mounted with the Vagrant.
  * sites/ -- Directory containing each WordPress.
- * config/ -- User owned configuration files, example, custom-sites.yml files used for provisioning sites and domains.
+ * config/ -- User owned configuration files
+ *   sites/ -- User owned WordPress configurations, foo.yml, used for provisioning sites and domains.
+ *   provisioning/ansible.yml -- User owned extra variables imported during vagrant up to the ansible provisioning playbook.
 * provisioning/ -- The ansible provisioning code. Do not edit.
  * default-install.yml -- The configuration for the default installed sites and domains. Do not edit.
 
@@ -32,22 +34,22 @@ Once Vagrant is done provisioning the VM, you will have a box running [Ubuntu 14
 * [Memcached](http://memcached.org/)
 
 ### Sites ###
-HGV automatically creates four sites and adds host file entries for them (*if you installed the `vagrant-hostsupdater` plugin, that is*):
+HGV automatically creates four sites and adds host file entries for them (*if you installed the `vagrant-ghost` plugin, that is*):
 
-* [hgv.dev](http://hgv.dev) -- General documentation and links for all of the tools
-* [hhvm.hgv.dev](http://hhvm.hgv.dev) -- A new WordPress installation running on HHVM
-* [php.hgv.dev](http://php.hgv.dev) -- A new WordPress installation running on PHP-FPM (PHP 5.5)
-* [admin.hgv.dev](http://admin.hgv.dev) -- Useful administrative tools (phpMyAdmin, etc.)
+* [hgv.test](http://hgv.test) -- General documentation and links for all of the tools
+* [hhvm.hgv.test](http://hhvm.hgv.test) -- A new WordPress installation running on HHVM
+* [php.hgv.test](http://php.hgv.test) -- A new WordPress installation running on PHP-FPM (PHP 5.5)
+* [admin.hgv.test](http://admin.hgv.test) -- Useful administrative tools (phpMyAdmin, etc.)
 
-If you did *not* install the `vagrant-hostsupdater` plugin, you will need to manually [add](http://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/) the following host entries to your host operating system's host files:
+If you did *not* install the `vagrant-ghost` plugin, you will need to manually [add](http://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/) the following host entries to your host operating system's host files:
 
 ```
-192.168.150.20 hgv.dev
-192.168.150.20 admin.hgv.dev
-192.168.150.20 hhvm.hgv.dev
-192.168.150.20 php.hgv.dev
-192.168.150.20 cache.hhvm.hgv.dev
-192.168.150.20 cache.php.hgv.dev
+192.168.150.20 hgv.test
+192.168.150.20 admin.hgv.test
+192.168.150.20 hhvm.hgv.test
+192.168.150.20 php.hgv.test
+192.168.150.20 cache.hhvm.hgv.test
+192.168.150.20 cache.php.hgv.test
 ```
 
 ## WordPress Installations ##
@@ -55,11 +57,11 @@ If you did *not* install the `vagrant-hostsupdater` plugin, you will need to man
 ### Default Installs ###
 There is one default WordPress installation provided and accessible at two domains. The provisioning details for this WordPress can be found in the file `provisioning/default-install.yml`.
 
-#### hhvm.hgv.dev ####
-[hhvm.hgv.dev](http://hhvm.hgv.dev) is a basic WordPress install running the latest stable version of WordPress on top of an Nginx + HHVM + Percona DB stack.
+#### hhvm.hgv.test ####
+[hhvm.hgv.test](http://hhvm.hgv.test) is a basic WordPress install running the latest stable version of WordPress on top of an Nginx + HHVM + Percona DB stack.
 
-#### php.hgv.dev ####
-[php.hgv.dev](http://php.hgv.dev) is a basic WordPress install running the latest stable version of WordPress on a fairly standard [LEMP stack](https://lemp.io/) consisting of Nginx, PHP-FPM and Percona DB.
+#### php.hgv.test ####
+[php.hgv.test](http://php.hgv.test) is a basic WordPress install running the latest stable version of WordPress on a fairly standard [LEMP stack](https://lemp.io/) consisting of Nginx, PHP-FPM and Percona DB.
 
 ### Database Access ###
 Both have an admin user `wordpress` with a password `wordpress` (so secure!) already created.
@@ -83,15 +85,15 @@ Installing new plugins and themes is as simple as putting themes in `[HGV direct
 ### The Provision File ###
 Let HGV provision your WordPress for you.
 
-1. Copy provisioning/default-install.yml to hgv_data/config/foo.yml.
+1. Copy provisioning/default-install.yml to hgv_data/config/sites/foo.yml.
 2. Change the `enviro` variable to the docroot of where your WordPress lives under `[HGV directory]/hgv_data/sites/`, ie 'foo'. If the directory does not exist when provisioning is executed, it will be created and the latest stable version or WordPress installed.
 3. Edit the domain lists to be the domain(s) you want setup for the WordPress residing in the Vagrant. Domains listed under `hhvm_domains` will be served by HHVM.  Those listed under `php_domains` will be served by the PHP-FPM service.
 
-If you did not install the vagrant-hostsupdater plugin, you will need to manually add the domains to your host operating system’s host files. See the example [above](/#mercury-vagrant-hgv-what-you-get-sites).
+If you did not install the vagrant-ghost plugin, you will need to manually add the domains to your host operating system’s host files. See the example [above](/#mercury-vagrant-hgv-what-you-get-sites).
 
 ### Example ###
 
-hgv_data/config/foo.yml
+hgv_data/config/sites/foo.yml
 
 ```
 ---
@@ -107,15 +109,38 @@ wp:
 ### Provision ###
 After editing or adding a new configuration, for the changes to take effect, you must run `vagrant provision` on an already provisioned environment.
 
+### Multisite ###
+
+If your WordPress is a multisite, it requires certain configurations in the environment to know this is what you want.  So, in your YAML config file, add the *multisite* option with value 'domain' for subdomain or 'directory' for subdirectory.  Then re-provision the vagrant.
+
+Adding, removing or changing this option does not convert an existing WordPress to or from being a multisite.
+
+```
+wp:
+  ...
+  multisite: domain
+```
+
+### Extra Plugins Installed ###
+
+Have plugins that you want installed on disk with your WordPress?  Want that install done automatically when HGV is provisioned? If so, add the *custom_plugins* option to your custom YAML file along with the name of the plugin as it exists in the WordPress repository.  It's that simple.
+
+```
+wp:
+  ...
+  custom_plugins:
+    - akismet
+    - wordpress-seo
+```
 
 ## Admin Tools ##
 HGV contains several useful tools for gathering system state and for administering individual aspects of the system.
 
 ### Database ###
-phpMyAdmin is available at [admin.hgv.dev/phpmyadmin/](http://admin.hgv.dev/phpmyadmin/). The username is `root` and the  password is blank.
+phpMyAdmin is available at [admin.hgv.test/phpmyadmin/](http://admin.hgv.test/phpmyadmin/). The username is `root` and the  password is blank.
 
 ### Object Cache/Memcached ###
-phpMemcachedAdmin is available at [admin.hgv.dev/phpmemcachedadmin/](http://admin.hgv.dev/phpmemcachedadmin/). You may use this tool to check on the status of the WordPress [object cache](http://codex.wordpress.org/Class_Reference/WP_Object_Cache).
+phpMemcachedAdmin is available at [admin.hgv.test/phpmemcachedadmin/](http://admin.hgv.test/phpmemcachedadmin/). You may use this tool to check on the status of the WordPress [object cache](http://codex.wordpress.org/Class_Reference/WP_Object_Cache).
 
 ## Development and debugging ##
 ### Command line (CLI) access ###
@@ -153,18 +178,18 @@ Once you are connected to the HGV virtual machine, system and web server logs ca
 
 Web server logs are stored in `/var/log/nginx`, with separate log files for every site. Each site has several log files associated with it:
 
-* `[site].hgv.dev.access.log`
-* `[site].hgv.dev.apachestyle.access.log`
-* `[site].hgv.dev.error.log`
+* `[enviro].access.log`
+* `[enviro].apachestyle.access.log`
+* `[enviro].error.log`
 
 The first two logs track web requests to the sites, while the third log tracks errors reported, both by Nginx and by "upstream" PHP and HHVM processes.
 
 HHVM logs are in `/var/log/hhvm`. PHP-FPM writes all of its logging information into `/var/log/php5-fpm.log`.
 
-Sometimes, keeping tabs on a log file while hitting a site to view log messages in real-time can be helpful. To do so, run `sudo tail -f [log file]` from your SSH session. For example, `sudo tail -f /var/log/nginx/php.hgv.dev.error.log` would give you an always-updating view of the error log file for the PHP-FPM-based site.
+Sometimes, keeping tabs on a log file while hitting a site to view log messages in real-time can be helpful. To do so, run `sudo tail -f [log file]` from your SSH session. For example, `sudo tail -f /var/log/nginx/[enviro].error.log` would give you an always-updating view of the error log file for the site.
 
 ### Database access ###
-You may easily use the phpMyAdmin installation at [admin.hgv.dev/phpmyadmin/](http://admin.hgv.dev/phpmyadmin/) (as listed above) in order to view and interact with the underlying database. However, if you are used to using a third-party GUI, such as
+You may easily use the phpMyAdmin installation at [admin.hgv.test/phpmyadmin/](http://admin.hgv.test/phpmyadmin/) (as listed above) in order to view and interact with the underlying database. However, if you are used to using a third-party GUI, such as
 [Sequel Pro](http://www.sequelpro.com/) or [MySQL Workbench](http://www.mysql.com/products/workbench/), TCP port 3306 (the MySQL/Percona port) is forwarded from the Vagrant VM to TCP port 23306 on your actual machine. You would then configure MySQL WB or Sequel Pro to connect to `localhost:23306`.
 
 ### Developer tools ###
@@ -196,22 +221,51 @@ define('SAVEQUERIES', true);
 Enabling the Query Monitor WordPress plugin will allow logged-in users to view the useful debug information output by Xdebug, such as number of queries, number of objects, page render time, etc.
 
 ### XHProf ###
-HGV includes an advanced PHP/HHVM profiling tool, [http://php.net/xhprof](http://php.net/xhprof) and a GUI for viewing results. You can view results for your HGV instance at [xhprof.hgv.dev](http://xhprof.hgv.dev).  
+HGV includes an advanced PHP/HHVM profiling tool, [http://php.net/xhprof](http://php.net/xhprof) and a GUI for viewing results. You can view results for your HGV instance at [xhprof.hgv.test](http://xhprof.hgv.test).  
 
 Initially, there will be no profiling data -- you'll need to enable profiling for the various HGV sites. You can enable profiling by passing `_profile=1` to any PHP request on the host. To get started, visit:
 
-* [http://php.hgv.dev/?_profile=1](http://php.hgv.dev/?_profile=1)
-* [http://hhvm.hgv.dev/?_profile=1](http://hhvm.hgv.dev/?_profile=1)
+* [http://php.hgv.test/?_profile=1](http://php.hgv.test/?_profile=1)
+* [http://hhvm.hgv.test/?_profile=1](http://hhvm.hgv.test/?_profile=1)
 
-Passing the `_profile=1` argument to the sites causes XHProf to set a cookie. While this cookie is active, XHProf will attempt to profile all of your page views. Visit a few URLs on your PHP and HHVM sites, then visit [xhprof.hgv.dev](http://xhprof.hgv.dev) again. You should see profiling results displayed for your interactions with the sites.
+Passing the `_profile=1` argument to the sites causes XHProf to set a cookie. While this cookie is active, XHProf will attempt to profile all of your page views. Visit a few URLs on your PHP and HHVM sites, then visit [xhprof.hgv.test](http://xhprof.hgv.test) again. You should see profiling results displayed for your interactions with the sites.
 
 When you want to disable profiling, simply append `_profile=0` to any request, or visit these links:
 
-* [http://php.hgv.dev/?_profile=0](http://php.hgv.dev/?_profile=0)
-* [http://hhvm.hgv.dev/?_profile=0](http://hhvm.hgv.dev/?_profile=0)
+* [http://php.hgv.test/?_profile=0](http://php.hgv.test/?_profile=0)
+* [http://hhvm.hgv.test/?_profile=0](http://hhvm.hgv.test/?_profile=0)
 
 Visiting those links should delete the cookie and disable XHProf.
 
+
+## Overriding environment defaults ##
+
+### Maintain your own overrides file ###
+
+1) Add YAML formatted file in hgv_data/config/provisioning/ansible.yml containing the ansible variable(s) you wish to override.
+
+2) After editing or adding a new configuration, for the changes to take effect, you must run `vagrant provision`.
+
+### Example ###
+
+This is an example of changing the max file upload size allowed by Nginx, HHVM, PHP-FPM and the WordPress.
+
+```
+---
+file_upload_max_size: 50
+```
+
+### Cookie to toggle the backend ###
+
+Don't want to configure both domains for each WordPress' backend processor?  But still want to be able to flip between HHVM and PHP? Have a multisite WordPress which makes it difficult to add domains for each backend processor?
+
+Use a browser cookie to specify the backend. 
+
+The name of the cookie is 'backend'. It accepts values `hhvm` or `php`. If the cookie does not exist or contains something other than the accepted values, it will be ignored and the mapped domain from the [provision file](/#mercury-vagrant-hgv-add-my-own-wordpress-the-provision-file) will be used.
+
+This is specific to the HGV development environment.  This cookie feature is not available for Mercury production.
+
+**TODO:** Add a drop in plugin that allows the user to toggle the cookie via the HGV dashbaord or in WP Admin for a site.
 
 ## FAQs ##
 

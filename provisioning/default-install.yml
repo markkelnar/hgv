@@ -1,10 +1,8 @@
-# DO NOT EDIT: Default WP install and domains for HGV. Instead, copy to a new file under hgv_data/config/.
+# DO NOT EDIT: Default WP install and domains for HGV. Instead, copy to a new file under hgv_data/config/sites/.
 ---
 wp:
   enviro: hhvm
   hhvm_domains:
-    - hhvm.hgv.dev
     - hhvm.hgv.test
   php_domains:
-    - php.hgv.dev
     - php.hgv.test

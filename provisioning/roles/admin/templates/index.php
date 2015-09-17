@@ -20,6 +20,8 @@
         <li><a href="/phpmyadmin">phpmyadmin</a> - web UI for accessing the MySQL database</li>
         <li><a href="/phpmemcachedadmin">Memcached Admin</a> - web UI for viewing the current status of the Memcached daemon</li>
         <li><a href="/logs">PML</a> - web log viewer for examining web server access and error logs</li>
+        <li><a href="/phpinfo.php">phpinfo.php</a> - standard information about the installed PHP version</li>
+        <li><a href="/hhvminfo.php">hhvminfo.php</a> - standard information about the installed HHVM version</li>
     </ul>
 
 </body>

@@ -170,3 +170,14 @@
     update: no
     accept_hostkey: yes
   tags: [ 'admin', 'webgrind' ]
+
+#
+# Info Template setup
+#
+- name: Setup phpinfo.php
+  template: src=phpinfo.php dest={{ wp_doc_root }}/admin/phpinfo.php owner={{ web_user }} group={{ web_group }}
+  tags: [ 'admin', 'info' ]
+
+- name: Setup hhvminfo.php
+  template: src=hhvminfo.php dest={{ wp_doc_root }}/admin/hhvminfo.php owner={{ web_user }} group={{ web_group }}
+  tags: [ 'admin', 'info' ]
