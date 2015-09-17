@@ -1,5 +1,93 @@
 # Mercury Vagrant Changelog
 
+## 1.4 (2015-09-17)
+
+ * 2015-09-15 Stephen Lin: Add Contributor
+ * 2015-08-31 Mark Kelnar: Remove references to hgv.dev in favor of hgv.test
+ * 2015-08-31 Mark Kelnar: Add documentation about the cookie
+ * 2015-08-27 Mark Kelnar: Add support for PHP backend to be specified by cookie
+ * 2015-08-24 Mark Kelnar: Add multisite domain and directory provisioning in ansible
+ * 2015-08-24 Eric Mann: Use a static tag instead of master
+ * 2015-08-24 Eric Mann: Update script location to `/hgv_data/config/sites` for consistency with #216
+ * 2015-08-24 Eric Mann: Update docs
+ * 2015-08-24 Eric Mann: Update Vagrantfile
+ * 2015-08-24 Eric Mann: Update GETTINGSTARTED docs
+ * 2015-08-24 Eric Mann: Add VMWare Support
+ * 2015-08-23 Eric Mann: Use `/hgv_data/config/sites`
+ * 2015-08-23 Eric Mann: Update usage to return an object so we can bundle multiple scripts.
+ * 2015-08-23 Eric Mann: Make scripts executable
+ * 2015-08-21 Mark Kelnar: Check for deprecated yml config file and print
+ * 2015-08-21 Eric Mann: Wire up the Git mechanisms for pushing within Vagrant
+ * 2015-08-21 Eric Mann: Make sure scripts are executable
+ * 2015-08-21 Eric Mann: Add an error message
+ * 2015-08-21 Eric Mann: Add Git wrapper for executing commands
+ * 2015-08-19 Mark Kelnar: Reference new location for user custom config files
+ * 2015-08-19 Mark Kelnar: Document the custom-plugins provisioning list
+ * 2015-08-19 Mark Kelnar: Add test for file upload size
+ * 2015-08-18 Mark Kelnar: Use Nginx port variable in a few places. Remove unused legacy file
+ * 2015-08-18 Mark Kelnar: Map domains to host variable not http_host
+ * 2015-08-18 Mark Kelnar: Extract varnish vcl template to a variable. Add support for an imported ansible.yml file for variable overrides
+ * 2015-08-18 Mark Kelnar: Add support for extra vars overrides
+ * 2015-08-18 Mark Kelnar: Add documentation to dashboard
+ * 2015-08-18 Mark Kelnar: Add documentation about the multisite config flag
+ * 2015-08-18 Mark Kelnar: Add a varnish test
+ * 2015-08-17 Mark Kelnar: Add multisite WP tests
+ * 2015-08-15 Eric Mann: Replace sync method with async method
+ * 2015-08-15 Eric Mann: Properly load config files using promises to protect async operations
+ * 2015-08-15 Eric Mann: Install the phpinfo and hhvminfo files
+ * 2015-08-15 Eric Mann: Don't Overwrite Constant
+ * 2015-08-15 Eric Mann: Begin wiring scripts for environment selection and deploy pushing.
+ * 2015-08-15 Eric Mann: Add template files
+ * 2015-08-15 Eric Mann: Add Info files to Admin Area
+ * 2015-08-13 Eric Mann: Add space below the header
+ * 2015-08-12 Mark Kelnar: Add Wp multisite nginx configs and conditional include.
+ * 2015-08-08 Eric Mann: Update docs explaining Vagrant version switching
+ * 2015-08-08 Eric Mann: Update Config Locations and Usage
+ * 2015-08-08 Eric Mann: Remove .mercuryrc from gitignore
+ * 2015-08-08 Eric Mann: Move scripts around to make things a bit more consistent
+ * 2015-08-04 Eric Mann: Remove bulky node modules and move package.json to the root
+ * 2015-08-04 Eric Mann: Ignore node_modules
+ * 2015-08-04 Eric Mann: Enable Customfile Overrides
+ * 2015-08-04 Eric Mann: Document Node dependency
+ * 2015-07-24 Eric Mann: Add VM name
+ * 2015-07-23 Mark Kelnar: Use join to build domain names
+ * 2015-07-23 Mark Kelnar: Fix codeception tests about nginx log changes
+ * 2015-07-23 Jeremy Pry: Create separate task for VCS plugins
+ * 2015-07-21 Eric Mann: Make sure bundled keys aren't CRLF'ed upon checkout.
+ * 2015-07-20 Jeremy Pry: Add Amazon S3 plugin to the list
+ * 2015-07-16 Eric Mann: Wire in prompts
+ * 2015-07-16 Eric Mann: Move the node dependency to the right location
+ * 2015-07-16 Eric Mann: Make sure scripts are executable as-is.
+ * 2015-07-16 Eric Mann: Make sure our arrays are properly de-duped
+ * 2015-07-16 Eric Mann: Add prompts
+ * 2015-07-15 Mark Kelnar: Update details of how top invoke these tests
+ * 2015-07-15 Mark Kelnar: Add initial codecept tests for log file checks
+ * 2015-07-14 Mark Kelnar: Remove files of the old format in favor of the new
+ * 2015-07-14 Mark Kelnar: Add cache config files that shouldn't exist anymore
+ * 2015-07-14 Eric Mann: Update start script to auto-detect rc file
+ * 2015-07-14 Eric Mann: Ignore the rc file
+ * 2015-07-14 Eric Mann: Begin pulling the script together with bundled dependencies
+ * 2015-07-14 Eric Mann: Add YAML parsing and writing
+ * 2015-07-14 Doug Stewart: Allow for custom plugin listings to be added to individual HGV instances.
+ * 2015-07-09 Mark Kelnar: Enable and specify file upload size in hhvm
+ * 2015-06-29 Mark Kelnar: Refactor to use nginx maps to associate domains to backend
+ * 2015-06-29 Mark Kelnar: Change PimpMyLog for new nginx log name
+ * 2015-06-29 Mark Kelnar: Accidental drop of items from PML
+ * 2015-06-25 Mark Kelnar: Describe the workflow, develop branch and hotfixes
+ * 2015-06-25 Mark Kelnar: Clarify the testing expectations
+ * 2015-06-25 Mark Kelnar: Add sudo and some documentation to the scripts
+ * 2015-06-24 Jon Brown: Update README.md
+ * 2015-06-19 Mark Kelnar: Move comment to group_vars file
+ * 2015-06-18 Mark Kelnar: Increase file upload size settings for nginx and php
+ * 2015-06-01 Eric Mann: Ensure we're checking versions
+ * 2015-06-01 Eric Mann: Enable Hyper-V as a Provider
+ * 2015-05-28 Doug Stewart: First pass at a basic Mac/Linux script.
+ * 2015-05-27 Doug Stewart: Want to encourage use for WP and non-WP.
+ * 2015-05-27 Doug Stewart: Break WP into separate provisioning script.
+ * 2015-05-27 Doug Stewart: Abstract config file locations into variables for easier re-use/alteration later.
+ * 2015-05-22 miya0001: ran severspec-init and update .gitignore
+ * 2015-05-22 miya0001: add serverspec tests
+
 ## 1.3 (2015-06-18)
 
  * 2015-06-18 Mark Kelnar: Add .test domains to nginx configs for hgv tools
