@@ -29,10 +29,11 @@ var messages = [ '' ];
  * @param {String}   minVersion Minimum version allowed
  * @param {String}   command    Command line instruction to fetch the version
  * @param {Function} [filter]   Optional filter callback
+ * @param {Function} [onError]  Optional error handler when tool is not installed
  *
  * @returns {Promise}
  */
-function checkDependency( name, minVersion, command, filter ) {
+function checkDependency( name, minVersion, command, filter, onError ) {
 	if ( undefined === filter ) {
 		filter = semver.clean;
 	}
@@ -41,6 +42,10 @@ function checkDependency( name, minVersion, command, filter ) {
 		var check = exec( command, function( err, stdout, stderr ) {
 			if ( err ) {
 				messages.push( chalk.red( util.format( 'No installation of %s is detected!', name ) ) );
+
+				if ( onError ) {
+					onError.apply( null, [name] );
+				}
 			} else {
 				var version = filter.apply( null, [stdout] );
 
@@ -57,32 +62,12 @@ function checkDependency( name, minVersion, command, filter ) {
 }
 
 /**
- * Check VirtualBox requirements.
- *
- * @returns {Promise}
+ * Hyper-V users don't necessarily need VirtualBox, so let's make sure we let them know that.
  */
-function checkVM() {
-	return new Promise( function( fulfill, reject ) {
-		var vm_check = exec( 'VBoxManage --version', function( err, stdout, stderr ) {
-			if ( err ) {
-				messages.push( chalk.red( 'No installation of VirtualBox is detected!' ) );
-				if ( /^win/.test( process.platform ) ) {
-					messages.push( chalk.gray( 'You appear to be on Windows. If Hyper-V is enabled, you\'re good to go.' ) );
-				}
-			} else {
-				var vboxVer = stdout.trim(), // `--version` returns just the version number and a newline
-					minRequired = '4.3.20';
-
-				if ( compareVersion( minRequired, vboxVer ) > 0 ) {
-					messages.push( chalk.red( util.format( 'VirtualBox v%s is installed. You need at least v%s!', vboxVer, minRequired ) ) );
-				} else {
-					messages.push( chalk.green( util.format( 'VirtualBox v%s looks good!', vboxVer ) ) );
-				}
-			}
-		} );
-
-		vm_check.on( 'close', fulfill );
-	} );
+function windowsTest() {
+	if ( /^win/.test( process.platform ) ) {
+		messages.push( chalk.gray( 'You appear to be on Windows. If Hyper-V is enabled, you\'re good to go.' ) );
+	}
 }
 
 /**
@@ -109,9 +94,9 @@ function complete() {
  */
 Promise.all(
 	[
-		checkDependency( 'Vagrant', '1.7.4', 'vagrant -v', function( raw ) { return semver.clean( raw.replace( /vagrant/i, '' ) ); } ),
-		checkVM(),
-		checkDependency( 'Node', '0.12.7', 'node -v' ),
-		checkDependency( 'Git', '1.9.3', 'git --version', function( raw ) { return semver.clean( raw.trim().replace( /git version/i, '' ).split( '.' ).slice( 0, 3 ).join( '.' ) ); } )
+		checkDependency( 'Vagrant',    '1.7.4',  'vagrant -v',           function( raw ) { return semver.clean( raw.replace( /vagrant/i, '' ) ); } ),
+		checkDependency( 'VirtualBox', '4.3.20', 'VBoxManage --version', function( raw ) { return raw.trim(); }, windowsTest ),
+		checkDependency( 'Node',       '0.12.7', 'node -v' ),
+		checkDependency( 'Git',        '1.9.3',  'git --version',        function( raw ) { return semver.clean( raw.trim().replace( /git version/i, '' ).split( '.' ).slice( 0, 3 ).join( '.' ) ); } )
 	] )
 	.then( complete );
