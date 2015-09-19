@@ -1,5 +1,5 @@
 /**
- * Hgv YAML Configuration Generator
+ * HGV YAML Configuration Generator
  *
  * @author WPEngine
  */
