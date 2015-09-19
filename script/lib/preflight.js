@@ -12,6 +12,7 @@
 var exec = require( 'child_process' ).exec,
 	chalk = require( 'chalk' ),
 	compareVersion = require( 'compare-version' ),
+	semver = require( 'semver' ),
 	util = require( 'util' ),
 	Promise = require( 'promise' ),
 	error = require( './error' );
@@ -44,9 +45,8 @@ function parseVersion( raw ) {
  */
 function checkDependency( name, minVersion, command, filter ) {
 	if ( undefined === filter ) {
-		filter = function( raw ) {
-			return raw.replace( /[^\d|^\.]/g, '' );
-		};
+		console.log( 'default filter' );
+		filter = semver.clean;
 	}
 
 	return new Promise( function( fulfill, reject ) {
@@ -121,9 +121,9 @@ function complete() {
  */
 Promise.all(
 	[
-		checkDependency( 'Vagrant', '1.7.4', 'vagrant -v' ),
+		checkDependency( 'Vagrant', '1.7.4', 'vagrant -v', function( raw ) { return semver.clean( raw.replace( /vagrant/i, '' ) ); } ),
 		checkVM(),
 		checkDependency( 'Node', '0.12.7', 'node -v' ),
-		checkDependency( 'Git', '1.9.3', 'git --version' )
+		checkDependency( 'Git', '1.9.3', 'git --version', function( raw ) { return semver.clean( raw.trim().replace( /git version/i, '' ).split( '.' ).slice( 0, 3 ).join( '.' ) ); } )
 	] )
 	.then( complete );
