@@ -118,6 +118,34 @@ function checkNode() {
 }
 
 /**
+ * Ensure we're running the right version of Git.
+ *
+ * @uses parseVersion `git --version` returns something like "git version 1.9.5.msysgit.0" so we need to strip the non-numeric characters
+ *
+ * @returns {Promise}
+ */
+function checkGit() {
+	return new Promise( function( fulfill, reject ) {
+		var git_check = exec( 'git --version', function( err, stdout, stderr ) {
+			if ( err ) {
+				messages.push( chalk.red( 'No installation of Git is detected!' ) );
+			} else {
+				var gitVer = parseVersion( stdout ),
+					minRequired = '1.9.3';
+
+				if ( compareVersion( minRequired, gitVer ) > 0 ) {
+					messages.push( chalk.red( util.format(  'Git v%s is installed. You need at least v%s!', gitVer, minRequired ) ) );
+				} else {
+					messages.push( chalk.green( util.format( 'Git v%s looks good!', gitVer ) ) );
+				}
+			}
+		} );
+
+		git_check.on( 'close', fulfill );
+	} );
+}
+
+/**
  * Let the user know that preflight is complete.
  */
 function complete() {
@@ -139,5 +167,5 @@ function complete() {
 /**
  * Check system compatibility
  */
-Promise.all( [ checkVagrant(), checkVM(), checkNode() ] )
+Promise.all( [ checkVagrant(), checkVM(), checkNode(), checkGit() ] )
 	.then( complete );
