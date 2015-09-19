@@ -33,30 +33,38 @@ function parseVersion( raw ) {
 }
 
 /**
- * Ensure we're running the right version of Vagrant.
+ * Test a dependency to make sure the minimum version is installed.
  *
- * @uses parseVersion `vagrant -v` returns something like "Vagrant 1.7.4" so we need to strip the string
+ * @param {String}   name       Name of the dependency to test
+ * @param {String}   minVersion Minimum version allowed
+ * @param {String}   command    Command line instruction to fetch the version
+ * @param {Function} [filter]   Optional filter callback
  *
  * @returns {Promise}
  */
-function checkVagrant() {
-	return new Promise( function( fulfill, reject ) {
-		var vagrant_check = exec( 'vagrant -v', function( err, stdout, stderr ) {
-			if ( err ) {
-				messages.push( chalk.red( 'No installation of Vagrant is detected!' ) );
-			} else {
-				var vagrantVer = parseVersion( stdout ),
-					minRequired = '1.7.2';
+function checkDependency( name, minVersion, command, filter ) {
+	if ( undefined === filter ) {
+		filter = function( raw ) {
+			return raw.replace( /[^\d|^\.]/g, '' );
+		};
+	}
 
-				if ( compareVersion( minRequired, vagrantVer ) > 0 ) {
-					messages.push( chalk.red( util.format( 'Vagrant v%s is installed. You need at least v%s!', vagrantVer, minRequired ) ) );
+	return new Promise( function( fulfill, reject ) {
+		var check = exec( command, function( err, stdout, stderr ) {
+			if ( err ) {
+				messages.push( chalk.red( util.format( 'No installation of %s is detected!', name ) ) );
+			} else {
+				var version = filter.apply( null, [stdout] );
+
+				if ( compareVersion( minVersion, version ) > 0 ) {
+					messages.push( chalk.red( util.format( '%s v%s is installed. You need at least v%s!', name, version, minVersion ) ) );
 				} else {
-					messages.push( chalk.green( util.format( 'Vagrant v%s looks good!', vagrantVer )  ) );
+					messages.push( chalk.green( util.format( '%s v%s looks good!', name, version ) ) );
 				}
 			}
 		} );
 
-		vagrant_check.on( 'close', fulfill );
+		check.on( 'close', fulfill );
 	} );
 }
 
@@ -90,62 +98,6 @@ function checkVM() {
 }
 
 /**
- * Ensure we're running the right version of Node.
- *
- * @uses parseVersion `node -v` returns something like "v0.12.7" so we need to strip the non-numeric character
- *
- * @returns {Promise}
- */
-function checkNode() {
-	return new Promise( function( fulfill, reject ) {
-		var node_check = exec( 'node -v', function( err, stdout, stderr ) {
-			if ( err ) {
-				messages.push( chalk.red( 'No installation of Node is detected - which is bizarre as this is a Node app!' ) );
-			} else {
-				var nodeVer = parseVersion( stdout ),
-					minRequired = '0.12.7';
-
-				if ( compareVersion( minRequired, nodeVer ) > 0 ) {
-					messages.push( chalk.red( util.format(  'Node v%s is installed. You need at least v%s!', nodeVer, minRequired ) ) );
-				} else {
-					messages.push( chalk.green( util.format( 'Node v%s looks good!', nodeVer ) ) );
-				}
-			}
-		} );
-
-		node_check.on( 'close', fulfill );
-	} );
-}
-
-/**
- * Ensure we're running the right version of Git.
- *
- * @uses parseVersion `git --version` returns something like "git version 1.9.5.msysgit.0" so we need to strip the non-numeric characters
- *
- * @returns {Promise}
- */
-function checkGit() {
-	return new Promise( function( fulfill, reject ) {
-		var git_check = exec( 'git --version', function( err, stdout, stderr ) {
-			if ( err ) {
-				messages.push( chalk.red( 'No installation of Git is detected!' ) );
-			} else {
-				var gitVer = parseVersion( stdout ),
-					minRequired = '1.9.3';
-
-				if ( compareVersion( minRequired, gitVer ) > 0 ) {
-					messages.push( chalk.red( util.format(  'Git v%s is installed. You need at least v%s!', gitVer, minRequired ) ) );
-				} else {
-					messages.push( chalk.green( util.format( 'Git v%s looks good!', gitVer ) ) );
-				}
-			}
-		} );
-
-		git_check.on( 'close', fulfill );
-	} );
-}
-
-/**
  * Let the user know that preflight is complete.
  */
 function complete() {
@@ -167,5 +119,11 @@ function complete() {
 /**
  * Check system compatibility
  */
-Promise.all( [ checkVagrant(), checkVM(), checkNode(), checkGit() ] )
+Promise.all(
+	[
+		checkDependency( 'Vagrant', '1.7.4', 'vagrant -v' ),
+		checkVM(),
+		checkDependency( 'Node', '0.12.7', 'node -v' ),
+		checkDependency( 'Git', '1.9.3', 'git --version' )
+	] )
 	.then( complete );
