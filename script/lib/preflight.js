@@ -23,17 +23,6 @@ var exec = require( 'child_process' ).exec,
 var messages = [ '' ];
 
 /**
- * Convert non-standard version strings to something we can use in comparisons.
- *
- * @param {String} raw
- *
- * @returns {String}
- */
-function parseVersion( raw ) {
-	return raw.replace( /[^\d|^\.]/g, '' );
-}
-
-/**
  * Test a dependency to make sure the minimum version is installed.
  *
  * @param {String}   name       Name of the dependency to test
@@ -45,7 +34,6 @@ function parseVersion( raw ) {
  */
 function checkDependency( name, minVersion, command, filter ) {
 	if ( undefined === filter ) {
-		console.log( 'default filter' );
 		filter = semver.clean;
 	}
 
