@@ -10,6 +10,7 @@
  * Module dependencies
  */
 var exec = require( 'child_process' ).exec,
+	os = require( 'os' ),
 	chalk = require( 'chalk' ),
 	compareVersion = require( 'compare-version' ),
 	semver = require( 'semver' ),
@@ -70,6 +71,42 @@ function windowsTest() {
 	}
 }
 
+function checkGhost() {
+	return new Promise( function( fulfill, reject ) {
+		var check = exec( 'vagrant plugin list', function( err, stdout, stderr ) {
+			if ( err ) {
+				messages.push( chalk.red( 'Unable to detect any Vagrant plugins.' ) );
+			} else {
+				var hasGhost = false,
+					ghostVersion,
+					minVersion = '0.2.1',
+					plugins = stdout.split( os.EOL );
+
+				for ( var i = 0; i < plugins.length; i++ ) {
+					var plugin = plugins[ i ];
+
+					if ( plugin.indexOf( 'vagrant-ghost' ) === 0 ) {
+						hasGhost = true;
+						ghostVersion = semver.clean( plugin.trim().replace( /vagrant-ghost/i, '' ).replace( /\(|\)/g, '' ) );
+					}
+				}
+
+				if ( ! hasGhost ) {
+					messages.push( chalk.gray( 'The Vagrant Ghost plugin (recommended) was not detected!' ) );
+				} else {
+					if ( compareVersion( minVersion, ghostVersion ) > 0 ) {
+						messages.push( chalk.red( util.format( 'Vagrant Ghost v%s is installed. You need at least v%s!', ghostVersion, minVersion ) ) );
+					} else {
+						messages.push( chalk.green( util.format( 'Vagrant Ghost v%s looks good!', ghostVersion ) ) );
+					}
+				}
+			}
+		} );
+
+		check.on( 'close', fulfill );
+	} );
+}
+
 /**
  * Let the user know that preflight is complete.
  */
@@ -97,6 +134,7 @@ Promise.all(
 		checkDependency( 'Vagrant',    '1.7.4',  'vagrant -v',           function( raw ) { return semver.clean( raw.replace( /vagrant/i, '' ) ); } ),
 		checkDependency( 'VirtualBox', '4.3.20', 'VBoxManage --version', function( raw ) { return raw.trim(); }, windowsTest ),
 		checkDependency( 'Node',       '0.12.7', 'node -v' ),
-		checkDependency( 'Git',        '1.9.3',  'git --version',        function( raw ) { return semver.clean( raw.trim().replace( /git version/i, '' ).split( '.' ).slice( 0, 3 ).join( '.' ) ); } )
+		checkDependency( 'Git',        '1.9.3',  'git --version',        function( raw ) { return semver.clean( raw.trim().replace( /git version/i, '' ).split( '.' ).slice( 0, 3 ).join( '.' ) ); } ),
+		checkGhost()
 	] )
 	.then( complete );
