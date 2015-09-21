@@ -23,8 +23,8 @@ var exec = require( 'child_process' ).exec,
  */
 var messages = [ ''],
 	symbols = {
-		ok : '?',
-		err: '?'
+		ok : '✓',
+		err: '✖'
 	};
 
 if ( /^win/.test( process.platform ) ) {
