@@ -3,10 +3,9 @@
 Plugin Name: PHP Toggle Admin Menu
 Plugin URI: http://wpengine.com
 Description: Toggle the backend PHP processor
-Version: 0.1
+Version: 0.2
 Author: Mark Kelnar
 
-wp_enqueue_script( 'backendphp', '/wp-content/mu-plugins/backend-selector/js/selector.js', array(), false, true );
 */
 
 namespace wpengine;
@@ -74,18 +73,21 @@ class BackendPHP
                 'id'     => 'backend-php-hhvm',
                 'title'  => 'HHVM',
                 'href'   => $this->poweredByHhvm() ? '' : '#hhvm',
+                'meta'   => array('rel' => 'hhvm'),
         ));
         $wp_admin_bar->add_node( array(
                 'parent' => 'backend_php_link',
                 'id'     => 'backend-php-five',
                 'title'  => 'PHP 5',
                 'href'   => $this->poweredByPhp5() ? '' : '#php5',
+                'meta'   => array('rel' => 'php5'),
         ));
         $wp_admin_bar->add_node( array(
                 'parent' => 'backend_php_link',
                 'id'     => 'backend-php-seven',
                 'title'  => 'PHP 7',
                 'href'   => $this->poweredByPhp7() ? '' : '#php7',
+                'meta'   => array('rel' => 'php7'),
         ));
     }
 

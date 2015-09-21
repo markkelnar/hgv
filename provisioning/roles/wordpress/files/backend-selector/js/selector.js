@@ -1,12 +1,19 @@
 jQuery(document).ready(function($){	
-
     $( "#wp-admin-bar-backend-php-hhvm" ).click(function() {
-        wpCookies.set('backend', 'hhvm', 360000, '/');
+        backendSelector($('a', this).attr("rel"));
     });
     $( "#wp-admin-bar-backend-php-five" ).click(function() {
-        wpCookies.set('backend', 'php', 360000, '/');
+        backendSelector($('a', this).attr("rel"));
     });
     $( "#wp-admin-bar-backend-php-seven" ).click(function() {
-        wpCookies.set('backend', 'php7', 360000, '/');
+        backendSelector($('a', this).attr("rel"));
     });
 });
+
+function backendSelector(value) {
+    if ( ! value ) {
+        return;
+    }
+    wpCookies.set('backend', value, 360000, '/');
+    window.location.reload(true);
+}
