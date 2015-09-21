@@ -73,7 +73,7 @@ class BackendPHP
                 'parent' => 'backend_php_link',
                 'id'     => 'backend-php-hhvm',
                 'title'  => 'HHVM',
-                'href'   => $this->poweredByHhvm() ? '' : 'php7.mark.local/#hhvm',
+                'href'   => $this->poweredByHhvm() ? '' : '#hhvm',
         ));
         $wp_admin_bar->add_node( array(
                 'parent' => 'backend_php_link',
@@ -88,13 +88,17 @@ class BackendPHP
                 'href'   => $this->poweredByPhp7() ? '' : '#php7',
         ));
     }
+
+    function add_javascript() {
+        // Load the jquery and utils for cookie setting via the dropdown.
+        wp_enqueue_script( 'backend_selector_script', plugin_dir_url( __FILE__ ) . 'js/selector.js', array( 'utils','jquery' ) );
+    }
 }
 
 $wpengine_backend_php = new BackendPHP();
 
-// Load the jquery and utils for cookie setting via the dropdown.
-wp_enqueue_script( 'backend_selector_script', plugin_dir_url( __FILE__ ) . 'js/selector.js', array( 'utils','jquery' ) );
-
-// The following code adds a link to the admin menu bar
+// The following code adds a link to the admin menu bar during dashboard view and regular page view.
+add_action( 'admin_enqueue_scripts', array($wpengine_backend_php,'add_javascript') );
+add_action( 'wp_enqueue_scripts', array($wpengine_backend_php,'add_javascript') );
 add_action( 'admin_bar_menu', array($wpengine_backend_php,'add_backend_php_to_admin_bar'), 99 );
 
