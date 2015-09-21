@@ -21,7 +21,18 @@ var exec = require( 'child_process' ).exec,
 /**
  * Module variables
  */
-var messages = [ '' ];
+var messages = [ ''],
+	symbols = {
+		ok : '?',
+		err: '?'
+	};
+
+if ( /^win/.test( process.platform ) ) {
+	symbols = {
+		ok : '\u221A',
+		err: '\u00D7'
+	};
+}
 
 /**
  * Test a dependency to make sure the minimum version is installed.
@@ -42,7 +53,7 @@ function checkDependency( name, minVersion, command, filter, onError ) {
 	return new Promise( function( fulfill, reject ) {
 		var check = exec( command, function( err, stdout, stderr ) {
 			if ( err ) {
-				messages.push( chalk.red( util.format( 'No installation of %s is detected!', name ) ) );
+				process.stdout.write( '  ' + chalk.red( symbols.err ) + '  ' + chalk.gray( util.format( 'No installation of %s is detected!', name ) ) + os.EOL );
 
 				if ( onError ) {
 					onError.apply( null, [name] );
@@ -51,9 +62,9 @@ function checkDependency( name, minVersion, command, filter, onError ) {
 				var version = filter.apply( null, [stdout] );
 
 				if ( compareVersion( minVersion, version ) > 0 ) {
-					messages.push( chalk.red( util.format( '%s v%s is installed. You need at least v%s!', name, version, minVersion ) ) );
+					process.stdout.write( '  ' + chalk.red( symbols.err ) + '  ' + chalk.gray( util.format( '%s ' + chalk.red( 'v%s' ) + ' is installed. You need at least ' + chalk.white( 'v%s' ) + '!', name, version, minVersion ) ) + os.EOL );
 				} else {
-					messages.push( chalk.green( util.format( '%s v%s looks good!', name, version ) ) );
+					process.stdout.write( '  ' + chalk.green( symbols.ok ) + '  ' + chalk.gray( util.format( '%s ' + chalk.green( 'v%s' ) + ' looks good!', name, version ) ) + os.EOL );
 				}
 			}
 		} );
@@ -75,7 +86,7 @@ function checkGhost() {
 	return new Promise( function( fulfill, reject ) {
 		var check = exec( 'vagrant plugin list', function( err, stdout, stderr ) {
 			if ( err ) {
-				messages.push( chalk.red( 'Unable to detect any Vagrant plugins.' ) );
+				process.stdout.write( '  ' + chalk.red( symbols.err ) + '  ' + chalk.gray( 'Unable to detect any Vagrant plugins.' ) + os.EOL );
 			} else {
 				var hasGhost = false,
 					ghostVersion,
@@ -92,12 +103,12 @@ function checkGhost() {
 				}
 
 				if ( ! hasGhost ) {
-					messages.push( chalk.gray( 'The Vagrant Ghost plugin (recommended) was not detected!' ) );
+					process.stdout.write( '  ' + chalk.gray( symbols.err + '  The Vagrant Ghost plugin (recommended) was not detected!' ) + os.EOL );
 				} else {
 					if ( compareVersion( minVersion, ghostVersion ) > 0 ) {
-						messages.push( chalk.red( util.format( 'Vagrant Ghost v%s is installed. You need at least v%s!', ghostVersion, minVersion ) ) );
+						process.stdout.write( '  ' + chalk.red( symbols.err ) + '  ' + chalk.gray( util.format( 'Vagrant Ghost ' + chalk.red( 'v%s' ) + ' is installed. You need at least ' + chalk.white( 'v%s' ) + '!', ghostVersion, minVersion ) ) + os.EOL );
 					} else {
-						messages.push( chalk.green( util.format( 'Vagrant Ghost v%s looks good!', ghostVersion ) ) );
+						process.stdout.write( '  ' + chalk.green( symbols.ok ) + '  ' + chalk.gray( util.format( 'Vagrant Ghost ' + chalk.green( 'v%s' ) + ' looks good!', ghostVersion ) ) + os.EOL );
 					}
 				}
 			}
@@ -111,7 +122,7 @@ function checkGhost() {
  * Let the user know that preflight is complete.
  */
 function complete() {
-	var message = messages.concat( [
+	var message = [
 		'',
 		'HGV is finished scanning your local environment!',
 		'',
@@ -119,12 +130,20 @@ function complete() {
 		'on GitHub: ' + chalk.green( '<https://github.com/wpengine/hgv/wiki>' ),
 		'',
 		''
-	] ).join( '\n' );
+	].join( os.EOL );
 
-	process.stderr.write( message );
+	process.stdout.write( message );
 
 	process.exit( 0 );
 }
+
+var init_message = [
+	'',
+	'HGV is scanning your local environment ...',
+	''
+].join( os.EOL );
+
+process.stdout.write( init_message );
 
 /**
  * Check system compatibility
