@@ -15,7 +15,7 @@ Install this file to wp-content/object-cache.php
 if ( !defined( 'WP_CACHE_KEY_SALT' ) )
 define( 'WP_CACHE_KEY_SALT', '' );
 
-if ( class_exists( 'Memcached' ) ):
+if ( class_exists( 'Memcache' ) ):
 
 function wp_cache_add($key, $data, $group = '', $expire = 0) {
 	global $wp_object_cache;
@@ -371,7 +371,7 @@ class WP_Object_Cache {
 				$buckets = array('default' => $buckets);
 
 				foreach ( $buckets as $bucket => $servers) {
-					$this->mc[$bucket] = new Memcached();
+					$this->mc[$bucket] = new Memcache();
 					foreach ( $servers as $server  ) {
 						list ( $node, $port ) = explode(':', $server);
 						if ( !$port )
@@ -404,7 +404,7 @@ else: // No Memcached
 
 	// In earlier versions, there isn't a clean bail-out method.
 	} else {
-		wp_die( 'Memcached class not available.' );
+		wp_die( 'Memcache class not available.' );
 	}
 
 endif;
