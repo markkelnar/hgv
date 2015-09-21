@@ -1,16 +1,19 @@
 <?php
 /*
 Plugin Name: PHP Toggle Admin Menu
-Plugin URI: http://wpengine.com
+Version: 0.2-alpha
 Description: Toggle the backend PHP processor
-Version: 0.2
 Author: Mark Kelnar
+Author URI: http://markkelnar.com
+Plugin URI: http://wpengine.com
+Text Domain: php-selector
+Domain Path: /languages
 
 */
 
 namespace wpengine;
 
-class BackendPHP
+class PHPSelector
 {
     const cookie_name = 'backend';
 
@@ -59,32 +62,32 @@ class BackendPHP
         return false;
     }
 
-    function add_backend_php_to_admin_bar($wp_admin_bar) {         
+    function add_php_selector_to_admin_bar($wp_admin_bar) {
 
         // Add menu option to admin menu bar
         $wp_admin_bar->add_menu( array(
-                'id' => 'backend_php_link',
+                'id' => 'php_selector_link',
                 'title' => __($this->backendValue()." - ".phpversion()),
         ));
 
         // adds a child node to site name parent node
         $wp_admin_bar->add_node( array(
-                'parent' => 'backend_php_link',
-                'id'     => 'backend-php-hhvm',
+                'parent' => 'php_selector_link',
+                'id'     => 'php-selector-hhvm',
                 'title'  => 'HHVM',
                 'href'   => $this->poweredByHhvm() ? '' : '#hhvm',
                 'meta'   => array('rel' => 'hhvm'),
         ));
         $wp_admin_bar->add_node( array(
-                'parent' => 'backend_php_link',
-                'id'     => 'backend-php-five',
+                'parent' => 'php_selector_link',
+                'id'     => 'php-selector-five',
                 'title'  => 'PHP 5',
                 'href'   => $this->poweredByPhp5() ? '' : '#php5',
                 'meta'   => array('rel' => 'php5'),
         ));
         $wp_admin_bar->add_node( array(
-                'parent' => 'backend_php_link',
-                'id'     => 'backend-php-seven',
+                'parent' => 'php_selector_link',
+                'id'     => 'php-selector-seven',
                 'title'  => 'PHP 7',
                 'href'   => $this->poweredByPhp7() ? '' : '#php7',
                 'meta'   => array('rel' => 'php7'),
@@ -93,14 +96,14 @@ class BackendPHP
 
     function add_javascript() {
         // Load the jquery and utils for cookie setting via the dropdown.
-        wp_enqueue_script( 'backend_selector_script', plugin_dir_url( __FILE__ ) . 'js/selector.js', array( 'utils','jquery' ) );
+        wp_enqueue_script( 'php_selector_script', plugin_dir_url( __FILE__ ) . 'js/selector.js', array( 'utils','jquery' ) );
     }
 }
 
-$wpengine_backend_php = new BackendPHP();
+$wpengine_php_selector = new PHPSelector();
 
 // The following code adds a link to the admin menu bar during dashboard view and regular page view.
-add_action( 'admin_enqueue_scripts', array($wpengine_backend_php,'add_javascript') );
-add_action( 'wp_enqueue_scripts', array($wpengine_backend_php,'add_javascript') );
-add_action( 'admin_bar_menu', array($wpengine_backend_php,'add_backend_php_to_admin_bar'), 99 );
+add_action( 'admin_enqueue_scripts', array($wpengine_php_selector,'add_javascript') );
+add_action( 'wp_enqueue_scripts', array($wpengine_php_selector,'add_javascript') );
+add_action( 'admin_bar_menu', array($wpengine_php_selector,'add_php_selector_to_admin_bar'), 99 );
 
