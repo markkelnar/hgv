@@ -22,16 +22,13 @@
   template: src=etc/nginx/nginx.conf dest=/etc/nginx/nginx.conf owner=root group=root mode=0644
   notify: nginx restart
 
-- name: Do nginx upstream.conf
-  template: src=etc/nginx/conf.d/upstream.conf dest=/etc/nginx/conf.d/upstream.conf owner=root group=root mode=0644
-  notify: nginx restart
-
-- name: Push out Wordpress include file
-  template: src=etc/nginx/conf.d/wordpress-site dest=/etc/nginx/conf.d/wordpress-site owner=root group=root mode=0644
-  notify: nginx restart
-
-- name: Push out Wordpress Multisite include file
-  template: src=etc/nginx/conf.d/wordpress-multisite dest=/etc/nginx/conf.d/wordpress-multisite owner=root group=root mode=0644
+- name: Push out conf.d files
+  template: src=etc/nginx/conf.d/{{ item }} dest=/etc/nginx/conf.d/{{ item }} owner=root group=root mode=0644
+  with-items:
+    - upstream.conf
+    - wordpress-site
+    - wordpress-multisite
+    - error-page
   notify: nginx restart
 
 - name: Remove default.conf
