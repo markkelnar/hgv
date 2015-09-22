@@ -4,7 +4,6 @@ error_page 500 @error_page;
 location @error_page {
     # If encountered an error and using the backend cookie, let's show that special error page
     if ( $cookie_backend ) {
-        root /nas/wp/www/sites/admin;
-        rewrite ^       /error-page.html      break;
+        rewrite ^       /wp-content/plugins/php-selector/error.html      break;
     }
 }

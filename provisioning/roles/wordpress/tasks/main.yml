@@ -122,3 +122,6 @@
   template: src=pimpmylog.json dest={{ wp_doc_root }}/admin/logs/config.user.d/{{ enviro }}.json
   with_items:
     - "{{ domain }}"
+
+- name: "Copy php-selector plugin into place"
+  copy: src=php-selector dest="{{ wp_doc_root }}/{{ enviro }}/wp-content/plugins/" owner={{ web_user }} group={{ web_user }} mode=0644
