@@ -24,7 +24,7 @@
 
 - name: Push out conf.d files
   template: src=etc/nginx/conf.d/{{ item }} dest=/etc/nginx/conf.d/{{ item }} owner=root group=root mode=0644
-  with-items:
+  with_items:
     - upstream.conf
     - wordpress-site
     - wordpress-multisite

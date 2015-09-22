@@ -6,7 +6,7 @@
 <p>You are here because you are using the PHP selector and the page you are working on just returned an error.</p>
 <p>The PHP in use is <span id="cookie"></span>.<br />
 Select another version of PHP here 
-    <select onChange="javascript:setCookie('backend',value)">
+    <select onChange="javascript:setCookie('backend',value); window.location.reload(true);">
         <option value="">--</option>
         <option value="hhvm">HHVM</option>
         <option value="php5">PHP 5</option>
