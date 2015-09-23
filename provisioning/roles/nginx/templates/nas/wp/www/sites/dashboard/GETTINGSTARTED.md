@@ -237,6 +237,10 @@ When you want to disable profiling, simply append `_profile=0` to any request, o
 
 Visiting those links should delete the cookie and disable XHProf.
 
+### HHVM ###
+
+HHVM debugging information can be found in Facebooks [official documentation](https://github.com/facebook/hhvm/blob/master/hphp/doc/debugger.start).
+
 
 ## Overriding environment defaults ##
 
