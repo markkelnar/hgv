@@ -27,6 +27,9 @@ default_plugins:
   - debug-queries
   - debug-bar
   - wordpress-importer
+  - user-switching
+  - rewrite-rules-inspector
+  - log-deprecated-notices
 
 default_repo_plugins:
   - slug: S3-Uploads-0.9.0

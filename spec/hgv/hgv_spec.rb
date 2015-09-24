@@ -77,6 +77,9 @@ wp_plugins = %w{
   debug-queries
   hello
   query-monitor
+  user-switching
+  rewrite-rules-inspector
+  log-deprecated-notices
 }
 
 wp_paths.each do |path|
