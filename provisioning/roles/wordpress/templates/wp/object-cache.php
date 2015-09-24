@@ -15,6 +15,8 @@ Install this file to wp-content/object-cache.php
 if ( !defined( 'WP_CACHE_KEY_SALT' ) )
 define( 'WP_CACHE_KEY_SALT', '' );
 
+if ( class_exists( 'Memcache' ) ):
+
 function wp_cache_add($key, $data, $group = '', $expire = 0) {
 	global $wp_object_cache;
 
@@ -356,7 +358,7 @@ class WP_Object_Cache {
 				//error_log("Connection failure for $host:$port\n", 3, '/tmp/memcached.txt');
 			}
 
-			function WP_Object_Cache() {
+			function __construct() {
 				global $memcached_servers;
 
 				if ( isset($memcached_servers) )
@@ -394,3 +396,15 @@ class WP_Object_Cache {
 				$this->cache_misses =& $this->stats['add'];
 			}
 		}
+else: // No Memcached
+
+	// In 3.7+, we can handle this smoothly
+	if ( function_exists( 'wp_using_ext_object_cache' ) ) {
+		wp_using_ext_object_cache( false );
+
+	// In earlier versions, there isn't a clean bail-out method.
+	} else {
+		wp_die( 'Memcache class not available.' );
+	}
+
+endif;
