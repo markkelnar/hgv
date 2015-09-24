@@ -1,12 +1,35 @@
-- name: "Set up {{ enviro }} {{ backend }} virtualhost"
-  template: src=etc/nginx/wordpress.conf dest=/etc/nginx/conf.d/{{ enviro }}-{{ backend }}.conf owner=root group=root mode=0644
-  notify: nginx reload
+---
+- name: "Remove legacy config and log files"
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "/var/log/nginx/{{ enviro }}-{{ backend }}.access.log"
+    - "/var/log/nginx/{{ enviro }}-{{ backend }}.apachestyle.access.log"
+    - "/var/log/nginx/{{ enviro }}-{{ backend }}.error.log"
+    - "/var/log/nginx/cache.{{ enviro }}-{{ backend }}.access.log"
+    - "/var/log/nginx/cache.{{ enviro }}-{{ backend }}.apachestyle.access.log"
+    - "/var/log/nginx/cache.{{ enviro }}-{{ backend }}.error.log"
+    - "/etc/nginx/conf.d/{{ enviro }}-{{ backend }}.conf"
+    - "/etc/nginx/conf.d/cache.{{ enviro }}-{{ backend }}.conf"
+    - "{{ wp_doc_root }}/admin/logs/config.user.d/{{ enviro }}-{{ backend }}.json"
 
-- name: "Set up cache alias for {{ enviro }} {{ backend }}"
-  template: src=etc/nginx/wpcache.conf dest=/etc/nginx/conf.d/cache.{{ enviro }}-{{ backend }}.conf owner=root group=root mode=0644
-  notify: nginx reload
-
-- name: "Enable PML viewing for {{ enviro }} {{ backend }}"
-  template: src=pimpmylog.json dest={{ wp_doc_root }}/admin/logs/config.user.d/{{ enviro }}-{{ backend }}.json
+- name: "Add domain to nginx map"
+  lineinfile:
+    dest: "/etc/nginx/conf.d/www-{{ enviro }}.conf"
+    line: "    {{ item }}    {{ backend }};"
+    state: present
+    insertafter: "## Upstream for {{ enviro }} ##"
   with_items:
     - "{{ domain }}"
+  notify: nginx reload
+
+- name: "Add cache domain to nginx map"
+  lineinfile:
+    dest: "/etc/nginx/conf.d/www-{{ enviro }}.conf"
+    line: "    cache.{{ item }}    {{ backend }};"
+    state: present
+    insertafter: "## Upstream for {{ enviro }} ##"
+  with_items:
+    - "{{ domain }}"
+  notify: nginx reload

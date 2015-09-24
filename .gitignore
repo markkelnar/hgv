@@ -1,4 +1,8 @@
-.vagrant/
-wpengine_data/
-hgv_data/
 .DS_Store
+.bundle
+.vagrant/
+hgv_data/
+node_modules/
+Customfile
+vendor
+wpengine_data/

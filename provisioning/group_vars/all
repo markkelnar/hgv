@@ -12,4 +12,22 @@ vagrant_doc_root: /hgv_data/sites
 web_user: www-data
 web_group: www-data
 
+usr_config: /hgv_data/config
+usr_config_sites: /hgv_data/config/sites
+usr_config_provision: /hgv_data/config/provisioning
+
 xhprof_root: /opt/xhprof
+
+## Arbitrary max upload size. Fixes upload limit problems.
+file_upload_max_size: 200
+
+default_plugins:
+  - query-monitor
+  - debug-objects
+  - debug-queries
+  - debug-bar
+  - wordpress-importer
+
+default_repo_plugins:
+  - slug: S3-Uploads-0.9.0
+    url: "https://github.com/humanmade/S3-Uploads/archive/v0.9.0.zip"

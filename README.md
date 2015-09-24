@@ -14,15 +14,15 @@ We have some great [getting started videos and guides here](http://wpengine.com/
 
 Mercury Vagrant is a WP Engine creation in partnership with community members.
 
-**Version:** 1.3
+**Version:** 1.4
 
-**Latest Stable:** 1.3
+**Latest Stable:** 1.4
 
 **Web:** [http://wpengine.com/mercury](http://wpengine.com/mercury)
 
 **Project Lead:** Jason Cohen
 
-**Contributors:** Mark Kelnar, Doug Stewart, Zach Brown, RC Johnson, Jason Cohen, Kailey Lampert, Cameron Benedict, Grant Landram, Ryan Oeltjenbruns, Lowell Vaughn, Rachel Baker
+**Contributors:** Mark Kelnar, Doug Stewart, Zach Brown, RC Johnson, Jason Cohen, Kailey Lampert, Cameron Benedict, Grant Landram, Ryan Oeltjenbruns, Lowell Vaughn, Rachel Baker, Eric Mann, Stephen Lin
 
 **Thanks:** To the [VVV](http://varyingvagrantvagrants.org/) team and others who have worked on the open source we've included.
 
@@ -33,16 +33,18 @@ In order to use HGV effectively, you'll need to have a few tools installed on yo
  * Windows users: Be sure to add the Git executables to your path (See, e.g. [this guide](https://eamann.com/tech/vagrant-windows/), under "Prerequisites")
 2. Install virtual machine software ([VMware](http://vmware.com) or [VirtualBox](http://virtualbox.org) are recommended).
 3. Install [Vagrant](http://vagrantup.com)
-4. **Optional, but highly recommended:** Install the [Vagrant Hostsupdater plugin](https://github.com/cogitatio/vagrant-hostsupdater)
- * Short version: `vagrant plugin install vagrant-hostsupdater`
-5. **Suggestion:** Development workstation/laptop should have at least 8GB of RAM. hgv needs to allocate 1GB of RAM in order to run. (Users with <=4GB of RAM [e.g. base-model MacBook Airs] have seen overall system slowness while running this Vagrant box and much of anything else.)
-6. Windows users should be certain that their BIOS' virtualization settings are enabled. (Intel owners should enable VT-x while AMD owners should enable AMD-v. See [here](http://www.sysprobs.com/disable-enable-virtualization-technology-bios) for a better explanation.)
-7. **Recommendation:** This Vagrant box uses a 64 bit operating system (because HHVM requires a 64 bit OS), so we highly recommend that it only be run on 64 bit machines running 64 bit operating systems. (Most, if not all desktops and laptops sold in the last few years are running on 64 bit processors. Some may not be running 64 bit operating systems, however. Please check your system's documentation.)
+4. Install [Node](https://nodejs.org/)
+5. **Optional, but highly recommended:** Install the [Vagrant Ghost plugin](https://github.com/10up/vagrant-ghost)
+ * Short version: `vagrant plugin install vagrant-ghost`
+6. **Suggestion:** Development workstation/laptop should have at least 8GB of RAM. hgv needs to allocate 1GB of RAM in order to run. (Users with <=4GB of RAM [e.g. base-model MacBook Airs] have seen overall system slowness while running this Vagrant box and much of anything else.)
+7. Windows users should be certain that their BIOS' virtualization settings are enabled. (Intel owners should enable VT-x while AMD owners should enable AMD-v. See [here](http://www.sysprobs.com/disable-enable-virtualization-technology-bios) for a better explanation.)
+8. **Recommendation:** This Vagrant box uses a 64 bit operating system (because HHVM requires a 64 bit OS), so we highly recommend that it only be run on 64 bit machines running 64 bit operating systems. (Most, if not all desktops and laptops sold in the last few years are running on 64 bit processors. Some may not be running 64 bit operating systems, however. Please check your system's documentation.) 
 
 ## Installation ##
 1. `git clone --recursive https://github.com/wpengine/hgv.git` to clone the latest version of the tool.
 2. Change into the directory `hgv`.
-3. Run `vagrant up`.
+3. Run `npm install` to install build and deploy script dependencies.
+4. Run `vagrant up`.
 
 ## How to update when a new version is released ##
 
@@ -74,46 +76,46 @@ Once Vagrant is done provisioning the VM, you will have a box running Ubuntu 14.
 * [Memcached](http://memcached.org)
 
 ## Next Steps ##
-Once the VM is done provisioning, direct your browser to [http://hgv.dev](http://hgv.dev) You will receive fuller instructions on the use of this Vagrant environment there.
+Once the VM is done provisioning, direct your browser to [http://hgv.test](http://hgv.test) You will receive fuller instructions on the use of this Vagrant environment there.
 
 ### Once Installed These Local URLs / SITES Contain Great Documentation ###
-No really, make sure you go to these to check them out as you work with HGV. HGV automatically creates four sites and adds host file entries for them (if you installed the `vagrant-hostsupdater` plugin, that is):
+No really, make sure you go to these to check them out as you work with HGV. HGV automatically creates four sites and adds host file entries for them (if you installed the `vagrant-ghost` plugin, that is):
 
-* [hgv.dev](http://hgv.dev) -- General documentation and links for all of the tools
-* [hhvm.hgv.dev](http://hhvm.hgv.dev) -- A new WordPress installation running on HHVM
-* [php.hgv.dev](http://php.hgv.dev) -- A new WordPress installation running on PHP-FPM (PHP 5.5)
-* [admin.hgv.dev](http://admin.hgv.dev) -- Useful administrative tools (phpMyAdmin, etc.)
+* [hgv.test](http://hgv.test) -- General documentation and links for all of the tools
+* [hhvm.hgv.test](http://hhvm.hgv.test) -- A new WordPress installation running on HHVM
+* [php.hgv.test](http://php.hgv.test) -- A new WordPress installation running on PHP-FPM (PHP 5.5)
+* [admin.hgv.test](http://admin.hgv.test) -- Useful administrative tools (phpMyAdmin, etc.)
 
-If you did not install the `vagrant-hostsupdater` plugin, you will need to manually [add](http://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/) the following host entries to your host operating system's host files:
+If you did not install the `vagrant-ghost` plugin, you will need to manually [add](http://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/) the following host entries to your host operating system's host files:
 
 ```conf
-192.168.150.20 hgv.dev
-192.168.150.20 admin.hgv.dev
-192.168.150.20 hhvm.hgv.dev
-192.168.150.20 php.hgv.dev
-192.168.150.20 cache.hhvm.hgv.dev
-192.168.150.20 cache.php.hgv.dev
-192.168.150.20 xhprof.hgv.dev
+192.168.150.20 hgv.test
+192.168.150.20 admin.hgv.test
+192.168.150.20 hhvm.hgv.test
+192.168.150.20 php.hgv.test
+192.168.150.20 cache.hhvm.hgv.test
+192.168.150.20 cache.php.hgv.test
+192.168.150.20 xhprof.hgv.test
 ```
 
 ## Using URLs to View Different Stacks Running Your Code ##
 
 There are two default WordPress installations provided. Both have an admin user *wordpress* with a password *wordpress* (so secure!) already created.
 
-### php.hgv.dev ###
+### php.hgv.test ###
 
-[php.hgv.dev](http://php.hgv.dev) is a basic WordPress install running the latest stable version of WordPress on a fairly standard [LEMP](https://lemp.io/) stack consisting of Nginx, PHP-FPM, and Percona DB.
+[php.hgv.test](http://php.hgv.test) is a basic WordPress install running the latest stable version of WordPress on a fairly standard [LEMP](https://lemp.io/) stack consisting of Nginx, PHP-FPM, and Percona DB.
 
-### hhvm.hgv.dev ###
+### hhvm.hgv.test ###
 
-[hhvm.hgv.dev](http://hhvm.hgv.dev) is a basic WordPress install running the latest stable version of WordPress on top of an Nginx + HHVM + Percona DB stack.
+[hhvm.hgv.test](http://hhvm.hgv.test) is a basic WordPress install running the latest stable version of WordPress on top of an Nginx + HHVM + Percona DB stack.
 
 ### Varnish Testing ###
 
 The following URLs will let you view a specific page with caching turned on to test for dynamic content performance.
 
-* [cache.php.hgv.dev](http://cache.php.hgv.dev)
-* [cache.hhvm.hgv.dev](http://cache.hhvm.hgv.dev)
+* [cache.php.hgv.test](http://cache.php.hgv.test)
+* [cache.hhvm.hgv.test](http://cache.hhvm.hgv.test)
 
 ## Development and debugging ##
 ### WordPress developer tools ###
@@ -158,7 +160,7 @@ Sometimes, keeping tabs on a log file while hitting a site to view log messages 
 
 ### Database access ###
 
-You may easily use the phpMyAdmin installation at [admin.hgv.dev/phpmyadmin/](http://admin.hgv.dev/phpmyadmin/) (as listed above) in order to view and interact with the underlying database. However, if you are used to using a third-party GUI, such as [Sequel Pro](http://www.sequelpro.com/) or [MySQL Workbench](http://www.mysql.com/products/workbench/), TCP port 3306 (the MySQL/Percona port) is forwarded from the Vagrant VM to TCP port 23306 on your actual machine. You would then configure MySQL WB or Sequel Pro to connect to `localhost:23306` .
+You may easily use the phpMyAdmin installation at [admin.hgv.test/phpmyadmin/](http://admin.hgv.test/phpmyadmin/) (as listed above) in order to view and interact with the underlying database. However, if you are used to using a third-party GUI, such as [Sequel Pro](http://www.sequelpro.com/) or [MySQL Workbench](http://www.mysql.com/products/workbench/), TCP port 3306 (the MySQL/Percona port) is forwarded from the Vagrant VM to TCP port 23306 on your actual machine. You would then configure MySQL WB or Sequel Pro to connect to `localhost:23306` .
 
 ### Developer tools ###
 
@@ -179,20 +181,25 @@ The following useful developer tools are installed by default:
 
 ### Xdebug ###
 
-PHP's [Xdebug extension](http://xdebug.org) is enabled by default for the site based on PHP-FPM.  See the [dashboard](http://hgv.dev/) for details about the features that are enabled by default for each WordPress.
+PHP's [Xdebug extension](http://xdebug.org) is installed by default for the site based on PHP-FPM.  See the [dashboard](http://hgv.test/) for details about the features that are enabled by default for each WordPress.
+
+Xdebug browser extensions to toggle Xdebug on/off without having to ssh into the virtual machine:
+* [Safari - Xdebug Toggler] (https://github.com/benmatselby/xdebug-toggler)
+* [FireFox - Easiest Xdebug] (https://addons.mozilla.org/en-US/firefox/addon/the-easiest-xdebug/)
+* [Chrome - Xdebug Helper] (https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaa)
 
 ### XHProf ###
-HGV includes an advanced PHP/HHVM profiling tool, [http://php.net/xhprof](http://php.net/xhprof) and a GUI for viewing results. You can view results for your HGV instance at [xhprof.hgv.dev](http://xhprof.hgv.dev).  See the [dashboard](http://hgv.dev/) for details about how easy it is to turn on profiling by adding one parameter to your page request in the browser.
+HGV includes an advanced PHP/HHVM profiling tool, [http://php.net/xhprof](http://php.net/xhprof) and a GUI for viewing results. You can view results for your HGV instance at [xhprof.hgv.test](http://xhprof.hgv.test).  See the [dashboard](http://hgv.test/) for details about how easy it is to turn on profiling by adding one parameter to your page request in the browser.
 
 ### Database ###
-phpMyAdmin is available at [admin.hgv.dev/phpmyadmin/](http://admin.hgv.dev/phpmyadmin/). The username is `root` and the password is blank.
+phpMyAdmin is available at [admin.hgv.test/phpmyadmin/](http://admin.hgv.test/phpmyadmin/). The username is `root` and the password is blank.
 
 ### Object Cache/Memcached ###
 
-phpMemcachedAdmin is available at [admin.hgv.dev/phpmemcachedadmin/](http://admin.hgv.dev/phpmemcachedadmin/). You may use this tool to check on the status of the WordPress object [cache](http://codex.wordpress.org/Class_Reference/WP_Object_Cache).
+phpMemcachedAdmin is available at [admin.hgv.test/phpmemcachedadmin/](http://admin.hgv.test/phpmemcachedadmin/). You may use this tool to check on the status of the WordPress object [cache](http://codex.wordpress.org/Class_Reference/WP_Object_Cache).
 
 ### Log Viewing ###
-PML is available at [admin.hgv.dev/logs](http://admin.hgv.dev/logs). You may use this tool to quickly view the most recent web server access and error logs for the various sites automatically created by HGV.
+PML is available at [admin.hgv.test/logs](http://admin.hgv.test/logs). You may use this tool to quickly view the most recent web server access and error logs for the various sites automatically created by HGV.
 
 ## More Documentation/Information ##
 
@@ -208,7 +215,7 @@ README.md - This README markdown file, the technical steps of how to get up and 
 
 [updates](http://wpengine.com/mercury/updates) - Another place where the WP Engine team will go into detail about releases or updates to HGV.
 
-[dashboard](http://hgv.dev) - The local HGV dashboard which is available when your vagrant is up and running. This contains all the technical details and configuration options specific to the HGV environment.
+[dashboard](http://hgv.test) - The local HGV dashboard which is available when your vagrant is up and running. This contains all the technical details and configuration options specific to the HGV environment.
 
 For detailed how to install guides per OS and other debugging information please see the [wiki here on github](https://github.com/wpengine/hgv/wiki).
 
