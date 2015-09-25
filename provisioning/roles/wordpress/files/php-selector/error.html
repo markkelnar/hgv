@@ -3,9 +3,9 @@
 </head>
 <body>
 <h1>Error page</h1>
-<p>You are here because you are using the PHP selector and the page you are working on just returned an error.</p>
-<p>The PHP in use is <span id="cookie"></span>.<br />
-Select another version of PHP here 
+<p>You are seeing this because you are using the PHP selector, and the page you are working on just returned an error.</p>
+<p>The PHP version in use is <span id="cookie"></span>.<br />
+Select another version here
     <select onChange="javascript:setCookie('backend',value); window.location.reload(true);">
         <option value="">--</option>
         <option value="hhvm">HHVM</option>
@@ -13,13 +13,16 @@ Select another version of PHP here
         <option value="php7">PHP 7</option>
     </select>
 </p>
+<p>
+To access the error log, click <a href="http://admin.hgv.test/logs/">here</a>.
+</p>
 
 <script type="text/javascript">
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
-    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    d.setTime(d.getTime() + 360000);
     var expires = "expires="+d.toUTCString();
-    document.cookie = cname + "=" + cvalue + "; " + expires;
+    document.cookie = cname + "=" + cvalue + "; " + expires + "; path=/";
 }
 
 function getCookie(cname) {
