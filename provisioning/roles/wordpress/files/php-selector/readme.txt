@@ -1,4 +1,4 @@
-=== PHP Toggle Admin Menu ===
+=== PHP Toggle Selector ===
 Contributors: markkelnar
 Donate link: http://example.com/
 Tags: wpe, wpengine, php5, php7, hhvm
