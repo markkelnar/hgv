@@ -3,15 +3,18 @@
 </head>
 <body>
 <h1>Error page</h1>
-<p>You are here because you are using the PHP selector and the page you are working on just returned an error.</p>
-<p>The PHP in use is <span id="cookie"></span>.<br />
-Select another version of PHP here 
+<p>You are seeing this because you are using the PHP selector, and the page you are working on just returned an error.</p>
+<p>The PHP version in use is <span id="cookie"></span>.<br />
+To change the version of PHP, please select another version here
     <select onChange="javascript:setCookie('backend',value); window.location.reload(true);">
         <option value="">--</option>
         <option value="hhvm">HHVM</option>
         <option value="php5">PHP 5</option>
         <option value="php7">PHP 7</option>
     </select>
+</p>
+<p>
+To access the error log, click <a href="http://admin.hgv.test/logs/">here</a>.
 </p>
 
 <script type="text/javascript">
