@@ -125,7 +125,7 @@ Point and click to switch between the backend PHP processors. Active the `php-se
 Atleast one domain must be configured for the WordPress under the `hhvm_domains` list of domains. The `php_domains` list of domains can be left blank.
 
 ### Error Page ###
-If building of the page results in a 500 error and it appears as though you're using the php-selector plugin, an error page will appear.  It assumes that you are switching between PHP versions to test your code and as a result, have code that has broken the page build.  The error page allows you to switch to another PHP backend where you page might be building without error.
+If building of the page results in a 500 error and it appears as though you're using the php-selector plugin, an error page will appear.  It assumes that you are switching between PHP versions to test your code and as a result, have code that has broken the page build.  The error page allows you to switch to another PHP backend where your page might be building without error.
 
 ### Provision ###
 After editing or adding a new configuration, for the changes to take effect, you must run `vagrant provision` on an already provisioned environment.
