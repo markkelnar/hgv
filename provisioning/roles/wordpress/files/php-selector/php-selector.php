@@ -2,8 +2,7 @@
 /*
 Plugin Name: PHP Toggle Selector
 Version: 0.2-alpha
-Description: Toggle the backend processor between HHVM, php5 and php7. *Note: This plugin does not allow you to toggle between PHP and HHVM
-in your production environment.
+Description: Toggle the backend processor between HHVM, php5 and php7. *Note: This plugin does not allow you to toggle between PHP and HHVM in your production environment.
 Author: WP Engine
 Author URI: http://wpengine.com
 Plugin URI: http://wpengine.com
