@@ -45,3 +45,20 @@
 - name: Set PHP 7 ize as default
   alternatives: name=phpize link=/usr/bin/phpize path=/usr/local/php7/bin/phpize
   when: default_php|default(False) == "php7"
+
+# Build php7 memcached.so
+- name: Install libmemcached-dev for libmemcached
+  apt: name=libmemcached-dev state=present force=yes
+
+- name: Grab the memcache source
+  git: repo=git://github.com/php-memcached-dev/php-memcached.git dest=/opt/php-memcached update=no version=php7
+
+- name: Compile php7 memcached
+  command: /vagrant/provisioning/roles/php-fpm/files/build-php7-memcached.sh chdir=/opt/php-memcached creates=/opt/php-memcached/modules/memcached.so 
+  notify: php7-fpm restart
+
+- name: php7 modules.ini
+  template:
+    src: etc/php7/conf.d/modules.ini
+    dest: /usr/local/php7/etc/conf.d/modules.ini
+  notify: php7-fpm restart
