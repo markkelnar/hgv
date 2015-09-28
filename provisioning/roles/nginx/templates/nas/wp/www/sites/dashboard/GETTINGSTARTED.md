@@ -72,9 +72,12 @@ The default WordPress installations are accessible directly by going to `[HGV di
 ### Developer Tools ###
 The following WordPress tools and plugins are installed on each WordPress site (but are **not** enabled) by default:
 
-* [query-monitor](https://wordpress.org/plugins/query-monitor/)
-* [debug-objects](https://wordpress.org/plugins/debug-objects/)
-* [debug-bar](https://wordpress.org/plugins/debug-bar/)
+* [Query Monitor](https://wordpress.org/plugins/query-monitor/)
+* [Debug Objects](https://wordpress.org/plugins/debug-objects/)
+* [Debug Bar](https://wordpress.org/plugins/debug-bar/)
+* [User Switching](https://wordpress.org/plugins/user-switching/)
+* [Rewrite Rules Inspector](https://wordpress.org/plugins/rewrite-rules-inspector/)
+* [Log Deprecated Notices](https://wordpress.org/plugins/log-deprecated-notices/)
 
 ### Installing plugins and themes ###
 Installing new plugins and themes is as simple as putting themes in `[HGV directory]/hgv_data/sites/hhvm/wp-content/[plugins|themes]`
