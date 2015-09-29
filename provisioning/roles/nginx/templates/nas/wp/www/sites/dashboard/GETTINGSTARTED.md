@@ -118,7 +118,7 @@ Determining the backend PHP processor is handled by the YAML configuration file.
 
 By clicking
 
-Point and click to switch between the backend PHP processors. Active the `php-selector` plugin in wp-admin for the WordPress and don't worry about configuring domains in the YAML file.
+Point and click to switch between the backend PHP processors. The `php-selector` plugin is enabled as a 'must-use' plugin for the WordPress and takes the details out of configuring domains in the YAML file.
 
 <img src="/assets/images/screenshot-1.png" alt="PHP Selector pull down screenshot" height="150px" />
 
