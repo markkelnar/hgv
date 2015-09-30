@@ -21,12 +21,17 @@ xhprof_root: /opt/xhprof
 ## Arbitrary max upload size. Fixes upload limit problems.
 file_upload_max_size: 200
 
+default_php: hhvm
+
 default_plugins:
   - query-monitor
   - debug-objects
   - debug-queries
   - debug-bar
   - wordpress-importer
+  - user-switching
+  - rewrite-rules-inspector
+  - log-deprecated-notices
 
 default_repo_plugins:
   - slug: S3-Uploads-0.9.0

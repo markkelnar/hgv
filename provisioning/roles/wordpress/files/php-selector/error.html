@@ -1,0 +1,42 @@
+<html>
+<head>
+</head>
+<body>
+<h1>Error page</h1>
+<p>You are seeing this because you are using the PHP selector, and the page you are working on just returned an error.</p>
+<p>The PHP version in use is <span id="cookie"></span>.<br />
+Select another version here
+    <select onChange="javascript:setCookie('backend',value); window.location.reload(true);">
+        <option value="">--</option>
+        <option value="hhvm">HHVM</option>
+        <option value="php5">PHP 5</option>
+        <option value="php7">PHP 7</option>
+    </select>
+</p>
+<p>
+To access the error log, click <a href="http://admin.hgv.test/logs/">here</a>.
+</p>
+
+<script type="text/javascript">
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + 360000);
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires + "; path=/";
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+    }
+    return "";
+}
+var obj = document.getElementById('cookie');
+obj.innerHTML = getCookie('backend');
+</script>
+</body>
+</html>

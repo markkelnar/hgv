@@ -1,5 +1,53 @@
 # Mercury Vagrant Changelog
 
+## 1.5 (2015-09-30)
+
+ * 2015-09-28 Mark Kelnar: Only the essentials for the www pool file
+ * 2015-09-28 Mark Kelnar: Move the php-selector plugin to a must-use
+ * 2015-09-28 Mark Kelnar: Fix typo
+ * 2015-09-28 Mark Kelnar: Create php7/conf.d directory if not exist
+ * 2015-09-28 Mark Kelnar: Add php.ini file and file_upload_size
+ * 2015-09-28 Mark Kelnar: Add documentation on provisioning/roles/nginx/templates/nas/wp/www/sites/dashboard/ass php-selector
+ * 2015-09-28 Mark Kelnar: Add documentation on php-selector
+ * 2015-09-26 Mark Kelnar: Use object-cache file usiong Memcached() in place of previous object-cache using Memcache().
+ * 2015-09-26 Mark Kelnar: Add tasks/script to compile php7 memcached.so and object-cache file to talk Memcached()
+ * 2015-09-25 Mark Kelnar: Modify the text on the error page
+ * 2015-09-25 Mark Kelnar: Fix cookie set path used by error page
+ * 2015-09-24 Mark Kelnar: Moved the error-page to inside the plugin
+ * 2015-09-24 John Blackbourn: Update the list of default plugins.
+ * 2015-09-23 Eric Mann: Minimal HHVM Debug Docs
+ * 2015-09-23 Eric Mann: Force the Mailhog init script to use LF line endings on checkout
+ * 2015-09-22 Mark Kelnar: Move error page into selector plugin
+ * 2015-09-22 Mark Kelnar: Fix bug. Reload on php select
+ * 2015-09-22 Mark Kelnar: Add Nginx 500 error handler when using backend cookie
+ * 2015-09-21 Mark Kelnar: Tweak the object cache file so it doesnt run or crash under php7
+ * 2015-09-21 Mark Kelnar: Should still be Memcache()
+ * 2015-09-21 Mark Kelnar: Refactor, add README and rename plugin
+ * 2015-09-21 Mark Kelnar: Add rel attribute to pull down value and reload on click
+ * 2015-09-21 Eric Mann: Make commands executable
+ * 2015-09-21 Eric Mann: Fix checkmark and x chars because Windows is dumb.
+ * 2015-09-21 Eric Mann: Clean up the flags a bit and print out incrementally rather than all at once.
+ * 2015-09-18 Eric Mann: Use a better abstract method
+ * 2015-09-18 Eric Mann: Remove dead code
+ * 2015-09-18 Eric Mann: Begin adding preflight script for Vagrant, VirtualBox, and Node.
+ * 2015-09-18 Eric Mann: Add a test for Vagrant Ghost
+ * 2015-09-18 Eric Mann: Add Git version checking
+ * 2015-09-18 Eric Mann: Abstract the VirtualBox check
+ * 2015-09-18 Eric Mann: Abstract the Git check as well
+ * 2015-09-16 Mark Kelnar: Remove accidently domain from testing
+ * 2015-09-16 Mark Kelnar: Enqueue scripts for dashboard and page view
+ * 2015-09-15 Mark Kelnar: php7 handler to use stop/start
+ * 2015-09-15 Mark Kelnar: Set permissions of check script
+ * 2015-09-15 Mark Kelnar: Set default_php for all to hhvm
+ * 2015-09-15 Mark Kelnar: Fix some php7 handler restart
+ * 2015-09-15 Mark Kelnar: Adjust some php7 paths
+ * 2015-09-15 Mark Kelnar: Add php7 tests
+ * 2015-09-15 Mark Kelnar: Add php7 config files
+ * 2015-09-15 Mark Kelnar: Add php7 backend upstream
+ * 2015-09-15 Mark Kelnar: Add checkconf script
+ * 2015-09-15 Mark Kelnar: Add backend selector plugin
+ * 2015-08-26 John Blackbourn: Add some more developer plugins to the provisioning.
+
 ## 1.4 (2015-09-17)
 
  * 2015-09-15 Stephen Lin: Add Contributor

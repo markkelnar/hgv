@@ -72,9 +72,12 @@ The default WordPress installations are accessible directly by going to `[HGV di
 ### Developer Tools ###
 The following WordPress tools and plugins are installed on each WordPress site (but are **not** enabled) by default:
 
-* [query-monitor](https://wordpress.org/plugins/query-monitor/)
-* [debug-objects](https://wordpress.org/plugins/debug-objects/)
-* [debug-bar](https://wordpress.org/plugins/debug-bar/)
+* [Query Monitor](https://wordpress.org/plugins/query-monitor/)
+* [Debug Objects](https://wordpress.org/plugins/debug-objects/)
+* [Debug Bar](https://wordpress.org/plugins/debug-bar/)
+* [User Switching](https://wordpress.org/plugins/user-switching/)
+* [Rewrite Rules Inspector](https://wordpress.org/plugins/rewrite-rules-inspector/)
+* [Log Deprecated Notices](https://wordpress.org/plugins/log-deprecated-notices/)
 
 ### Installing plugins and themes ###
 Installing new plugins and themes is as simple as putting themes in `[HGV directory]/hgv_data/sites/hhvm/wp-content/[plugins|themes]`
@@ -87,7 +90,7 @@ Let HGV provision your WordPress for you.
 
 1. Copy provisioning/default-install.yml to hgv_data/config/sites/foo.yml.
 2. Change the `enviro` variable to the docroot of where your WordPress lives under `[HGV directory]/hgv_data/sites/`, ie 'foo'. If the directory does not exist when provisioning is executed, it will be created and the latest stable version or WordPress installed.
-3. Edit the domain lists to be the domain(s) you want setup for the WordPress residing in the Vagrant. Domains listed under `hhvm_domains` will be served by HHVM.  Those listed under `php_domains` will be served by the PHP-FPM service.
+3. Edit the domain lists to be the domain(s) you want setup for the WordPress residing in the Vagrant. Domains listed under `hhvm_domains` will be served by HHVM.  Those listed under `php_domains` will be served by the PHP-FPM service. See the section in this documentation on [PHP Selector](/#mercury-vagrant-hgv-add-my-own-wordpress-php-selector) for more.
 
 If you did not install the vagrant-ghost plugin, you will need to manually add the domains to your host operating system’s host files. See the example [above](/#mercury-vagrant-hgv-what-you-get-sites).
 
@@ -106,6 +109,24 @@ wp:
     - php.foo.test
 ```
 
+### PHP Selector ###
+You have two ways to select which backend PHP processor builds your site. One involves the YAML configuration file.  The other is controlled by a WordPress plugin.
+
+By domain in YAML
+
+Determining the backend PHP processor is handled by the YAML configuration file.  Put any domains you wish to be built by HHVM under `hhvm_domains`.  Put any domains you wish to be built by PHP 5 under `php_domains`.
+
+By clicking
+
+Point and click to switch between the backend PHP processors. The `php-selector` plugin is enabled as a 'must-use' plugin for the WordPress and takes the details out of configuring domains in the YAML file.
+
+<img src="/assets/images/screenshot-1.png" alt="PHP Selector pull down screenshot" height="150px" />
+
+Atleast one domain must be configured for the WordPress under the `hhvm_domains` list of domains. The `php_domains` list of domains can be left blank.
+
+### Error Page ###
+If building of the page results in a 500 error and it appears as though you're using the php-selector plugin, an error page will appear.  It assumes that you are switching between PHP versions to test your code and as a result, have code that has broken the page build.  The error page allows you to switch to another PHP backend where your page might be building without error.
+
 ### Provision ###
 After editing or adding a new configuration, for the changes to take effect, you must run `vagrant provision` on an already provisioned environment.
 
@@ -119,6 +140,14 @@ Adding, removing or changing this option does not convert an existing WordPress 
 wp:
   ...
   multisite: domain
+```
+
+or
+
+```
+wp:
+  ...
+  multisite: directory
 ```
 
 ### Extra Plugins Installed ###
@@ -236,6 +265,10 @@ When you want to disable profiling, simply append `_profile=0` to any request, o
 * [http://hhvm.hgv.test/?_profile=0](http://hhvm.hgv.test/?_profile=0)
 
 Visiting those links should delete the cookie and disable XHProf.
+
+### HHVM ###
+
+HHVM debugging information can be found in Facebooks [official documentation](https://github.com/facebook/hhvm/blob/master/hphp/doc/debugger.start).
 
 
 ## Overriding environment defaults ##

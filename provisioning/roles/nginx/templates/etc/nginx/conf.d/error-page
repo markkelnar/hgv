@@ -1,0 +1,9 @@
+# Set up error handling for 50x errors
+error_page 500 @error_page;
+
+location @error_page {
+    # If encountered an error and using the backend cookie, let's show that special error page
+    if ( $cookie_backend ) {
+        rewrite ^       /wp-content/mu-plugins/php-selector/error.html      break;
+    }
+}

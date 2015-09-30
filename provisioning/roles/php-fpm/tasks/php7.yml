@@ -1,0 +1,83 @@
+---
+- name: Enable PHP 7 Zend nightly repo
+  apt_repository: repo="deb http://repos.zend.com/zend-server/early-access/php7/repos ubuntu/" state=present
+
+- name: Install PHP 7 Nightly
+  apt: name=php7-nightly state=present force=yes
+
+- name: Copy php init script
+  template:
+    src: etc/init/php7-fpm.conf
+    dest: /etc/init/php7-fpm.conf
+  notify: php7-fpm restart
+
+- name: Copy php conf script
+  template:
+    src: etc/php7/fpm/php-fpm.conf
+    dest: /usr/local/php7/etc/php-fpm.conf
+    owner: "{{ web_user }}"
+    group: "{{ web_group }}"
+  notify: php7-fpm restart
+
+- name: Copy php pool.d script
+  template:
+    src: etc/php7/fpm/pool.d/www.conf
+    dest: /usr/local/php7/etc/php-fpm.d/www.conf
+    owner: "{{ web_user }}"
+    group: "{{ web_group }}"
+  notify: php7-fpm restart
+
+- name: Copy php checkconf script
+  template:
+    src: etc/php7/checkconf
+    dest: /usr/local/lib/php7-fpm-checkconf
+    mode: 0755
+  notify: php7-fpm restart
+
+- name: Set PHP 7 bin as default
+  alternatives: name=php link=/usr/bin/php path=/usr/local/php7/bin/php
+  when: default_php|default(False) == "php7"
+
+- name: Set PHP 7 config as default
+  alternatives: name=php-config link=/usr/bin/php-config path=/usr/local/php7/bin/php-config
+  when: default_php|default(False) == "php7"
+
+- name: Set PHP 7 ize as default
+  alternatives: name=phpize link=/usr/bin/phpize path=/usr/local/php7/bin/phpize
+  when: default_php|default(False) == "php7"
+
+- name: Push out php.ini file
+  template:
+    src: etc/php7/fpm/php.ini
+    dest: /usr/local/php7/etc/php.ini
+  notify: php7-fpm restart
+
+# Build php7 memcached.so
+- name: Install libmemcached-dev for libmemcached
+  apt: name=libmemcached-dev state=present force=yes
+
+- name: Grab the memcache source
+  git: repo=git://github.com/php-memcached-dev/php-memcached.git dest=/opt/php-memcached update=no version=php7 accept_hostkey=yes
+
+- name: Compile php7 memcached
+  command: /vagrant/provisioning/roles/php-fpm/files/build-php7-memcached.sh chdir=/opt/php-memcached creates=/opt/php-memcached/modules/memcached.so 
+  notify: php7-fpm restart
+
+- name: Create php7/conf.d
+  file: path=/usr/local/php7/etc/conf.d state=directory mode=0755
+
+- name: php7 modules.ini
+  template:
+    src: etc/php7/conf.d/modules.ini
+    dest: /usr/local/php7/etc/conf.d/modules.ini
+  notify: php7-fpm restart
+
+- name: Set the max file upload size
+  ini_file:
+    dest: /usr/local/php7/etc/php.ini
+    section: "PHP"
+    option: "{{ item }}"
+    value: "{{ file_upload_max_size }}M"
+  with_items:
+    - upload_max_filesize
+    - post_max_size

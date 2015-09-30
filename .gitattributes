@@ -3,3 +3,4 @@
 
 # Explicitly declare files that will always have LF line endings on checkout
 *.key text eol=lf
+mailhog_init text eol=lf
