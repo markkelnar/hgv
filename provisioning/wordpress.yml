@@ -10,6 +10,8 @@
         enviro: "{{ wp.enviro }}",
         domain: "{{ wp.hhvm_domains[0] }}",
         domains: "{{ wp.hhvm_domains }} + {{ wp.php_domains }}",
+        mysql_import: "{{ wp.mysql_import | default(False) }}",
+        mysql_backup: "{{ wp.mysql_backup | default(False) }}",
         tags: [ 'wordpress' ]
       }
     - {

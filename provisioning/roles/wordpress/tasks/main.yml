@@ -1,6 +1,22 @@
 ---
 - name: "Provision {{ enviro }} WP Databases"
-  mysql_db: name="wpe_{{ enviro }}" state=present
+  mysql_db:
+    name: "wpe_{{ enviro }}"
+    state: present
+  notify: import WPE database
+
+- name: "Ensure SQL dump directory exists"
+  file:
+    dest: "{{ wp_doc_root }}/sqldumps"
+    state: directory
+
+- name: "Back up {{ enviro }} WP database"
+  mysql_db:
+    name: wpe_{{ enviro }}
+    state: dump
+    target: "{{ wp_doc_root }}/sqldumps/wpe_{{ enviro }}.sql"
+  when: mysql_backup
+
 
 - name: "Grant {{ enviro }} WP users access to WP DBs"
   mysql_user: name="wpe_{{ enviro }}" priv="wpe_{{ enviro }}.*:ALL" host="%" password=wordpress state=present
