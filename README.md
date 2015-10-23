@@ -186,7 +186,7 @@ PHP's [Xdebug extension](http://xdebug.org) is installed by default for the site
 Xdebug browser extensions to toggle Xdebug on/off without having to ssh into the virtual machine:
 * [Safari - Xdebug Toggler] (https://github.com/benmatselby/xdebug-toggler)
 * [FireFox - Easiest Xdebug] (https://addons.mozilla.org/en-US/firefox/addon/the-easiest-xdebug/)
-* [Chrome - Xdebug Helper] (https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaa)
+* [Chrome - Xdebug Helper] (https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc)
 
 ### XHProf ###
 HGV includes an advanced PHP/HHVM profiling tool, [http://php.net/xhprof](http://php.net/xhprof) and a GUI for viewing results. You can view results for your HGV instance at [xhprof.hgv.test](http://xhprof.hgv.test).  See the [dashboard](http://hgv.test/) for details about how easy it is to turn on profiling by adding one parameter to your page request in the browser.
