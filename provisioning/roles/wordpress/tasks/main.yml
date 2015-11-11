@@ -10,14 +10,6 @@
     dest: "{{ wp_doc_root }}/sqldumps"
     state: directory
 
-- name: "Back up {{ enviro }} WP database"
-  mysql_db:
-    name: wpe_{{ enviro }}
-    state: dump
-    target: "{{ wp_doc_root }}/sqldumps/wpe_{{ enviro }}.sql"
-  when: mysql_backup
-
-
 - name: "Grant {{ enviro }} WP users access to WP DBs"
   mysql_user: name="wpe_{{ enviro }}" priv="wpe_{{ enviro }}.*:ALL" host="%" password=wordpress state=present
 
@@ -152,3 +144,10 @@
     owner: "{{ web_user }}"
     group: "{{ web_user }}"
     mode: 0644
+
+- name: "Back up {{ enviro }} WP database"
+  mysql_db:
+    name: wpe_{{ enviro }}
+    state: dump
+    target: "{{ wp_doc_root }}/sqldumps/wpe_{{ enviro }}.sql"
+  when: mysql_backup|bool and ( wpnotinstalled.rc == 0 )
