@@ -10,6 +10,10 @@
     dest: "{{ wp_doc_root }}/sqldumps"
     state: directory
 
+- name: "Check if SQL file exists"
+  stat: path="{{ wp_doc_root }}/sqldumps/wpe_{{ enviro }}.sql"
+  register: wp_sql
+
 - name: "Grant {{ enviro }} WP users access to WP DBs"
   mysql_user: name="wpe_{{ enviro }}" priv="wpe_{{ enviro }}.*:ALL" host="%" password=wordpress state=present
 
