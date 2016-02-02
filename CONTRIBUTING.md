@@ -28,14 +28,7 @@ We do ask that the pull request be submitted against the **develop** branch from
 
 We also encourage you to pull down code you see in someone else's pull request, test it and provide your findings in a comment, that's always fun and helpful to the community project.
 
-Please add the following markdown task lists (checkboxes) to each pull request description.
-
-```
-- [ ] @markkelnar
-- [ ] @ericmann
-```
-
-After reviewing the PR, the reviewer will check their box.  When box boxes are checked, the PR is considered approved and able to be merged.
+After reviewing the PR, and a blessing from the reviewer, the PR is considered approved and able to be merged.
 
 ### Hotfixes ###
 
