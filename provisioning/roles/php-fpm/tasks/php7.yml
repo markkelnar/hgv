@@ -1,9 +1,21 @@
 ---
-- name: Enable PHP 7 Zend nightly repo
-  apt_repository: repo="deb http://repos.zend.com/zend-server/early-access/php7/repos ubuntu/" state=present
+- name: Check if PHP7 is installed
+  command: dpkg-query -W php7-nightly
+  register: deb_check_php7
+  failed_when: deb_check_php7.rc > 1
+  changed_when: deb_check_php7.rc == 1
+
+- name: Download PHP 7 deb
+  get_url:
+    url="https://s3-us-west-2.amazonaws.com/com.wpengine.labs-packages/php7-nightly_160131_amd64.deb" 
+    dest="/tmp/php7-nightly_160131_amd64.deb"
+    timeout=120
+  when: deb_check_php7.rc == 1
 
 - name: Install PHP 7 Nightly
-  apt: name=php7-nightly state=present force=yes
+  apt: deb="/tmp/php7-nightly_160131_amd64.deb"
+  sudo: true
+  when: deb_check_php7.rc == 1
 
 - name: Copy php init script
   template:
