@@ -17,7 +17,7 @@
   tags: [ 'percona', 'database' ]
 
 - name: Install Percona server
-  apt: name=percona-server-server-5.6 state=present
+  apt: name=percona-server-server-5.6 state=present force=yes
   notify:
     - update-rc mysql
     - mysql restart
