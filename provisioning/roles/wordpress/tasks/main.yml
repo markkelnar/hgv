@@ -130,7 +130,7 @@
   template: src=etc/nginx/conf.d/wordpress.conf dest=/etc/nginx/conf.d/www-{{ enviro }}.conf owner=root group=root mode=0644
   notify: nginx reload
 
-- name: "Enable PML viewing for {{ enviro }} {{ backend }}"
+- name: "Enable PML viewing for {{ enviro }}"
   template: src=pimpmylog.json dest={{ wp_doc_root }}/admin/logs/config.user.d/{{ enviro }}.json
   with_items:
     - "{{ domain }}"
