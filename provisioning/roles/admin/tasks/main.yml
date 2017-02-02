@@ -48,7 +48,7 @@
     path: "{{ wp_doc_root }}/admin/phpmemcachedadmin"
     state: absent
   when: pma_git_dir.stat.isdir is not defined
-  
+
 - name: Ensure phpMemcachedAdmin directory exists
   file:
     path: "{{ wp_doc_root }}/admin/phpmemcachedadmin"
@@ -73,7 +73,7 @@
   tags: [ 'admin', 'pimpmylog' ]
 
 - name: Download PML
-  git: repo=git://github.com/potsky/PimpMyLog.git dest={{ wp_doc_root }}/admin/logs update=no accept_hostkey=yes
+  git: repo=https://github.com/potsky/PimpMyLog.git dest={{ wp_doc_root }}/admin/logs update=no accept_hostkey=yes
   tags: [ 'admin', 'pimpmylog' ]
 
 - name: Configure PML

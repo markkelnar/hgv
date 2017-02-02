@@ -1,5 +1,9 @@
 # Mercury Vagrant Changelog
 
+## 1.5.1 (2016-02-02)
+
+ * 2016-02-01 Mark Kelnar: BUG FIX Remove errant unused variable leftover after a refactor
+
 ## 1.5 (2015-09-30)
 
  * 2015-09-28 Mark Kelnar: Only the essentials for the www pool file
