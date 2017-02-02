@@ -14,7 +14,7 @@
 
 - name: Install PHP 7 Nightly
   apt: deb="/tmp/php7-nightly_160131_amd64.deb"
-  sudo: true
+  become: true
   when: deb_check_php7.rc == 1
 
 - name: Copy php init script
