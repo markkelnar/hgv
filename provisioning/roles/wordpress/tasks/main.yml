@@ -13,8 +13,8 @@
 
 - name: "Download and install WordPress for {{ enviro }}"
   command: /usr/local/bin/wp core download --path={{ wp_doc_root}}/{{ enviro }}
-  sudo: yes
-  sudo_user: "{{ web_user }}"
+  become: yes
+  become_user: "{{ web_user }}"
   args:
     creates: "{{ wp_doc_root }}/{{ enviro }}/license.txt"
 
@@ -65,39 +65,39 @@
 
 - name: "Check whether the WP install has been run previously"
   command: /usr/local/bin/wp core is-installed --path={{ wp_doc_root }}/{{ enviro }}
-  sudo: yes
-  sudo_user: "{{ web_user }}"
+  become: yes
+  become_user: "{{ web_user }}"
   ignore_errors: yes
   register: wpnotinstalled
 
 - name: "Run the WP install for {{ enviro }}"
   command: /usr/local/bin/wp core install --url={{ domain }} --title="WP Engine {{ enviro }} Site" --admin_user=wordpress --admin_password=wordpress --admin_email="admin@example.com"
-  sudo: yes
-  sudo_user: "{{ web_user }}"
+  become: yes
+  become_user: "{{ web_user }}"
   args:
     chdir: "{{ wp_doc_root }}/{{ enviro }}"
   when: wpnotinstalled.rc and ( wp.multisite|default(False) == False )
 
 - name: "Run the multisite WP subdomain install for {{ enviro }}"
   command: /usr/local/bin/wp core multisite-install --url={{ domain }} --title="WP Engine {{ enviro }} Site" --admin_user=wordpress --admin_password=wordpress --admin_email="admin@example.com" --subdomains
-  sudo: yes
-  sudo_user: "{{ web_user }}"
+  become: yes
+  become_user: "{{ web_user }}"
   args:
     chdir: "{{ wp_doc_root }}/{{ enviro }}"
   when: wpnotinstalled.rc and ( wp.multisite|default(False) == "domain" )
 
 - name: "Run the multisite WP subdirectory install for {{ enviro }}"
   command: /usr/local/bin/wp core multisite-install --url={{ domain }} --title="WP Engine {{ enviro }} Site" --admin_user=wordpress --admin_password=wordpress --admin_email="admin@example.com"
-  sudo: yes
-  sudo_user: "{{ web_user }}"
+  become: yes
+  become_user: "{{ web_user }}"
   args:
     chdir: "{{ wp_doc_root }}/{{ enviro }}"
   when: wpnotinstalled.rc and ( wp.multisite|default(False) == "directory" )
 
 - name: "Install some useful plugins for {{ enviro }}"
   command: /usr/local/bin/wp plugin install {{ item }}
-  sudo: yes
-  sudo_user: "{{ web_user }}"
+  become: yes
+  become_user: "{{ web_user }}"
   with_flattened:
     - "{{ wp.custom_plugins|default([]) }}"
     - default_plugins
@@ -107,8 +107,8 @@
 
 - name: "Install useful plugins from VCS repos for {{ enviro }}"
   command: /usr/local/bin/wp plugin install {{ item.url }}
-  sudo: yes
-  sudo_user: "{{ web_user }}"
+  become: yes
+  become_user: "{{ web_user }}"
   with_items: "{{ default_repo_plugins }}"
   args:
     chdir: "{{ wp_doc_root }}/{{ enviro }}"
