@@ -8,17 +8,17 @@ Mercury differs from standard WordPress hosting in several ways, chief among whi
 
 > HHVM is an open-source virtual machine designed for executing programs written in Hack and PHP. HHVM uses a just-in-time (JIT) compilation approach to achieve superior performance while maintaining the development flexibility that PHP provides.
 
-We have some great [getting started videos and guides here](http://wpengine.com/mercury/how-to-start/) if you want a more guided experience.
+We have some great [getting started videos and guides here](https://wpengine.com/support/use-wp-engine-php7-vagrant-hgv/) if you want a more guided experience.
 
 ## About ##
 
 Mercury Vagrant is a WP Engine creation in partnership with community members.
 
-**Version:** 1.5
+**Version:** 1.5.1
 
-**Latest Stable:** 1.5
+**Latest Stable:** 1.5.1
 
-**Web:** [http://wpengine.com/mercury](http://wpengine.com/mercury)
+**Web:** [https://wpengine.com/support/use-wp-engine-php7-vagrant-hgv/](https://wpengine.com/support/use-wp-engine-php7-vagrant-hgv/)
 
 **Project Lead:** Jason Cohen
 
@@ -209,11 +209,11 @@ README.md - This README markdown file, the technical steps of how to get up and 
 
 [wiki](https://github.com/wpengine/hgv/wiki) - Frequently asked questions
 
-[website](http://wpengine.com/mercury) - General introduction for the Mercury project along with video walkthroughs about how to setup HGV for the first time.
+[website](https://wpengine.com/support/use-wp-engine-php7-vagrant-hgv/) - General introduction for the Mercury project along with video walkthroughs about how to setup HGV for the first time.
 
 [blog](http://wpengine.com/blog) - WP Engine blogs when significant releases or updates are made to HGV.
 
-[updates](http://wpengine.com/mercury/updates) - Another place where the WP Engine team will go into detail about releases or updates to HGV.
+[updates](https://github.com/wpengine/hgv/releases) - Another place where the WP Engine team will go into detail about releases or updates to HGV.
 
 [dashboard](http://hgv.test) - The local HGV dashboard which is available when your vagrant is up and running. This contains all the technical details and configuration options specific to the HGV environment.
 
