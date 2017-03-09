@@ -24,4 +24,8 @@ namespace :spec do
       t.pattern = "spec/#{original_target}/*_spec.rb"
     end
   end
+
+  task :hgv_up do
+      t.pattern = "spec/hgv/1_spec.rb"
+  end
 end
