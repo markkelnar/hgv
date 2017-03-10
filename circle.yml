@@ -1,3 +1,3 @@
 test:
     override:
-        - bundle exec rake spec:hgv_up
+        - bundle exec rake spec:provision
