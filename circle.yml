@@ -1,6 +1,7 @@
 compile:
     override:
-        - bin/hgv-init.sh
+        - chmod +x bin/hgv-init.sh
+        - sh bin/hgv-init.sh
 test:
     override:
         - bundle exec rake spec:provision
