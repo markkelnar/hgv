@@ -1,5 +1,5 @@
-machine:
-    pre:
+compile:
+    override:
         - bin/hgv-init.sh
 test:
     override:
