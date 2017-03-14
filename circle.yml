@@ -1,3 +1,6 @@
+machine:
+    pre:
+        - bin/hgv-init.sh
 test:
     override:
         - bundle exec rake spec:provision
