@@ -27,6 +27,12 @@ echo "
 set -e
 LSB=`lsb_release -r | awk {'print $2'}`
 
+if ENV['CI']
+    HOME_DIR=$HOME
+else
+    HOME_DIR=/vagrant
+end
+
 echo
 echo "Updating APT sources."
 echo
@@ -54,7 +60,7 @@ fi
 echo
 echo "Validating Ansible hostfile permissions."
 echo
-chmod 644 /vagrant/provisioning/hosts
+chmod 644 $HOME_DIR/provisioning/hosts
 
 # More continuous scroll of the ansible standard output buffer
 export PYTHONUNBUFFERED=1
