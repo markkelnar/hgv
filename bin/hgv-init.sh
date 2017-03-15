@@ -30,8 +30,10 @@ LSB=`lsb_release -r | awk {'print $2'}`
 if [[ -d /vagrant ]]
 then
     HOME_DIR=/vagrant
+    IS_VAGRANT=1
 else
     HOME_DIR=$PWD
+    IS_VAGRANT=0
 fi
 
 echo
@@ -71,4 +73,4 @@ export ANSIBLE_FORCE_COLOR=true
 if [ -e "$HOME_DIR/hgv_data/config/provisioning/ansible.yml" ] ; then
     EXTRA="@$HOME_DIR/hgv_data/config/provisioning/ansible.yml"
 fi
-$ANS_BIN $HOME_DIR/provisioning/playbook.yml -i'127.0.0.1,' --extra-vars="$EXTRA"
+$ANS_BIN $HOME_DIR/provisioning/playbook.yml -i'127.0.0.1,' --extra-vars "$EXTRA is_vagrant=$IS_VAGRANT"
