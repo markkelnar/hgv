@@ -36,6 +36,7 @@
     dest: /usr/share/php/wpcs
     update: yes
     accept_hostkey: yes
+  when: is_vagrant
 
 - name: Enable WordPress code sniffs
   command: phpcs --config-set installed_paths /usr/share/php/wpcs
