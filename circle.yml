@@ -1,6 +1,6 @@
 checkout:
     post:
-        - sudo git clone git@github.com:WordPress-Coding-Standards/WordPress-Coding-Standards.git /usr/share/php/wpcs
+        - git clone git@github.com:WordPress-Coding-Standards/WordPress-Coding-Standards.git /usr/share/php/wpcs
 compile:
     override:
         - chmod +x bin/hgv-init.sh
