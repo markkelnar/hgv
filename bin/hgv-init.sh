@@ -27,11 +27,11 @@ echo "
 set -e
 LSB=`lsb_release -r | awk {'print $2'}`
 
-if [[ -n $CI ]]
+if [[ -d /vagrant ]]
 then
-    HOME_DIR=$PWD
-else
     HOME_DIR=/vagrant
+else
+    HOME_DIR=$PWD
 fi
 
 echo
@@ -59,7 +59,7 @@ if [[ -z $ANS_BIN ]]
 fi
 
 echo
-echo "Validating Ansible hostfile permissions."
+echo "Validating Ansible hostfile permissions. $HOME_DIR"
 echo
 chmod 644 $HOME_DIR/provisioning/hosts
 
