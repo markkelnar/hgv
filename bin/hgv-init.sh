@@ -28,7 +28,8 @@ set -e
 LSB=`lsb_release -r | awk {'print $2'}`
 
 if ENV['CI']
-    HOME_DIR=$HOME
+then
+    HOME_DIR=
 else
     HOME_DIR=/vagrant
 end
@@ -67,7 +68,7 @@ export PYTHONUNBUFFERED=1
 export ANSIBLE_FORCE_COLOR=true
 
 # If user specified ansible extra variables file is provided, pass that in to the provisioning
-if [ -e "/vagrant/hgv_data/config/provisioning/ansible.yml" ] ; then
-    EXTRA="@/vagrant/hgv_data/config/provisioning/ansible.yml"
+if [ -e "$HOME_DIR/hgv_data/config/provisioning/ansible.yml" ] ; then
+    EXTRA="@$HOME_DIR/hgv_data/config/provisioning/ansible.yml"
 fi
-$ANS_BIN /vagrant/provisioning/playbook.yml -i'127.0.0.1,' --extra-vars="$EXTRA"
+$ANS_BIN $HOME_DIR/provisioning/playbook.yml -i'127.0.0.1,' --extra-vars="$EXTRA"

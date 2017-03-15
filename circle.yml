@@ -1,7 +1,6 @@
 compile:
     override:
         - chmod +x bin/hgv-init.sh
-        - env
         - sudo bin/hgv-init.sh
 test:
     override:
