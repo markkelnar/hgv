@@ -27,12 +27,12 @@ echo "
 set -e
 LSB=`lsb_release -r | awk {'print $2'}`
 
-if ENV['CI']
+if [[ -n $CI ]]
 then
-    HOME_DIR=
+    HOME_DIR=$PWD
 else
     HOME_DIR=/vagrant
-end
+fi
 
 echo
 echo "Updating APT sources."
