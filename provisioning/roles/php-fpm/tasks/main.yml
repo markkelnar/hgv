@@ -32,11 +32,10 @@
 
 - name: Install WordPress code sniffs
   git:
-    repo: https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git
+    repo: git://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git
     dest: /usr/share/php/wpcs
     update: yes
     accept_hostkey: yes
-  when: is_vagrant
 
 - name: Enable WordPress code sniffs
   command: phpcs --config-set installed_paths /usr/share/php/wpcs
