@@ -34,6 +34,7 @@ services = %w{
 
 services.each do |service|
   describe service(service) do
+    let(:disable_sudo) { true }
     it { should be_enabled }
     it { should be_running }
   end
