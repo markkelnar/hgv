@@ -1,4 +1,6 @@
 dependencies:
+    pre:
+        - bundle install
     override:
         # Circleci has apache2 installed by default.  It conflicts on port 80 with nginx.
         - sudo apt-get remove --yes --purge apache* libapache2-mod-php5:
