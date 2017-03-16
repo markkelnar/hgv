@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'hgv_helper'
 require 'shellwords'
 
 #

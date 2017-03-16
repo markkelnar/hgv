@@ -72,7 +72,7 @@
   git: repo=git://github.com/php-memcached-dev/php-memcached.git dest=/opt/php-memcached update=no version=php7 accept_hostkey=yes
 
 - name: Compile php7 memcached
-  command: /vagrant/provisioning/roles/php-fpm/files/build-php7-memcached.sh chdir=/opt/php-memcached creates=/opt/php-memcached/modules/memcached.so 
+  command: "{{ ansible_env.PWD }}/roles/php-fpm/files/build-php7-memcached.sh chdir=/opt/php-memcached creates=/opt/php-memcached/modules/memcached.so"
   notify: php7-fpm restart
 
 - name: Create php7/conf.d
