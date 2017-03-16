@@ -22,3 +22,4 @@ compile:
 test:
     override:
         - bundle exec rake spec:provision
+        - bundle exec rake spec:hgv
