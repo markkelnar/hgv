@@ -54,7 +54,7 @@ end
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.box = "ubuntu/trusty64"
     config.vm.hostname = "hgv.test"
-    config.vm.network "private_network", ip: "192.168.150.20"
+    config.vm.network "private_network", id: "hgv_primary", ip: "192.168.150.20"
     config.vm.network "forwarded_port", guest: 3306, host: 23306
     config.vm.network "forwarded_port", guest: 9001, host: 29001
     # Give vm a name

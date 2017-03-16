@@ -1,0 +1,7 @@
+---
+- name: import WPE database
+  mysql_db:
+    name: wpe_{{ enviro }}
+    state: import
+    target: "{{ wp_doc_root }}/sqldumps/wpe_{{ enviro }}.sql"
+  when: mysql_import|bool and wp_sql.stat.exists|bool
