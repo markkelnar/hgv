@@ -53,4 +53,6 @@
     - "{{ usr_config_provision }}"
 
 - include: swap.yml
+  when: is_vagrant
+
 - include: daemonize.yml

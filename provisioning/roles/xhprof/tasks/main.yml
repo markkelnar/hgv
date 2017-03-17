@@ -17,7 +17,7 @@
   tags: [ 'profiling', 'xhprof' ]
 
 - name: Create the database table
-  mysql_db: name=xhprof state=import target=/vagrant/provisioning/roles/xhprof/files/install-db.sql
+  mysql_db: name=xhprof state=import target="{{ ansible_env.PWD }}/roles/xhprof/files/install-db.sql"
   tags: [ 'profiling', 'xhprof' ]
 
 - name: Install xhprof dependencies
