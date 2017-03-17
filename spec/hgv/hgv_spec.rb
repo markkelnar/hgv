@@ -5,15 +5,13 @@ require 'shellwords'
 # Hosts are resolvable? or reachable?
 #
 hosts = %w{
-  hhvm.hgv.dev
-  php.hgv.dev
-  fpm.hgv.dev
-  cache.hhvm.hgv.dev
-  cache.php.hgv.dev
-  cache.fpm.hgv.dev
-  admin.hgv.dev
-  xhprof.hgv.dev
-  mail.hgv.dev
+  hhvm.hgv.test
+  php.hgv.test
+  cache.hhvm.hgv.test
+  cache.php.hgv.test
+  admin.hgv.test
+  xhprof.hgv.test
+  mail.hgv.test
 }
 
 hosts.each do |host|
@@ -29,7 +27,6 @@ end
 #
 services = %w{
   nginx
-  mysql
   hhvm
   varnish
 }
@@ -41,18 +38,31 @@ services.each do |service|
   end
 end
 
+#
+# mysql service running
+# Because of service mysql status permissions denied on pid lock file and
+# 'status' doesn't return with 'running' string in the output,
+# do it this way
+#
+describe command('sudo service mysql status') do
+  its(:stdout) { should match /Uptime:/ }
+end
+
+describe process("mysqld") do
+  it { should be_running }
+end
 
 #
 # Web apps are working?
 #
 apps = {
-    'http://hgv.dev/' => /<title>WP Engine Mercury Vagrant<\/title>/,
-    'http://hhvm.hgv.dev/' => /<title>WP Engine hhvm Site | Just another WordPress site<\/title>/,
-    'http://php.hgv.dev/' => /<title>WP Engine php Site | Just another WordPress site<\/title>/,
-    'http://admin.hgv.dev/' => /<title>Admin - WP Engine Mercury Vagrant<\/title>/,
-    'http://admin.hgv.dev/phpmyadmin/' => /<title>phpMyAdmin<\/title>/,
-    'http://admin.hgv.dev/phpmemcachedadmin' => /<title>phpMemcachedAdmin.*?<\/title>/,
-    'http://admin.hgv.dev/logs' => /<title>Pimp my Log<\/title>/,
+    'http://hgv.test/' => /<title>WP Engine Mercury Vagrant<\/title>/,
+    'http://hhvm.hgv.test/' => /<title>WP Engine hhvm Site | Just another WordPress site<\/title>/,
+    'http://php.hgv.test/' => /<title>WP Engine php Site | Just another WordPress site<\/title>/,
+    'http://admin.hgv.test/' => /<title>Admin - WP Engine Mercury Vagrant<\/title>/,
+    'http://admin.hgv.test/phpmyadmin/' => /<title>phpMyAdmin<\/title>/,
+    'http://admin.hgv.test/phpmemcachedadmin' => /<title>phpMemcachedAdmin.*?<\/title>/,
+    'http://admin.hgv.test/logs' => /<title>Pimp my Log<\/title>/,
 }
 
 apps.each do |url, content|
@@ -67,7 +77,6 @@ end
 #
 wp_paths = %w{
   /hgv_data/sites/hhvm
-  /hgv_data/sites/php
 }
 
 wp_plugins = %w{

@@ -20,16 +20,24 @@ fi
 export PYTHONUNBUFFERED=1
 export ANSIBLE_FORCE_COLOR=true
 
+if [[ -d /vagrant ]]
+then
+    HOME_DIR=/vagrant
+else
+    HOME_DIR=$PWD
+fi
+
 # If user specified ansible extra variables file is provided, pass that in to the provisioning
-if [ -e "/vagrant/hgv_data/config/provisioning/ansible.yml" ] ; then
-    EXTRA="@/vagrant/hgv_data/config/provisioning/ansible.yml"
+EXTRA=
+if [ -e "$HOME_DIR/hgv_data/config/provisioning/ansible.yml" ] ; then
+    EXTRA="@$HOME_DIR/hgv_data/config/provisioning/ansible.yml"
 fi
 
 shopt -s nullglob
-for file in /vagrant/provisioning/default-install.yml /vagrant/hgv_data/config/*.yml /vagrant/hgv_data/config/sites/*.yml
+for file in $HOME_DIR/provisioning/default-install.yml $HOME_DIR/hgv_data/config/*.yml $HOME_DIR/hgv_data/config/sites/*.yml
 do
     echo "### Provisioning $file ###"
-    $ANS_BIN /vagrant/provisioning/wordpress.yml -i'127.0.0.1,' --extra-vars="@$file" --extra-vars="$EXTRA"
+    $ANS_BIN $HOME_DIR/provisioning/wordpress.yml -i'127.0.0.1,' --extra-vars "@$file" --extra-vars "$EXTRA"
 done
 
 echo
