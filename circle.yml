@@ -17,6 +17,9 @@ compile:
     override:
         - chmod +x bin/hgv-init.sh
         - sudo bin/hgv-init.sh
+        - chmod +x bin/custom-sites.sh
+        - sudo bin/custom-sites.sh
 test:
     override:
         - bundle exec rake spec:provision
+        - bundle exec rake spec:hgv
