@@ -28,7 +28,7 @@ class DashboardCest
     {
         $I->amOnUrl('http://admin.hgv.test/phpmyadmin');
         $I->seeResponseCodeIs(200);
-        $I->see('Welcome to <bdo dir="ltr" lang="en">phpMyAdmin</bdo>');
+        $I->see('Welcome to phpMyAdmin');
     }
 
     public function viewPhpmemcachedadmin(AcceptanceTester $I)
