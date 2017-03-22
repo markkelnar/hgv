@@ -11,7 +11,9 @@ class MultisiteDirectoryCest
     {
     }
 
-    // tests
+    /**
+     * @incomplete Multisite tests not implemented yet.
+     */
     public function viewPageHHVM(AcceptanceTester $I)
     {
         $I->amOnUrl('http://multidirectory.test');
@@ -20,6 +22,9 @@ class MultisiteDirectoryCest
         $I->seeResponseCodeIs(200);
     }
 
+    /**
+     * @incomplete Multisite tests not implemented yet.
+     */
     public function viewSubpageHHVM(AcceptanceTester $I)
     {
         $I->amOnUrl('http://multidirectory.test');
@@ -29,6 +34,9 @@ class MultisiteDirectoryCest
         $I->seeResponseCodeIs(200);
     }
 
+    /**
+     * @incomplete Multisite tests not implemented yet.
+     */
     public function viewPagePHP(AcceptanceTester $I)
     {
         // Pass header/cookie to specify the backend
@@ -38,6 +46,9 @@ class MultisiteDirectoryCest
         $I->seeResponseCodeIs(200);
     }
 
+    /**
+     * @incomplete Multisite tests not implemented yet.
+     */
     public function viewPagePHP7(AcceptanceTester $I)
     {
         // Pass header/cookie to specify the backend
@@ -47,6 +58,9 @@ class MultisiteDirectoryCest
         $I->seeResponseCodeIs(200);
     }
 
+    /**
+     * @incomplete Multisite tests not implemented yet.
+     */
     public function viewSubpagePHP(AcceptanceTester $I)
     {
         // Pass header/cookie to specify the backend
@@ -58,6 +72,9 @@ class MultisiteDirectoryCest
         $I->seeResponseCodeIs(200);
     }
 
+    /**
+     * @incomplete Multisite tests not implemented yet.
+     */
     public function viewSubpagePHP7(AcceptanceTester $I)
     {
         // Pass header/cookie to specify the backend
@@ -69,6 +86,9 @@ class MultisiteDirectoryCest
         $I->seeResponseCodeIs(200);
     }
 
+    /**
+     * @incomplete Multisite tests not implemented yet.
+     */
     public function viewPageHHVM404(AcceptanceTester $I)
     {
         $I->amOnUrl('http://multidirectory.test');
@@ -76,6 +96,9 @@ class MultisiteDirectoryCest
         $I->seeResponseCodeIs(404);
     }
 
+    /**
+     * @incomplete Multisite tests not implemented yet.
+     */
     public function viewPagePHP404(AcceptanceTester $I)
     {
         // Pass header/cookie to specify the backend
@@ -86,6 +109,9 @@ class MultisiteDirectoryCest
         $I->seeResponseCodeIs(404);
     }
 
+    /**
+     * @incomplete Multisite tests not implemented yet.
+     */
     public function viewPagePHP7_404(AcceptanceTester $I)
     {
         // Pass header/cookie to specify the backend
