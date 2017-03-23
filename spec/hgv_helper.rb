@@ -15,7 +15,7 @@ end
 
 host = ENV['TARGET_HOST']
 
-if !ENV['CI']
+if !ENV['CI'] && !Dir.exist?('/vagrant')
   `vagrant up #{host}`
 
   config = Tempfile.new('', Dir.tmpdir)
@@ -32,7 +32,6 @@ end
 
 # Disable sudo
 # set :disable_sudo, true
-
 
 # Set environment variables
 # set :env, :LANG => 'C', :LC_MESSAGES => 'C' 

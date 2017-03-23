@@ -14,7 +14,7 @@ namespace :spec do
   end
 
   task :all     => targets
-  # task :default => :all
+  task :default => :all
 
   targets.each do |target|
     original_target = target == "_default" ? target[1..-1] : target
