@@ -138,6 +138,7 @@ class DefaultWPCest
         $I->amOnPage('/test-error-500.php');
         $I->seeResponseCodeIs(500);
         $I->seeCurrentUrlEquals('/test-error-500.php');
+        $I->see('You are seeing this because you are using the PHP selector, and the page you are working on just returned an error.');
 
         $I->deleteFile($file);
     }
