@@ -22,7 +22,7 @@
   alternatives: name=php-config link=/usr/bin/php-config path=/usr/bin/php-config5
 
 - name: Set PHP 5.5 ize as default
-  alternatives: name=phpize link=/usr/bin/phpize path=/usr/local/php7/bin/phpize5
+  alternatives: name=phpize link=/usr/bin/phpize path=/usr/bin/phpize5
 
 - name: Install PECL modules
   command: pecl install {{ item }}

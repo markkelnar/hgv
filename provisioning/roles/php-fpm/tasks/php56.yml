@@ -4,7 +4,7 @@
   apt_repository: repo='deb http://ppa.launchpad.net/ondrej/php/ubuntu {{ ansible_lsb.codename }} main' state=present
 
 - name: Install PHP 5.6 packages
-  apt: name={{ item }} state=present
+  apt: name={{ item }} state=present allow_unauthenticated=yes
   with_items:
       - php5.6-common
       - php5.6-cli
