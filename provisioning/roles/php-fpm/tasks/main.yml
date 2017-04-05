@@ -14,16 +14,6 @@
       - php5-dev
       - libyaml-dev
 
-# Set the alternatives deliberately, so that 5.6 or 7.0 doesn't override
-- name: Set PHP 5.5 bin as default
-  alternatives: name=php link=/usr/bin/php path=/usr/bin/php5
-
-- name: Set PHP 5.5 config as default
-  alternatives: name=php-config link=/usr/bin/php-config path=/usr/bin/php-config5
-
-- name: Set PHP 5.5 ize as default
-  alternatives: name=phpize link=/usr/bin/phpize path=/usr/bin/phpize5
-
 - name: Install PECL modules
   command: pecl install {{ item }}
   register: pecl_result
@@ -88,4 +78,12 @@
 - include: php56.yml
 - include: php7.yml
 
+# Set the alternatives deliberately, so that 5.6 or 7.0 doesn't override
+- name: Set PHP 5.5 bin as default
+  alternatives: name=php link=/usr/bin/php path=/usr/bin/php5
 
+- name: Set PHP 5.5 config as default
+  alternatives: name=php-config link=/usr/bin/php-config path=/usr/bin/php-config5
+
+- name: Set PHP 5.5 ize as default
+  alternatives: name=phpize link=/usr/bin/phpize path=/usr/bin/phpize5
