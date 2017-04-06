@@ -5,6 +5,9 @@ jQuery(document).ready(function($){
     $( "#wp-admin-bar-php-selector-five" ).click(function() {
         phpSelector($('a', this).attr("rel"));
     });
+    $( "#wp-admin-bar-php-selector-fivesix" ).click(function() {
+        phpSelector($('a', this).attr("rel"));
+    });
     $( "#wp-admin-bar-php-selector-seven" ).click(function() {
         phpSelector($('a', this).attr("rel"));
     });
