@@ -3,5 +3,8 @@
 - name: php5-fpm restart
   command: restart php5-fpm
 
+- name: php5.6-fpm restart
+  command: service php5.6-fpm restart
+
 - name: php7-fpm restart
   shell: stop php7-fpm ; start php7-fpm
