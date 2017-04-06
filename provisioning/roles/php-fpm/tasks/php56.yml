@@ -1,0 +1,35 @@
+---
+
+- name: Enable Ondrej PHP repo
+  apt_repository: repo='deb http://ppa.launchpad.net/ondrej/php/ubuntu {{ ansible_lsb.codename }} main' state=present
+
+- name: Install PHP 5.6 packages
+  apt: name={{ item }} state=present allow_unauthenticated=yes
+  with_items:
+      - php5.6-common
+      - php5.6-cli
+      - php5.6-curl
+      - php5.6-dev
+      - php5.6-gd
+      - php5.6-fpm
+      - php5.6-json
+      - php5.6-opcache
+      - php5.6-mysql
+      - php-memcached
+      - php-xdebug
+
+- name: Push out 5.6 php.ini file
+  template:
+    src: etc/php/5.6/fpm/php.ini
+    dest: /etc/php/5.6/fpm/php.ini
+  notify: php5.6-fpm restart
+
+- name: Set the max file upload size
+  ini_file:
+    dest: /etc/php/5.6/fpm/php.ini
+    section: "PHP"
+    option: "{{ item }}"
+    value: "{{ file_upload_max_size }}M"
+  with_items:
+    - upload_max_filesize
+    - post_max_size
