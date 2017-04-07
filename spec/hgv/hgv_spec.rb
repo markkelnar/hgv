@@ -9,5 +9,6 @@ describe 'hgv' do
   include_examples 'services::php55'
   include_examples 'services::php56'
   include_examples 'services::php70'
+  include_examples 'services::php71'
   include_examples 'wordpress::plugins'
 end

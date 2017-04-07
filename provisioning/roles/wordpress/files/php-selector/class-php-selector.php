@@ -18,9 +18,12 @@ class PHPSelector
         if( $this->poweredByHhvm() ) {
             return 'HHVM';
         }
+        if( $this->poweredByPhp71() ) {
+            return 'PHP 7.1';
+        }
         // Example, 7.0.0-dev
         if( $this->poweredByPhp7() ) {
-            return 'PHP 7';
+            return 'PHP 7.0';
         }
         if( $this->poweredByPhp56() ) {
             return 'PHP 5.6';
@@ -39,6 +42,14 @@ class PHPSelector
             return false;
         }
         return true;
+    }
+
+    function poweredByPhp71() {
+        // Example, 7.1.0-dev
+        if( "7.1" == $this->getPhpVersion()) {
+            return true;
+        }
+        return false;
     }
 
     function poweredByPhp7() {
@@ -100,6 +111,13 @@ class PHPSelector
                 'title'  => 'PHP 7.0',
                 'href'   => $this->poweredByPhp7() ? '' : '#php7',
                 'meta'   => array('rel' => 'php7'),
+        ));
+        $wp_admin_bar->add_node( array(
+                'parent' => 'php_selector_link',
+                'id'     => 'php-selector-seven',
+                'title'  => 'PHP 7.1',
+                'href'   => $this->poweredByPhp71() ? '' : '#php71',
+                'meta'   => array('rel' => 'php71'),
         ));
     }
 
