@@ -7,4 +7,4 @@
   command: service php5.6-fpm restart
 
 - name: php7.0-fpm restart
-  shell: stop php7-fpm ; start php7-fpm
+  command: service php7.0-fpm restart
