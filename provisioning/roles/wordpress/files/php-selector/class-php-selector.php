@@ -14,17 +14,23 @@ class PHPSelector
      * Calculate the actual PHP version that built this page.
      */
     function backendValue() {
-        $version = phpversion();
         // Example, 5.6.99-hhvm
-        if( false !== strstr($version, 'hhvm')) {
+        if( $this->poweredByHhvm() ) {
             return 'HHVM';
         }
         // Example, 7.0.0-dev
-        if( 7 == substr($version, 0, 1)) {
+        if( $this->poweredByPhp7() ) {
             return 'PHP 7';
         }
+        if( $this->poweredByPhp56() ) {
+            return 'PHP 5.6';
+        }
         // Example, 5.5.9-1ubuntu4.11
-        return 'PHP 5';
+        return 'PHP 5.5';
+    }
+
+    function getPhpVersion() {
+        return substr(phpversion(), 0, 3);
     }
 
     function poweredByHhvm() {
@@ -37,7 +43,14 @@ class PHPSelector
 
     function poweredByPhp7() {
         // Example, 7.0.0-dev
-        if( ! $this->poweredByHhvm() && 7 == substr(phpversion(), 0, 1)) {
+        if( "7.0" == $this->getPhpVersion()) {
+            return true;
+        }
+        return false;
+    }
+
+    function poweredByPhp56() {
+        if( "5.6" == $this->getPhpVersion()) {
             return true;
         }
         return false;
@@ -45,7 +58,7 @@ class PHPSelector
 
     function poweredByPhp5() {
         // Example, 5.5.9-1ubuntu4.11
-        if( ! $this->poweredByHhvm() && 5 == substr(phpversion(), 0, 1)) {
+        if( "5.5" == $this->getPhpVersion()) {
             return true;
         }
         return false;
@@ -70,14 +83,21 @@ class PHPSelector
         $wp_admin_bar->add_node( array(
                 'parent' => 'php_selector_link',
                 'id'     => 'php-selector-five',
-                'title'  => 'PHP 5',
+                'title'  => 'PHP 5.5',
                 'href'   => $this->poweredByPhp5() ? '' : '#php5',
                 'meta'   => array('rel' => 'php5'),
         ));
         $wp_admin_bar->add_node( array(
                 'parent' => 'php_selector_link',
+                'id'     => 'php-selector-fivesix',
+                'title'  => 'PHP 5.6',
+                'href'   => $this->poweredByPhp56() ? '' : '#php56',
+                'meta'   => array('rel' => 'php56'),
+        ));
+        $wp_admin_bar->add_node( array(
+                'parent' => 'php_selector_link',
                 'id'     => 'php-selector-seven',
-                'title'  => 'PHP 7',
+                'title'  => 'PHP 7.0',
                 'href'   => $this->poweredByPhp7() ? '' : '#php7',
                 'meta'   => array('rel' => 'php7'),
         ));

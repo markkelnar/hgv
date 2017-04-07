@@ -1,4 +1,5 @@
 ---
+
 - name: Uninstall deprecated packages or ones we don't want anymore
   apt: name={{ item }} state=absent purge=yes
   with_items:
@@ -21,6 +22,7 @@
     - subversion
     - autojump
     - siege
+    - bundler
 
 - name: Get Composer
   get_url: url=https://getcomposer.org/composer.phar dest=/usr/local/bin/composer mode=0755 validate_certs=no
@@ -59,3 +61,6 @@
   when: is_vagrant
 
 - include: daemonize.yml
+
+- bundler:
+    state: present
