@@ -76,7 +76,7 @@
     - post_max_size
 
 - include: php56.yml
-- include: php7.yml
+- include: php70.yml
 
 # Set the alternatives deliberately, so that 5.6 or 7.0 doesn't override
 - name: Set PHP 5.5 bin as default
