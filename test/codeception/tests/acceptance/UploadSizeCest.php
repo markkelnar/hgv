@@ -16,7 +16,7 @@ class UploadSizeWPCest
      */
     public function checkFileUploadLimitPhp55(AcceptanceTester $I)
     {
-        $I->wantTo('Log into site and check file upload on media page');
+        $I->wantTo('Log into site and check file upload on media page PHP 5.5');
         $I->setCookie('backend', 'php55');
         $I->amOnUrl('http://hhvm.hgv.test');
         $I->amOnPage('/wp-login.php');
@@ -34,7 +34,7 @@ class UploadSizeWPCest
      */
     public function checkFileUploadLimitPhp56(AcceptanceTester $I)
     {
-        $I->wantTo('Log into site and check file upload on media page');
+        $I->wantTo('Log into site and check file upload on media page PHP 5.6');
         $I->setCookie('backend', 'php56');
         $I->amOnUrl('http://hhvm.hgv.test');
         $I->amOnPage('/wp-login.php');
@@ -52,7 +52,7 @@ class UploadSizeWPCest
      */
     public function checkFileUploadLimitPhp7(AcceptanceTester $I)
     {
-        $I->wantTo('Log into site and check file upload on media page');
+        $I->wantTo('Log into site and check file upload on media page PHP 7.0');
         $I->setCookie('backend', 'php7');
         $I->amOnUrl('http://hhvm.hgv.test');
         $I->amOnPage('/wp-login.php');
