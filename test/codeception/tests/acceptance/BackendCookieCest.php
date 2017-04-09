@@ -56,7 +56,7 @@ class BackendCookieCest
     }
 
     // Test that can load the default WP with PHP 7.0
-    public function viewPageCookiePHP7(AcceptanceTester $I)
+    public function viewPageCookiePHP70(AcceptanceTester $I)
     {
         $I->setCookie('backend', 'php7');
         $I->amOnUrl('http://hhvm.hgv.test');
@@ -67,7 +67,7 @@ class BackendCookieCest
     }
 
     // Test that can load the default WP with PHP 7.1
-    public function viewPageCookiePHP7(AcceptanceTester $I)
+    public function viewPageCookiePHP71(AcceptanceTester $I)
     {
         $I->setCookie('backend', 'php71');
         $I->amOnUrl('http://hhvm.hgv.test');

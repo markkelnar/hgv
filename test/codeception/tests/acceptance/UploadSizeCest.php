@@ -50,7 +50,7 @@ class UploadSizeWPCest
     /**
      * This test will check the file upload size limit in wp-admin media uploader
      */
-    public function checkFileUploadLimitPhp7(AcceptanceTester $I)
+    public function checkFileUploadLimitPhp70(AcceptanceTester $I)
     {
         $I->wantTo('Log into site and check file upload on media page PHP 7.0');
         $I->setCookie('backend', 'php7');
@@ -68,7 +68,7 @@ class UploadSizeWPCest
     /**
      * This test will check the file upload size limit in wp-admin media uploader
      */
-    public function checkFileUploadLimitPhp7(AcceptanceTester $I)
+    public function checkFileUploadLimitPhp71(AcceptanceTester $I)
     {
         $I->wantTo('Log into site and check file upload on media page PHP 7.1');
         $I->setCookie('backend', 'php71');
