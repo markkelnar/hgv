@@ -11,6 +11,9 @@ jQuery(document).ready(function($){
     $( "#wp-admin-bar-php-selector-seven" ).click(function() {
         phpSelector($('a', this).attr("rel"));
     });
+    $( "#wp-admin-bar-php-selector-sevenone" ).click(function() {
+        phpSelector($('a', this).attr("rel"));
+    });
 });
 
 function phpSelector(value) {

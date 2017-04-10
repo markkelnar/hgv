@@ -114,7 +114,7 @@ class PHPSelector
         ));
         $wp_admin_bar->add_node( array(
                 'parent' => 'php_selector_link',
-                'id'     => 'php-selector-seven',
+                'id'     => 'php-selector-sevenone',
                 'title'  => 'PHP 7.1',
                 'href'   => $this->poweredByPhp71() ? '' : '#php71',
                 'meta'   => array('rel' => 'php71'),
