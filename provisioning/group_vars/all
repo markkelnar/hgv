@@ -34,5 +34,5 @@ default_plugins:
   - log-deprecated-notices
 
 default_repo_plugins:
-  - slug: S3-Uploads-0.9.0
-    url: "https://github.com/humanmade/S3-Uploads/archive/v0.9.0.zip"
+  - slug: S3-Uploads-1.1.0
+    url: "https://codeload.github.com/humanmade/S3-Uploads/zip/v1.1.0"
