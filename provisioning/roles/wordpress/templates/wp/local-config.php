@@ -23,7 +23,7 @@ define('WP_DEBUG_DISPLAY', false);
 define('SCRIPT_DEBUG', true);
 define('SAVEQUERIES', true);
 
-global $memecached_servers;
+global $memcached_servers;
 
 $memcached_servers = array(
     'default' => array(
