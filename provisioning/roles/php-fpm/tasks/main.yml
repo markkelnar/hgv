@@ -75,6 +75,15 @@
     - upload_max_filesize
     - post_max_size
 
+- name: Set values in php.ini cli
+  ini_file:
+    dest: /etc/php5/cli/php.ini
+    section: "PHP"
+    option: "{{ item.name }}"
+    value: "{{ item.value }}"
+  with_items:
+    - { name: 'short_open_tag', value: 'On' }
+
 - include: php56.yml
 - include: php70.yml
 - include: php71.yml
