@@ -1,5 +1,4 @@
 <?php
-use \AcceptanceTester;
 
 // TODO: These tests are duplicate for hhvm and php. Probably a good idea to refactor these tests so there is one set of tests and each domain endpoint is extended to call the test suite.
 class DefaultWPCest
