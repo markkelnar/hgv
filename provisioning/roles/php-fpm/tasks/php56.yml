@@ -15,6 +15,7 @@
       - php5.6-json
       - php5.6-opcache
       - php5.6-mysql
+      - php5.6-xml
       - php-memcached
       - php-xdebug
 
@@ -33,3 +34,12 @@
   with_items:
     - upload_max_filesize
     - post_max_size
+
+- name: Set 5.6 values in php.ini cli
+  ini_file:
+    dest: /etc/php/5.6/cli/php.ini
+    section: "PHP"
+    option: "{{ item.name }}"
+    value: "{{ item.value }}"
+  with_items:
+    - { name: 'short_open_tag', value: 'On' }
