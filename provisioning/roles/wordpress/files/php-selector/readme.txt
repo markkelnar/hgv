@@ -1,7 +1,7 @@
 === PHP Toggle Selector ===
 Contributors: markkelnar
 Donate link: http://example.com/
-Tags: wpe, wpengine, php5, php7, hhvm
+Tags: wpe, wpengine, php5.6, php7, php7.1, hhvm
 Requires at least: 3.0.1
 Tested up to: 3.4
 Stable tag: 4.3.1

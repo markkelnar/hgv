@@ -27,6 +27,15 @@ echo "
 set -e
 LSB=`lsb_release -r | awk {'print $2'}`
 
+if [[ -d /vagrant ]]
+then
+    HOME_DIR=/vagrant
+    IS_VAGRANT=1
+else
+    HOME_DIR=$PWD
+    IS_VAGRANT=0
+fi
+
 echo
 echo "Updating APT sources."
 echo
@@ -52,16 +61,16 @@ if [[ -z $ANS_BIN ]]
 fi
 
 echo
-echo "Validating Ansible hostfile permissions."
+echo "Validating Ansible hostfile permissions. $HOME_DIR"
 echo
-chmod 644 /vagrant/provisioning/hosts
+chmod 644 $HOME_DIR/provisioning/hosts
 
 # More continuous scroll of the ansible standard output buffer
 export PYTHONUNBUFFERED=1
 export ANSIBLE_FORCE_COLOR=true
 
 # If user specified ansible extra variables file is provided, pass that in to the provisioning
-if [ -e "/vagrant/hgv_data/config/provisioning/ansible.yml" ] ; then
-    EXTRA="@/vagrant/hgv_data/config/provisioning/ansible.yml"
+if [ -e "$HOME_DIR/hgv_data/config/provisioning/ansible.yml" ] ; then
+    EXTRA="@$HOME_DIR/hgv_data/config/provisioning/ansible.yml"
 fi
-$ANS_BIN /vagrant/provisioning/playbook.yml -i'127.0.0.1,' --extra-vars="$EXTRA"
+$ANS_BIN $HOME_DIR/provisioning/playbook.yml -i'127.0.0.1,' --extra-vars "$EXTRA" --extra-vars "is_vagrant=$IS_VAGRANT"

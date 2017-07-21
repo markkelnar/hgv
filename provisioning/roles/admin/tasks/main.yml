@@ -48,7 +48,7 @@
     path: "{{ wp_doc_root }}/admin/phpmemcachedadmin"
     state: absent
   when: pma_git_dir.stat.isdir is not defined
-  
+
 - name: Ensure phpMemcachedAdmin directory exists
   file:
     path: "{{ wp_doc_root }}/admin/phpmemcachedadmin"
@@ -59,7 +59,7 @@
 
 - name: Download phpMemcachedAdmin
   git:
-    repo: https://github.com/wp-cloud/phpmemcacheadmin.git
+    repo: git://github.com/wp-cloud/phpmemcacheadmin.git
     dest: "{{ wp_doc_root }}/admin/phpmemcachedadmin"
     update: no
     accept_hostkey: yes

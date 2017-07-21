@@ -1,0 +1,35 @@
+---
+
+- name: Enable Ondrej PHP repo
+  apt_repository: repo='deb http://ppa.launchpad.net/ondrej/php/ubuntu {{ ansible_lsb.codename }} main' state=present
+
+- name: Install PHP 7.1 packages
+  apt: name={{ item }} state=present allow_unauthenticated=yes
+  with_items:
+      - php7.1-common
+      - php7.1-cli
+      - php7.1-curl
+      - php7.1-dev
+      - php7.1-gd
+      - php7.1-fpm
+      - php7.1-json
+      - php7.1-opcache
+      - php7.1-mysql
+      - php-memcached
+      - php-xdebug
+
+- name: Push out 7.1 php.ini file
+  template:
+    src: etc/php/7.1/fpm/php.ini
+    dest: /etc/php/7.1/fpm/php.ini
+  notify: php7.1-fpm restart
+
+- name: Set the max file upload size
+  ini_file:
+    dest: /etc/php/7.1/fpm/php.ini
+    section: "PHP"
+    option: "{{ item }}"
+    value: "{{ file_upload_max_size }}M"
+  with_items:
+    - upload_max_filesize
+    - post_max_size

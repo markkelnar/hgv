@@ -1,0 +1,26 @@
+dependencies:
+    pre:
+        - bundle install
+    override:
+        # Circleci has apache2 installed by default.  It conflicts on port 80 with nginx.
+        - sudo apt-get remove --yes --purge apache* libapache2-mod-php5:
+            environment:
+                DEBIAN_FRONTEND: noninteractive
+        # Circle has 5.7 installed by default.  Until we support that, remove it so we can install 5.6
+        - sudo apt-get remove --yes --purge mysql*:
+            environment:
+                DEBIAN_FRONTEND: noninteractive
+        - sudo apt-get autoremove
+        - sudo apt-get autoclean
+        - sudo rm -rf /var/lib/mysql
+compile:
+    override:
+        - chmod +x bin/hgv-init.sh
+        - sudo bin/hgv-init.sh
+        - chmod +x bin/custom-sites.sh
+        - sudo bin/custom-sites.sh
+test:
+    override:
+        - bundle exec rake spec:provision
+        - bundle exec rake spec:hgv
+        - sudo codecept run -c test/codeception/

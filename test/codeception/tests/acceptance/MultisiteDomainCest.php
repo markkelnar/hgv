@@ -11,7 +11,9 @@ class MultisiteDomainCest
     {
     }
 
-    // tests
+    /**
+     * @incomplete Multisite tests not implemented yet.
+     */
     public function viewPageHHVM(AcceptanceTester $I)
     {
         $I->amOnUrl('http://multidomain.test');
@@ -20,6 +22,9 @@ class MultisiteDomainCest
         $I->seeResponseCodeIs(200);
     }
 
+    /**
+     * @incomplete Multisite tests not implemented yet.
+     */
     public function viewPagePHP(AcceptanceTester $I)
     {
         $I->amOnUrl('http://php.multidomain.test');
@@ -28,6 +33,9 @@ class MultisiteDomainCest
         $I->seeResponseCodeIs(200);
     }
 
+    /**
+     * @incomplete Multisite tests not implemented yet.
+     */
     public function viewPageHHVM404(AcceptanceTester $I)
     {
         $I->amOnUrl('http://multidomain.test');
