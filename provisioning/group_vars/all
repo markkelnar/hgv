@@ -5,6 +5,7 @@ varnish_listen_port: 6081
 nginx_listen_port_http_to_fcgi: 8083
 
 varnish_version: 3.0
+varnish_packagecloud_repo: "varnish{{ varnish_version|replace('.', '') }}"
 phpmyadmin_version: 4.3.6-english
 wpcli_version: WP-CLI 1.2.0
 wp_doc_root: /nas/wp/www/sites
