@@ -14,6 +14,7 @@
       - php5.6-fpm
       - php5.6-json
       - php5.6-opcache
+      - php5.6-mbstring
       - php5.6-mysql
       - php5.6-xml
       - php-memcached
