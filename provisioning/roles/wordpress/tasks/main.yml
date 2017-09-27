@@ -24,7 +24,7 @@
   file: path={{ wp_doc_root }}/{{ enviro }} state=directory owner={{ web_user }} group={{ web_group }}
 
 - name: "Download and install WordPress for {{ enviro }}"
-  command: /usr/local/bin/wp core download --path={{ wp_doc_root}}/{{ enviro }}
+  command: /usr/local/bin/wp core download --path={{ wp_doc_root}}/{{ enviro }} --version=4.8.1
   become: yes
   become_user: "{{ web_user }}"
   args:
