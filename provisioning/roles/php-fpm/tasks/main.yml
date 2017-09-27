@@ -75,16 +75,25 @@
     - upload_max_filesize
     - post_max_size
 
+- name: Set values in php.ini cli
+  ini_file:
+    dest: /etc/php5/cli/php.ini
+    section: "PHP"
+    option: "{{ item.name }}"
+    value: "{{ item.value }}"
+  with_items:
+    - { name: 'short_open_tag', value: 'On' }
+
 - include: php56.yml
 - include: php70.yml
 - include: php71.yml
 
 # Set the alternatives deliberately, so that 5.6 or 7.0 doesn't override
-- name: Set PHP 5.5 bin as default
-  alternatives: name=php link=/usr/bin/php path=/usr/bin/php5
+- name: Set PHP 5.6 bin as default
+  alternatives: name=php link=/usr/bin/php path=/usr/bin/php5.6
 
-- name: Set PHP 5.5 config as default
-  alternatives: name=php-config link=/usr/bin/php-config path=/usr/bin/php-config5
+- name: Set PHP 5.6 config as default
+  alternatives: name=php-config link=/usr/bin/php-config path=/usr/bin/php-config5.6
 
-- name: Set PHP 5.5 ize as default
-  alternatives: name=phpize link=/usr/bin/phpize path=/usr/bin/phpize5
+- name: Set PHP 5.6 ize as default
+  alternatives: name=phpize link=/usr/bin/phpize path=/usr/bin/phpize5.6

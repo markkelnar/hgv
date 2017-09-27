@@ -23,4 +23,4 @@ test:
     override:
         - bundle exec rake spec:provision
         - bundle exec rake spec:hgv
-        - sudo codecept run -c test/codeception/
+        - sudo /usr/bin/php7.0 /usr/local/bin/codecept run -c test/codeception/
