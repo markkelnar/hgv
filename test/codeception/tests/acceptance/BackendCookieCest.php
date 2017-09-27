@@ -10,7 +10,7 @@ class BackendCookieCest
     {
     }
 
-    // Test that can load the default WP with PHP 5.5
+    // Test that can load the default WP with PHP 5.6
     public function viewPageCookiePHP(AcceptanceTester $I)
     {
         $I->setCookie('backend', 'php');
@@ -18,10 +18,10 @@ class BackendCookieCest
         $I->amOnPage('/');
         $I->seeCurrentUrlEquals('/');
         $I->seeResponseCodeIs(200);
-        $I->assertRegExp('#PHP/5\.5\.(.*)#', $I->grabHttpHeader('X-Powered-By'));
+        $I->assertRegExp('#PHP/5\.6\.(.*)#', $I->grabHttpHeader('X-Powered-By'));
     }
 
-    // Test that can load the default WP with PHP 5.5
+    // Test that can load the default WP with PHP 5.6
     public function viewPageCookiePHP5(AcceptanceTester $I)
     {
         $I->setCookie('backend', 'php5');
@@ -29,10 +29,10 @@ class BackendCookieCest
         $I->amOnPage('/');
         $I->seeCurrentUrlEquals('/');
         $I->seeResponseCodeIs(200);
-        $I->assertRegExp('#PHP/5\.5\.(.*)#', $I->grabHttpHeader('X-Powered-By'));
+        $I->assertRegExp('#PHP/5\.6\.(.*)#', $I->grabHttpHeader('X-Powered-By'));
     }
 
-    // Test that can load the default WP with PHP 5.5
+    // Test that can load the default WP with PHP 5.6
     public function viewPageCookiePHP55(AcceptanceTester $I)
     {
         $I->setCookie('backend', 'php55');
@@ -40,7 +40,7 @@ class BackendCookieCest
         $I->amOnPage('/');
         $I->seeCurrentUrlEquals('/');
         $I->seeResponseCodeIs(200);
-        $I->assertRegExp('#PHP/5\.5\.(.*)#', $I->grabHttpHeader('X-Powered-By'));
+        $I->assertRegExp('#PHP/5\.6\.(.*)#', $I->grabHttpHeader('X-Powered-By'));
     }
 
     // Test that can load the default WP with PHP 5.6

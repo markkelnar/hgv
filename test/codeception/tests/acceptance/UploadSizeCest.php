@@ -13,10 +13,10 @@ class UploadSizeWPCest
     /**
      * This test will check the file upload size limit in wp-admin media uploader
      */
-    public function checkFileUploadLimitPhp55(AcceptanceTester $I)
+    public function checkFileUploadLimitPhp(AcceptanceTester $I)
     {
         $I->wantTo('Log into site and check file upload on media page PHP 5.5');
-        $I->setCookie('backend', 'php55');
+        $I->setCookie('backend', 'php');
         $I->amOnUrl('http://hhvm.hgv.test');
         $I->amOnPage('/wp-login.php');
         $I->fillField('log', 'wordpress');
@@ -24,7 +24,7 @@ class UploadSizeWPCest
         $I->click('Log In');
 
         $I->amOnPage('/wp-admin/media-new.php');
-        $I->assertRegExp('#PHP/5\.5\.(.*)#', $I->grabHttpHeader('X-Powered-By'));
+        $I->assertRegExp('#PHP/5\.6\.(.*)#', $I->grabHttpHeader('X-Powered-By'));
         $I->see('Maximum upload file size: 200 MB.');
     }
 
