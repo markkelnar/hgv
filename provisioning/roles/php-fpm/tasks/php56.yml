@@ -35,6 +35,7 @@
   with_items:
     - upload_max_filesize
     - post_max_size
+  notify: php5.6-fpm restart
 
 - name: Set 5.6 values in php.ini cli
   ini_file:
@@ -44,6 +45,7 @@
     value: "{{ item.value }}"
   with_items:
     - { name: 'short_open_tag', value: 'On' }
+  notify: php5.6-fpm restart
 
 - name: Register Xdebug module
   copy:
@@ -52,17 +54,19 @@
     owner: root
     group: root
     mode: 0644
-  notify: php5-fpm restart
+  notify: php5.6-fpm restart
   tags: [ 'php' ]
 
 - name: Enable Xdebug module
   command: phpenmod xdebug creates=/etc/php/5.6/fpm/conf.d/20-xdebug.ini
-  notify: php5-fpm restart
+  notify: php5.6-fpm restart
   tags: [ 'php' ]
 
 - name: Register YAML module
   lineinfile: state=present create=yes dest=/etc/php/5.6/mods-available/yaml.ini line="extension=yaml.so" owner=root group=root mode=0644
+  notify: php5.6-fpm restart
 
 - name: Enable YAML module
   command: phpenmod yaml creates=/etc/php/5.6/fpm/conf.d/20-yaml.ini
+  notify: php5.6-fpm restart
 

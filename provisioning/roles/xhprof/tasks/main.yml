@@ -4,8 +4,8 @@
   tags: [ 'profiling', 'xhprof' ]
 
 - name: Enable xhprof
-  command: php5enmod xhprof creates=/etc/php5/fpm/conf.d/20-xhprof.ini
-  notify: php5-fpm restart
+  command: phpenmod xhprof creates=/etc/php/5.6/fpm/conf.d/20-xhprof.ini
+  notify: php5.6-fpm restart
   tags: [ 'profiling', 'xhprof' ]
 
 - name: Get xhprof code

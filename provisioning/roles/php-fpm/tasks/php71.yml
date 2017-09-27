@@ -34,6 +34,7 @@
   with_items:
     - upload_max_filesize
     - post_max_size
+  notify: php7.1-fpm restart
 
 - name: Set 7.1 values in php.ini cli
   ini_file:
@@ -43,3 +44,4 @@
     value: "{{ item.value }}"
   with_items:
     - { name: 'short_open_tag', value: 'On' }
+  notify: php7.1-fpm restart
