@@ -1,18 +1,8 @@
 ---
 
-- name: Install PHP packages
-  apt: name={{ item }} state=present
-  with_items:
-      - php5
-      - php5-cli
-      - php5-curl
-      - php5-gd
-      - php5-fpm
-      - php5-memcache
-      - php5-memcached
-      - php5-xdebug
-      - php5-dev
-      - libyaml-dev
+- include: php56.yml
+- include: php70.yml
+- include: php71.yml
 
 - name: Install PECL modules
   command: pecl install {{ item }}
@@ -40,60 +30,12 @@
 - name: Enable WordPress code sniffs
   command: phpcs --config-set installed_paths /usr/share/php/wpcs
   
-- name: Register YAML module
-  lineinfile: state=present create=yes dest=/etc/php5/mods-available/yaml.ini line="extension=yaml.so" owner=root group=root mode=0644
+# Set the alternatives deliberately, so the later versions don't override
+- name: Set PHP 7.1 bin as default
+  alternatives: name=php link=/usr/bin/php path=/usr/bin/php7.1
 
-- name: Enable YAML module
-  command: php5enmod yaml creates=/etc/php5/fpm/conf.d/20-yaml.ini
+- name: Set PHP 7.1 config as default
+  alternatives: name=php-config link=/usr/bin/php-config path=/usr/bin/php-config7.1
 
-- name: Register Xdebug module
-  copy:
-    src: etc/php5/mods-available/xdebug.ini
-    dest: /etc/php5/mods-available/xdebug.ini
-    owner: root
-    group: root
-    mode: 0644
-  notify: php5-fpm restart
-  tags: [ 'php' ]
-
-- name: Enable Xdebug module
-  command: php5enmod xdebug creates=/etc/php5/fpm/conf.d/20-xdebug.ini
-  notify: php5-fpm restart
-  tags: [ 'php' ]
-
-# - name: Do fpm/php.ini
-#   template: src=etc/php5/fpm/php.ini dest=/etc/php5/fpm/php.ini owner=root group=root mode=0644
-#   notify: php5-fpm restart
-
-- name: Set the max file upload size
-  ini_file:
-    dest: /etc/php5/fpm/php.ini
-    section: "PHP"
-    option: "{{ item }}"
-    value: "{{ file_upload_max_size }}M"
-  with_items:
-    - upload_max_filesize
-    - post_max_size
-
-- name: Set values in php.ini cli
-  ini_file:
-    dest: /etc/php5/cli/php.ini
-    section: "PHP"
-    option: "{{ item.name }}"
-    value: "{{ item.value }}"
-  with_items:
-    - { name: 'short_open_tag', value: 'On' }
-
-- include: php56.yml
-- include: php70.yml
-- include: php71.yml
-
-# Set the alternatives deliberately, so that 5.6 or 7.0 doesn't override
-- name: Set PHP 5.6 bin as default
-  alternatives: name=php link=/usr/bin/php path=/usr/bin/php5.6
-
-- name: Set PHP 5.6 config as default
-  alternatives: name=php-config link=/usr/bin/php-config path=/usr/bin/php-config5.6
-
-- name: Set PHP 5.6 ize as default
-  alternatives: name=phpize link=/usr/bin/phpize path=/usr/bin/phpize5.6
+- name: Set PHP 7.1 ize as default
+  alternatives: name=phpize link=/usr/bin/phpize path=/usr/bin/phpize7.1

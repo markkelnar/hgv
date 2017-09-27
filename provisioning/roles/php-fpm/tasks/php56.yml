@@ -18,6 +18,7 @@
       - php5.6-xml
       - php-memcached
       - php-xdebug
+      - libyaml-dev
 
 - name: Push out 5.6 php.ini file
   template:
@@ -43,3 +44,25 @@
     value: "{{ item.value }}"
   with_items:
     - { name: 'short_open_tag', value: 'On' }
+
+- name: Register Xdebug module
+  copy:
+    src: etc/php5/mods-available/xdebug.ini
+    dest: /etc/php/5.6/mods-available/xdebug.ini
+    owner: root
+    group: root
+    mode: 0644
+  notify: php5-fpm restart
+  tags: [ 'php' ]
+
+- name: Enable Xdebug module
+  command: phpenmod xdebug creates=/etc/php/5.6/fpm/conf.d/20-xdebug.ini
+  notify: php5-fpm restart
+  tags: [ 'php' ]
+
+- name: Register YAML module
+  lineinfile: state=present create=yes dest=/etc/php/5.6/mods-available/yaml.ini line="extension=yaml.so" owner=root group=root mode=0644
+
+- name: Enable YAML module
+  command: phpenmod yaml creates=/etc/php/5.6/fpm/conf.d/20-yaml.ini
+
